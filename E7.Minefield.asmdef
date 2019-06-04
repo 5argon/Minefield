@@ -1,0 +1,17 @@
+{
+    "name": "E7.Minefield",
+    "references": [
+        "Unity.Addressables",
+        "Unity.ResourceManager",
+        "Unity.TextMeshPro"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}
