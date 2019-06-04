@@ -44,9 +44,18 @@ Then,
     - All this is for that in testing code we have no GUI. We will be configuring by replacing the `static` variable with desired values and starting the scene over and over. If you design your `static` right, all possible outcomes will be covered.
 - All scenes must be able to pass a test by just loading it without touching anything else, and wait for 5 seconds. With this design you are able to make a "lazy man's test" by just try loading each individual scene. Some design that prevents this is a scene which require other scenes to function, which if you followed the guideline such scene doesn't exist.
 - In normal development, it must be possible to press play mode on any scene and start playing from that scene, no matter how "cheated" that may felt to you. You will be able to change up the `static` variable in order to test play your game on every possible conditions.
-- If navigational component was designed with uGUI's `Selectable` componen, it's `interactable` field should be prevented appropriately when player shouldn't be able to interact with it. This way the test could interact as soon as `interactable` became true. And this way the test could detect bugs such as able to interact while the screen transition or on the first/clutch frame.
-- If navigational component was designed with uGUI's event handlers such as `EventTrigger`,
-- All scenes must have its own `asmdef` that should link to "core" `asmdef` with the `static` variable definition.
+- Games are full of animation and transitions, and the test needs to wait on these properly. One of the test pain point I found is that it is difficult to blindly wait for x seconds and hope that the simulated click will go through. This wait is often more than necessary and adds test time. This guideline is that you must properly **prevent** navigation game objects from being clicked when appropriate, like mid-transition. Tranditional way of testing this is "can you break this test" where you have a user randomly spam the screen at all times and the game shouldn't break. With `Minefield`, the test has several "wait until clickable (then click it)" methods that help waiting for these transitions, **without knowing transition length**.
+    - If the player could do something at any moment, then so do the test. If this breaks the game then you have found a bug such as able to interact while the screen transition or on the first/clutch frame. `Minefield` will try every frame to click it until it is fine to click.
+    - If navigational component was designed with uGUI's `IPointerDown/Up/ClickHandler`, (e.g. `EventTrigger`) if a raycast could hit it **the first**, the test will assume that it is now safe to simulate a click. You can prevent this by :
+        - Parent `CanvasGroup` with `blocksRaycasts` as `false`.
+        - Setting `raycastTarget` on your `Graphic`.
+        - Make the ray receiver component disabled.
+        - Make the ray receiver game object inactive.
+        - Put something else on top like an 0 alpha `Image` that blocks raycasts, so your object is no longer the first to receive a raycast. This is common for popup dialog which may use transparent or darkened backgroud to prevent everything behind from being touched while the dialog is open.
+    - Additionally, if navigational component was designed with uGUI's `Selectable` component, it's `IsInteractable()` status should be prevented appropriately when player shouldn't be able to interact with it. In this case, it **do blocks raycasts** but nothing will happen if you click it for real in the game. Because of this if you have `Selectable`, `Minefield` will add one more criteria that it must also be `interactable`. You could prevent this by : 
+        - Parent `CanvasGroup` with `interactable` as `false`.
+        - Set `interactable` on your `Selectable` as `false`.
+- All scenes must have its own `asmdef` that should link to "core" `asmdef` that contains the `static` variable definition required to customize all scene's behaviour. Test assembly must link to core `asmdef`, and could link to scene `asmdef` if required.
 
 ## Design
 

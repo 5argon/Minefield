@@ -9,6 +9,10 @@ namespace E7.Minefield
 {
     public static class Beacon
     {
+        /// <summary>
+        /// Raycast click on a beacon.
+        /// Currently it only supports that the beacon object must have <see cref="RectTransform"> and it will click on its center.
+        /// </summary>
         public static IEnumerator Click<T>(T label) where T : Enum
         {
             var beacons = UnityEngine.Object.FindObjectsOfType<TestBeacon>();
@@ -89,6 +93,7 @@ namespace E7.Minefield
                 {
                     //Criteria : 1. Raycast could hit it. 2. able to handle down or click, 3. if has selectable, it must be interactable.
                     bool handleDown = ExecuteEvents.CanHandleEvent<IPointerDownHandler>(found.gameObject);
+                    bool handleUp = ExecuteEvents.CanHandleEvent<IPointerUpHandler>(found.gameObject);
                     bool handleClick = ExecuteEvents.CanHandleEvent<IPointerClickHandler>(found.gameObject);
 
                     var rt = found.GetComponent<RectTransform>();
@@ -104,7 +109,7 @@ namespace E7.Minefield
                     //IsInteractable could be affected by parent CanvasGroup, however not all clickable things are Selectable.
                     bool interactable = (selectable == null || selectable.IsInteractable());
                     Debug.Log($"{found.name} - {hittable} {handleDown} {handleClick} {selectable} {selectable?.IsInteractable()}");
-                    if (!hittable || !interactable || (!handleDown && !handleClick))
+                    if (!hittable || !interactable || (!handleDown && !handleUp && !handleClick))
                     {
                         return false;
                     }
@@ -126,7 +131,13 @@ namespace E7.Minefield
         }
 
         /// <summary>
-        /// Keep looking for a beacon which will eventually became active and interactable to the player.
+        /// Keep looking for a beacon on uGUI component which will eventually became active and interactable to the player.
+        /// 
+        /// "Clickable" is :
+        /// - Has `RectTransform`
+        /// - A raycast from the center of that `RectTransform` could hit it. (This could be prevented with <see cref="CanvasGroup.blocksRaycasts">)
+        /// - Something must be able to happen on click, that is it must be <see cref="IPointerDownHandler">, <see cref="IPointerUpHandler">, or <see cref="IPointerClickHandler">.
+        /// - **If** it is <see cref="Selectable">, it must be <see cref="Selectable.IsInteractable()">. (This could be prevented with <see cref="CanvasGroup.interactable">)
         /// </summary>
         /// <exception cref="BeaconException">Thrown when the beacon found does not even contain <see cref="Selectable"> component.
         public static BeaconWait<T> WaitUntilClickable<T>(T beaconLabel)
