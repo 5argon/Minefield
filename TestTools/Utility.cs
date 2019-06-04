@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine.UI;
-using UnityEngine.TestTools;
 using UnityEngine.EventSystems;
 using System;
 using System.Linq;
@@ -14,14 +13,9 @@ namespace E7.Minefield
     public static class Utility
     {
         /// <summary>
-        /// Helper methods to save your pain
+        /// Shorthand for new-ing <see cref="WaitForSecondsRealtime">.
         /// </summary>
-        /// <param name="seconds"></param>
-        /// <returns></returns>
-        public static WaitForSeconds Wait(float seconds)
-        {
-            return new WaitForSeconds(seconds);
-        }
+        public static WaitForSecondsRealtime Wait(float seconds) => new WaitForSecondsRealtime(seconds);
 
         /// <summary>
         /// Clean everything except the test runner object.
@@ -317,67 +311,88 @@ namespace E7.Minefield
         }
 
         /// <summary>
-        /// Currently supports Button's onClick and EventTrigger's OnPointerClick.
-        /// Clicks on the center of provided RectTransform.
+        /// Performs a raycast test and returns the first object that receives the ray.
         /// </summary>
-        public static void RaycastClick(RectTransform rect) => RaycastClick(CenterOfRectTransform(rect));
+        public static GameObject RaycastFirst(RectTransform rect) => RaycastFirst(CenterOfRectTransform(rect));
 
         /// <summary>
-        /// Currently supports Button's onClick and EventTrigger's OnPointerClick.
-        /// Clicks on a relative position in the rect.
+        /// Performs a raycast test and returns the first object that receives the ray.
         /// </summary>
-        public static void RaycastClick(RectTransform rect, Vector2 relativePositionInRect) => RaycastClick(RelativePositionOfRectTransform(rect, relativePositionInRect));
+        public static GameObject RaycastFirst(Vector2 screenPosition) => RaycastFirst(ScreenPosToFakeClick(screenPosition));
 
-        /// <summary>
-        /// Currently supports Button's onClick and EventTrigger's OnPointerClick.
-        /// </summary>
-        /// <param name="screenPosition">In pixel.</param>
-        public static void RaycastClick(Vector2 screenPosition)
+        private static GameObject RaycastFirst(PointerEventData fakeClick)
         {
-            //Debug.Log("Clicking " + screenPosition);
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(fakeClick, results);
+            Debug.Log($"Hit {results.Count} count");
+
+            RaycastResult FindFirstRaycast(List<RaycastResult> candidates)
+            {
+                for (var i = 0; i < candidates.Count; ++i)
+                {
+                    if (candidates[i].gameObject == null)
+                        continue;
+
+                    return candidates[i];
+                }
+                return new RaycastResult();
+            }
+
+            var rr = FindFirstRaycast(results);
+            var rrgo = rr.gameObject;
+            Debug.Log($"{rrgo}");
+            return rrgo;
+        }
+
+        public static PointerEventData ScreenPosToFakeClick(Vector2 screenPosition)
+        {
             PointerEventData fakeClick = new PointerEventData(EventSystem.current);
             fakeClick.position = screenPosition;
             fakeClick.button = PointerEventData.InputButton.Left;
+            return fakeClick;
+        }
 
-            GraphicRaycaster[] allGfxRaycasters = (GraphicRaycaster[])GameObject.FindObjectsOfType(typeof(GraphicRaycaster));
+        /// <summary>
+        /// Clicks on the center of provided RectTransform.
+        /// Use coroutine on this because there is a frame in-between pointer down and up.
+        /// </summary>
+        public static IEnumerator RaycastClick(RectTransform rect) => RaycastClick(CenterOfRectTransform(rect));
 
-            //Raycaster gets checked one by one, from the bottom most in hierarchy.
-            foreach (GraphicRaycaster gfxRaycaster in allGfxRaycasters.Reverse())
+        /// <summary>
+        /// Clicks on a relative position in the rect.
+        /// Use coroutine on this because there is a frame in-between pointer down and up.
+        /// </summary>
+        public static IEnumerator RaycastClick(RectTransform rect, Vector2 relativePositionInRect) => RaycastClick(RelativePositionOfRectTransform(rect, relativePositionInRect));
+
+        /// <summary>
+        /// Use coroutine on this because there is a frame in-between pointer down and up.
+        /// </summary>
+        /// <param name="screenPosition">In pixel.</param>
+        public static IEnumerator RaycastClick(Vector2 screenPosition)
+        {
+            Debug.Log("Clicking " + screenPosition);
+            var fakeClick = ScreenPosToFakeClick(screenPosition);
+            var rrgo = RaycastFirst(fakeClick);
+
+            if (rrgo != null)
             {
-                //Debug.Log("Casting : " + gfxRaycaster.gameObject.name);
+                Debug.Log("Hit : " + rrgo.name);
+                //If it is not interactable, then the event will get blocked.
 
-                List<RaycastResult> results = new List<RaycastResult>();
-                gfxRaycaster.Raycast(fakeClick, results);
-
-                foreach (RaycastResult rr in results)
+                if (ExecuteEvents.CanHandleEvent<IPointerDownHandler>(rrgo))
                 {
-                    Debug.Log("Hit : " + rr.gameObject.name);
-                    Selectable selectable = rr.gameObject.GetComponent<Selectable>();
-                    bool interactable = selectable != null ? selectable.interactable : true;
-
-                    var down = rr.gameObject.GetComponent<IPointerDownHandler>();
-                    if (down != null)
-                    {
-                        down.OnPointerDown(fakeClick);
-                    }
-
-                    var up = rr.gameObject.GetComponent<IPointerUpHandler>();
-                    if (up != null)
-                    {
-                        up.OnPointerUp(fakeClick);
-                    }
-
-                    var click = rr.gameObject.GetComponent<IPointerClickHandler>();
-                    if (click != null)
-                    {
-                        click.OnPointerClick(fakeClick);
-                    }
+                    ExecuteEvents.ExecuteHierarchy(rrgo, fakeClick, ExecuteEvents.pointerDownHandler);
                 }
 
-                //Test for hit. If only one raycaster hits, all other raycasters will not be casted.
-                if (results.Count > 0)
+                yield return null;
+
+                if (ExecuteEvents.CanHandleEvent<IPointerUpHandler>(rrgo))
                 {
-                    break;
+                    ExecuteEvents.ExecuteHierarchy(rrgo, fakeClick, ExecuteEvents.pointerUpHandler);
+                }
+                if (ExecuteEvents.CanHandleEvent<IPointerClickHandler>(rrgo))
+                {
+                    ExecuteEvents.ExecuteHierarchy(rrgo, fakeClick, ExecuteEvents.pointerClickHandler);
                 }
             }
         }
@@ -421,28 +436,6 @@ namespace E7.Minefield
             AudioListener.GetOutputData(samplesR, 0);
 
             return (samplesL.Average() + samplesR.Average() / 2f);
-        }
-    }
-
-    /// <summary>
-    /// Test with this attribute runs only in Unity editor
-    /// </summary>
-    public class UnityEditorPlatformAttribute : UnityPlatformAttribute
-    {
-        public UnityEditorPlatformAttribute()
-        {
-            this.include = new RuntimePlatform[] { RuntimePlatform.WindowsEditor, RuntimePlatform.OSXEditor, RuntimePlatform.LinuxEditor };
-        }
-    }
-
-    /// <summary>
-    /// Test with this attribute runs only on the real mobile device
-    /// </summary>
-    public class UnityMobilePlatformAttribute : UnityPlatformAttribute
-    {
-        public UnityMobilePlatformAttribute()
-        {
-            this.include = new RuntimePlatform[] { RuntimePlatform.Android, RuntimePlatform.IPhonePlayer };
         }
     }
 

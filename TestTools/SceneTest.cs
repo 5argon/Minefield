@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using System.Collections;
 using UnityEngine.ResourceManagement.ResourceProviders;
+using System;
+using UnityEngine.AddressableAssets;
 
 namespace E7.Minefield
 {
@@ -54,12 +56,17 @@ namespace E7.Minefield
         [UnitySetUp]
         public IEnumerator PreloadScene()
         {
-            buildScene = SceneManager.LoadSceneAsync(Scene, LoadSceneMode.Single);
-            buildScene.allowSceneActivation = false;
-            yield return buildScene;
-            // var handle = Addressables.LoadSceneAsync(Scene, loadMode: LoadSceneMode.Single, activateOnLoad: false);
-            // yield return handle;
-            // SceneInstance = handle.Result;
+            if (Application.CanStreamedLevelBeLoaded(Scene))
+            {
+                buildScene = SceneManager.LoadSceneAsync(Scene, LoadSceneMode.Single);
+                buildScene.allowSceneActivation = false;
+                yield return buildScene;
+            }
+
+            //Try addressables next
+            var handle = Addressables.LoadSceneAsync(Scene, loadMode: LoadSceneMode.Single, activateOnLoad: false);
+            yield return handle;
+            SceneInstance = handle.Result;
         }
 
     }

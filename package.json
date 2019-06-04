@@ -4,5 +4,18 @@
     "displayName": "Minefield Test Tools",
     "version": "1.0.0",
     "unity": "2019.1",
+    "keywords": [
+        "Testing",
+        "Play mode tests",
+        "Edit mode tests",
+        "Unit tests",
+        "Integration tests"
+    ],
+    "category": [
+        "Testing"
+    ],
+    "dependencies": {
+        "com.unity.addressables": "0.8.6-preview"
+    },
     "description": "MINEFIELD DEPLOYED"
 }
