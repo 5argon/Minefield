@@ -4,10 +4,11 @@ using System;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections;
+using System.Linq;
 
 namespace E7.Minefield
 {
-    public static class Beacon
+    public static partial class Beacon
     {
         /// <summary>
         /// Raycast click on a beacon.
@@ -15,15 +16,14 @@ namespace E7.Minefield
         /// </summary>
         public static IEnumerator Click<T>(T label) where T : Enum
         {
-            var beacons = UnityEngine.Object.FindObjectsOfType<TestBeacon>();
-            if(FindActive(label, out var b))
+            if (FindActive(label, out ITestBeacon b) && b is INavigationBeacon nb)
             {
-                Debug.Log($"Type matches {b.Label.GetType()} {label}");
-                yield return Utility.RaycastClick(b.Rect);
+                Debug.Log($"Type matches {nb.Label.GetType()} {label}");
+                yield return Utility.RaycastClick(nb.RectTransform);
             }
             else
             {
-                throw new Exception($"Label {label} not found on any beacon in the scene.");
+                throw new Exception($"Label {label} not found on any navigation beacon in the scene.");
             }
         }
 
@@ -32,10 +32,10 @@ namespace E7.Minefield
         /// </summary>
         /// <returns>`false` when not found.</returns>
         /// <exception cref="Exception">Thrown when found multiple beacons with the same <paramref name="label">.</exception>
-        public static bool FindActive<T>(T label, out TestBeacon foundBeacon) where T : Enum
+        public static bool FindActive<T>(T label, out ITestBeacon foundBeacon) where T : Enum
         {
-            var beacons = UnityEngine.Object.FindObjectsOfType<TestBeacon>();
-            TestBeacon tb = null;
+            var beacons = UnityEngine.Object.FindObjectsOfType<MonoBehaviour>().OfType<ITestBeacon>();
+            ITestBeacon tb = null;
             bool found = false;
             foreach (var b in beacons)
             {
@@ -61,83 +61,14 @@ namespace E7.Minefield
             }
         }
 
-        public class BeaconWait<T> : CustomYieldInstruction
-        where T : Enum
-        {
-            public override bool keepWaiting
-            {
-                get
-                {
-                    if (FindActive(Label, out var found) && PassedAdditionalCriterias(found))
-                    {
-                        targetBeacon = found;
-                        return false;
-                    }
-                    else
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            private bool PassedAdditionalCriterias(TestBeacon found)
-            {
-                if (RectTransform)
-                {
-                    if (found.GetComponent<RectTransform>() == null)
-                    {
-                        throw new BeaconException($"Found beacon {found.Label} but not finding `RectTransform` component on it.");
-                    }
-                }
-                if (ClickableCheck)
-                {
-                    //Criteria : 1. Raycast could hit it. 2. able to handle down or click, 3. if has selectable, it must be interactable.
-                    bool handleDown = ExecuteEvents.CanHandleEvent<IPointerDownHandler>(found.gameObject);
-                    bool handleUp = ExecuteEvents.CanHandleEvent<IPointerUpHandler>(found.gameObject);
-                    bool handleClick = ExecuteEvents.CanHandleEvent<IPointerClickHandler>(found.gameObject);
-
-                    var rt = found.GetComponent<RectTransform>();
-                    if (rt == null)
-                    {
-                        throw new BeaconException($"Found beacon {found.Label} but not finding `RectTransform` component on it.");
-                    }
-                    GameObject firstHit = Utility.RaycastFirst(rt);
-                    var hittable = ReferenceEquals(firstHit, found.gameObject);
-
-                    var selectable = found.GetComponent<Selectable>();
-
-                    //IsInteractable could be affected by parent CanvasGroup, however not all clickable things are Selectable.
-                    bool interactable = (selectable == null || selectable.IsInteractable());
-                    Debug.Log($"{found.name} - {hittable} {handleDown} {handleClick} {selectable} {selectable?.IsInteractable()}");
-                    if (!hittable || !interactable || (!handleDown && !handleUp && !handleClick))
-                    {
-                        return false;
-                    }
-                }
-                return true;
-            }
-
-            private T Label { get; }
-
-            // Criterias
-            internal bool RectTransform { private get; set; }
-            internal bool ClickableCheck { private get; set; }
-
-            public TestBeacon targetBeacon;
-            public BeaconWait(T label)
-            {
-                this.Label = label;
-            }
-        }
-
         /// <summary>
-        /// Keep looking for a beacon on uGUI component which will eventually became active and interactable to the player.
+        /// Keep checking for a beacon on uGUI component which will eventually became active **and** clickable to the player.
         /// 
         /// "Clickable" is :
         /// - Has `RectTransform`
-        /// - A raycast from the center of that `RectTransform` could hit it. (This could be prevented with <see cref="CanvasGroup.blocksRaycasts">)
+        /// - A raycast from the center of that `RectTransform` could hit it. (This could be prevented with <see cref="Graphic.raycastTarget"> `false` or <see cref="CanvasGroup.blocksRaycasts"> `false`.)
         /// - Something must be able to happen on click, that is it must be <see cref="IPointerDownHandler">, <see cref="IPointerUpHandler">, or <see cref="IPointerClickHandler">.
-        /// - **If** it is <see cref="Selectable">, it must be <see cref="Selectable.IsInteractable()">. (This could be prevented with <see cref="CanvasGroup.interactable">)
+        /// - **If** it is <see cref="Selectable">, it must **also** be <see cref="Selectable.IsInteractable()">. (This could be prevented with <see cref="CanvasGroup.interactable"> `false` or <see cref="Selectable.interactable">)
         /// </summary>
         /// <exception cref="BeaconException">Thrown when the beacon found does not even contain <see cref="Selectable"> component.
         public static BeaconWait<T> WaitUntilClickable<T>(T beaconLabel)
@@ -151,13 +82,21 @@ namespace E7.Minefield
             return bw;
         }
 
-        public static BeaconWait<T> WaitUntilClickable<T>(T beaconLabel, out TestBeacon beacon)
+        /// <summary>
+        /// Keep checking for a beacon on uGUI component which will eventually became active **and** clickable to the player, then click it.
+        /// 
+        /// "Clickable" is :
+        /// - Has `RectTransform`
+        /// - A raycast from the center of that `RectTransform` could hit it. (This could be prevented with <see cref="Graphic.raycastTarget"> `false` or <see cref="CanvasGroup.blocksRaycasts"> `false`.)
+        /// - Something must be able to happen on click, that is it must be <see cref="IPointerDownHandler">, <see cref="IPointerUpHandler">, or <see cref="IPointerClickHandler">.
+        /// - **If** it is <see cref="Selectable">, it must **also** be <see cref="Selectable.IsInteractable()">. (This could be prevented with <see cref="CanvasGroup.interactable"> `false` or <see cref="Selectable.interactable">)
+        /// </summary>
+        /// <exception cref="BeaconException">Thrown when the beacon found does not even contain <see cref="Selectable"> component.
+        public static IEnumerator ClickWhenClickable<T>(T beaconLabel)
         where T : Enum
         {
-            var bw = new BeaconWait<T>(beaconLabel);
-            //Target beacon will be resolved later, null for now but the reference is linked.
-            beacon = bw.targetBeacon;
-            return bw;
+            yield return WaitUntilClickable<T>(beaconLabel);
+            yield return Click<T>(beaconLabel);
         }
 
         /// <summary>
