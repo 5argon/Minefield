@@ -2,28 +2,32 @@
 
 `Minefield` is a library (still in-development) to help you program a concise play mode test in Unity, plus a guideline to design the game so that it is testable by this library.
 
-This is an example of a complete test that could try to go from title scene to the next scene.
+This is an example of a complete test that try to go from title to mode select, select training mode, wait until character select screen comes up and ready, then check that there is no portrait for the 2nd player because it is a single player mode.
 
 ```csharp
 using System.Collections;
 using UnityEngine.TestTools;
 using E7.Minefield;
 
-public class TitleSceneTest : SceneTest
+public class SampleMinefieldTest : SceneTest
 {
   protected override string Scene => "Title";
 
   [UnityTest]
-  public IEnumerator TitleToModeSelectToTrainingMode()
+  public IEnumerator TitleToModeSelectToTrainingNoUpperCharacter()
   {
-    ActivateScene();
-    yield return Beacon.ClickWhenClickable(TitleLogic.Navigation.TouchAnywhere);
-    yield return Beacon.WaitUntilClickable(ModeSelectScreen.Navigation.EnterTrainingMode);
+    yield return ActivateScene();
+    yield return Beacon.ClickWhenClickable(TitleScreen.Navigation.TouchAnywhere);
+    yield return Beacon.ClickWhenClickable(ModeSelectScreen.Navigation.EnterTrainingMode);
+    yield return Beacon.WaitUntilClickable(CharacterSelectScreen.Navigation.ConfirmCharacter);
+    Assert.Beacon(CharacterSelectScreen.Beacon.PlayerTwoCharacter, Is.Inactive);
   }
 }
 ```
 
-A defining feature includes the test **beacon**, which allows you to use an easy to understand `enum` that you declared yourself to navigate the scene without knowing any game object's name or any animation length to wait for. The `enum` is linked to scene object by a special `MonoBehaviour` carrying this `enum` serialized together with your scene, which prevents brittle test that would be written with hard-coded object name or component type matching. Plus it allows you to use object search box in Scene view to find and manage all beacons easily.
+A defining feature includes the test **beacon**, which allows you to use an easy to understand `enum` that you declared yourself to navigate the scene without knowing any game object's name or any animation length to wait for.
+
+The `enum` is linked to scene object by a special `MonoBehaviour` carrying this `enum` serialized together with your scene, which prevents brittle test that would be written with hard-coded object name or component type matching, at the price of testing library being a bit invasive in your actual game. Plus it allows you to use object search box in Scene view to find and manage all beacons easily.
 
 Beacons works well with 2018.3 new prefab workflow. In the case that you have multiple instances or variants of the prefab on the scene, you could vary the beacon as overrides to discern game objects in the test. In object name or component type matching way of writing tests, this would likely produce duplicate entries that you have to deal with.
 
@@ -95,6 +99,10 @@ A scene may only change its starting behaviour due to **external** `static` vari
     - Then make a variant of that big prefab that set inactive the right side character selector, then put that variant in a new scene called `SinglePlayerCharacterSelect`. This way, you are still using prefabs to compose your game in a way that it is maintainable. (Changes on either one should reflect to the other)
     - And also each scene is still a test unit according to the guidelines. In some case it may be better that you could explicitly say in the test that you want to test the single player one or two players one by scene name.
     - One other benefit is that at design time you could quickly switch between 2 variants and visually see the design, because `static` way only works at runtime. `static` is still needed for further adjusting details of the scene in dynamic way, such as unlocked characters.
+
+With this design, you could eliminate the kind of test that start from the beginning of your game and go in multiple steps in order to arrive at the destination scene and do things. Because you fear if doing so would have any side effects that is different from just testing the scene individually or not.
+
+Limiting the side-effect to `static`, you can test in each scene, and just 1 level of that scene's transition to the other scene. For example if you have a scene A -> B -> C, you don't have a test that starts at A and try to go to C. Just A -> B, then B -> C.
 
 ### Keeping game's navigation in check
 
@@ -228,7 +236,7 @@ public class TitleSceneTest : SceneTest
   [UnityTest]
   public IEnumerator TouchToStartGoToModeSelect()
   {
-    ActivateScene();
+    yield return ActivateScene();
     yield return Beacon.WaitUntilClickable(TitleLogic.Navigation.TouchToStart);
     yield return Beacon.Click(TitleLogic.Navigation.TouchToStart);
     //Or use just `ClickWhenClickable(TitleLogic.Navigation.TouchToStart);` on this kind of pattern.
@@ -243,7 +251,7 @@ public class TitleSceneTest : SceneTest
     {
         titleMode = SceneOptions.Title.TitleMode.SkipToModeSelect
     };
-    ActivateScene();
+    yield return ActivateScene();
     yield return Beacon.WaitUntilClickable(ModeSelectScreen.Navigation.Training);
   }
 }
@@ -257,4 +265,9 @@ There are also various utilities that are not related to beacons available in `U
 
 ### Assertion
 
-Sometimes you don't want to just navigate around and call it a day. This is coming soon once I decided what's great to include.
+Sometimes you don't want to just navigate around and call it a day. `Assert.Beacon` is the entry point to assert a beacon. The `Is.___`  is emulating NUnit 3's constraint model style, however it is not an entirely a complete extension. (So you can't really do `Is.Not.Active` for example.)
+
+```csharp
+Assert.Beacon(beacon, Is.Active);
+Assert.Beacon(beacon, Is.Inactive);
+```

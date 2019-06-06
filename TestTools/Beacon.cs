@@ -5,47 +5,47 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections;
 using System.Linq;
+using NUnit.Framework.Constraints;
 
 namespace E7.Minefield
 {
     public static partial class Beacon
     {
-        /// <summary>
-        /// Raycast click on a beacon.
-        /// Currently it only supports that the beacon object must have <see cref="RectTransform"> and it will click on its center.
-        /// </summary>
-        public static IEnumerator Click<T>(T label) where T : Enum
-        {
-            if (FindActive(label, out ITestBeacon b) && b is INavigationBeacon nb)
-            {
-                Debug.Log($"Type matches {nb.Label.GetType()} {label}");
-                yield return Utility.RaycastClick(nb.RectTransform);
-            }
-            else
-            {
-                throw new Exception($"Label {label} not found on any navigation beacon in the scene.");
-            }
-        }
-
-        /// <summary>
         /// Find an **active** beacon in the scene.
         /// </summary>
         /// <returns>`false` when not found.</returns>
         /// <exception cref="Exception">Thrown when found multiple beacons with the same <paramref name="label">.</exception>
-        public static bool FindActive<T>(T label, out ITestBeacon foundBeacon) where T : Enum
+        public static bool FindActive<BEACONTYPE>(BEACONTYPE label, out ITestBeacon foundBeacon) where BEACONTYPE : Enum
+            => FindActiveInternal(label, out foundBeacon);
+
+        internal static bool FindActiveForAssert<BEACONTYPE>(BEACONTYPE label, out ITestBeacon foundBeacon)
+        {
+            if (label is Enum e)
+            {
+                return FindActiveInternal(e, out foundBeacon);
+            }
+            else
+            {
+                throw new BeaconException($"{label} is not an enum.");
+            }
+        }
+
+        private static bool FindActiveInternal<BEACONTYPE>(BEACONTYPE label, out ITestBeacon foundBeacon)
         {
             var beacons = UnityEngine.Object.FindObjectsOfType<MonoBehaviour>().OfType<ITestBeacon>();
-            ITestBeacon tb = null;
+            //Debug.Log($"Find active {beacons.Count()}");
+            ITestBeacon testBeacon = null;
             bool found = false;
             foreach (var b in beacons)
             {
-                if (b.Label is T t && t.Equals(label))
+                //Debug.Log($"Checking {b.Label} {b.GetType()} vs {label}");
+                if (b.Label is BEACONTYPE t && t.Equals(label))
                 {
                     if (found)
                     {
                         throw new BeaconException($"Multiple beacons with label {label} found. This is considered an error.");
                     }
-                    tb = b;
+                    testBeacon = b;
                     found = true;
                 }
             }
@@ -56,7 +56,7 @@ namespace E7.Minefield
             }
             else
             {
-                foundBeacon = tb;
+                foundBeacon = testBeacon;
                 return true;
             }
         }
@@ -100,11 +100,20 @@ namespace E7.Minefield
         }
 
         /// <summary>
-        /// To be used with <see cref="NUnit.Framework.Constraints"> model.
-        /// e.g. `Assert.That(____, Beacon.Is.____, "optional message");`
+        /// Raycast click on a beacon.
+        /// The beacon label must be on <see cref="NavigationBeacon{T}"> in the scene.
         /// </summary>
-        public static class Is
+        public static IEnumerator Click<T>(T label) where T : Enum
         {
+            if (FindActive(label, out ITestBeacon b) && b is INavigationBeacon nb)
+            {
+                //Debug.Log($"Type matches {nb.Label.GetType()} {label}");
+                yield return Utility.RaycastClick(nb.RectTransform);
+            }
+            else
+            {
+                throw new Exception($"Label {label} not found on any navigation beacon in the scene.");
+            }
         }
     }
 }

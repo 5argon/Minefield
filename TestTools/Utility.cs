@@ -19,6 +19,10 @@ namespace E7.Minefield
 
         /// <summary>
         /// Clean everything except the test runner object.
+        /// 
+        /// This actually demolish only the active scene at the time of test case ending, if you follow
+        /// Minefield's guidelines you will have only 1 active scene at all time, and so it is easy to
+        /// clean up.
         /// </summary>
         public static void CleanTestScene()
         {
@@ -324,7 +328,7 @@ namespace E7.Minefield
         {
             List<RaycastResult> results = new List<RaycastResult>();
             EventSystem.current.RaycastAll(fakeClick, results);
-            Debug.Log($"Hit {results.Count} count");
+            //Debug.Log($"Hit {results.Count} count");
 
             RaycastResult FindFirstRaycast(List<RaycastResult> candidates)
             {
@@ -340,7 +344,7 @@ namespace E7.Minefield
 
             var rr = FindFirstRaycast(results);
             var rrgo = rr.gameObject;
-            Debug.Log($"{rrgo}");
+            //Debug.Log($"{rrgo}");
             return rrgo;
         }
 
@@ -370,13 +374,13 @@ namespace E7.Minefield
         /// <param name="screenPosition">In pixel.</param>
         public static IEnumerator RaycastClick(Vector2 screenPosition)
         {
-            Debug.Log("Clicking " + screenPosition);
+            //Debug.Log("Clicking " + screenPosition);
             var fakeClick = ScreenPosToFakeClick(screenPosition);
             var rrgo = RaycastFirst(fakeClick);
 
             if (rrgo != null)
             {
-                Debug.Log("Hit : " + rrgo.name);
+                //Debug.Log("Hit : " + rrgo.name);
                 //If it is not interactable, then the event will get blocked.
 
                 if (ExecuteEvents.CanHandleEvent<IPointerDownHandler>(rrgo))

@@ -44,7 +44,7 @@ namespace E7.Minefield
 
                     //IsInteractable could be affected by parent CanvasGroup, however not all clickable things are Selectable.
                     bool interactable = (selectable == null || selectable.IsInteractable());
-                    Debug.Log($"{found.GameObject.name} - {hittable} {handleDown} {handleClick} {selectable} {selectable?.IsInteractable()}");
+                    //Debug.Log($"{found.GameObject.name} - {hittable} {handleDown} {handleClick} {selectable} {selectable?.IsInteractable()}");
                     if (!hittable || !interactable || (!handleDown && !handleUp && !handleClick))
                     {
                         return false;

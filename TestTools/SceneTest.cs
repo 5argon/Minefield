@@ -7,6 +7,8 @@ using System.Collections;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using System;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using System.Linq;
 
 namespace E7.Minefield
 {
@@ -20,26 +22,38 @@ namespace E7.Minefield
     public abstract class SceneTest
     {
         /// <summary>
-        /// Scene to start on each test's [SetUp]
+        /// Scene to load on each test's [SetUp]. You have to <see cref="ActivateScene()"> manually in your test case.
         /// </summary>
         protected abstract string Scene { get; }
 
-        private SceneInstance SceneInstance;
-        private AsyncOperation buildScene;
+        private AsyncOperationHandle<SceneInstance> aoAAS;
+        private AsyncOperation aoNormal;
+        private bool aas;
 
         /// <summary>
         /// To begin test, call this after you finish setting up things.
+        /// 
+        /// Important notes about scene activation : 
+        /// - On begin loading, the progress is always 0.
+        /// - Allow activation or not, the next scene it could be at most progress 0.9
+        /// - If allowed activation while the progress is 0.9, the **next frame** is where awake and start will be called.
+        /// - (6/6/2019) There is a bug where if you pause and stepping frame, at the activation moment Awake will immediately come, then Start the next frame. (wtf)
+        /// 
+        /// So it take a minimum of 3 frames to get a scene that you could query game objects.
         /// </summary>
-        protected void ActivateScene()
+        protected IEnumerator ActivateScene()
         {
-            if (SceneInstance.Scene.IsValid())
+            if (aas)
             {
-                SceneInstance.Activate();
+                aoAAS.Result.Activate();
             }
             else
             {
-                buildScene.allowSceneActivation = true;
+                aoNormal.allowSceneActivation = true;
             }
+
+            TempListener.enabled = false;
+            yield return null;
         }
 
         /// <summary>
@@ -49,24 +63,56 @@ namespace E7.Minefield
         public void ProtectTestRunner()
         {
             GameObject g = GameObject.Find("Code-based tests runner");
-            Debug.Log($"Protecting test runner {g} {g.name}");
             GameObject.DontDestroyOnLoad(g);
         }
+
+        /// <summary>
+        /// Silence annoying logs in-between tests about no listener in the scene.
+        /// </summary>
+        private AudioListener TempListener
+        {
+            get
+            {
+                var go = GameObject.Find(tempListenerName);
+                if (go == null)
+                {
+                    GameObject g = new GameObject(tempListenerName, typeof(AudioListener));
+                    GameObject.DontDestroyOnLoad(g);
+                    return g.GetComponent<AudioListener>();
+                }
+                else
+                {
+                    return go.GetComponent<AudioListener>();
+                }
+            }
+        }
+
+        internal const string tempListenerName = "Minefield audio listener";
 
         [UnitySetUp]
         public IEnumerator PreloadScene()
         {
             if (Application.CanStreamedLevelBeLoaded(Scene))
             {
-                buildScene = SceneManager.LoadSceneAsync(Scene, LoadSceneMode.Single);
-                buildScene.allowSceneActivation = false;
-                yield return buildScene;
+                aoNormal = SceneManager.LoadSceneAsync(Scene, LoadSceneMode.Single);
+                aoNormal.allowSceneActivation = false;
+                yield return new WaitUntil(() => aoNormal.progress == 0.9f);
             }
+            else
+            {
+                var handle = Addressables.LoadSceneAsync(Scene, loadMode: LoadSceneMode.Single, activateOnLoad: false);
+                aoAAS = handle;
+                yield return handle;
+                aas = true;
+            }
+        }
 
-            //Try addressables next
-            var handle = Addressables.LoadSceneAsync(Scene, loadMode: LoadSceneMode.Single, activateOnLoad: false);
-            yield return handle;
-            SceneInstance = handle.Result;
+        [UnityTearDown]
+        public IEnumerator CleanUp()
+        {
+            Utility.CleanTestScene();
+            TempListener.enabled = true;
+            yield return Resources.UnloadUnusedAssets();
         }
 
     }
