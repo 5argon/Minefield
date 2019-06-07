@@ -1,4 +1,3 @@
-//When integration testing using "on device" button DEVELOPMENT_BUILD is automatically on.
 using NUnit.Framework.Constraints;
 
 namespace E7.Minefield

@@ -1,5 +1,4 @@
-﻿//When integration testing using "on device" button DEVELOPMENT_BUILD is automatically on.
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine.UI;

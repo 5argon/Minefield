@@ -1,11 +1,11 @@
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
 namespace E7.Minefield
 {
-    public static class AssignIconTools
+    public static class AssignIconTool
     {
         static MethodInfo m1 = typeof(EditorGUIUtility).GetMethod("SetIconForObject", BindingFlags.Static | BindingFlags.NonPublic);
         static MethodInfo m2 = typeof(MonoImporter).GetMethod("CopyMonoScriptIconToImporters", BindingFlags.Static | BindingFlags.NonPublic);

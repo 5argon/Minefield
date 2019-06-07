@@ -1,4 +1,3 @@
-//When integration testing using "on device" button DEVELOPMENT_BUILD is automatically on.
 using UnityEngine;
 using System;
 using UnityEngine.EventSystems;
@@ -8,8 +7,7 @@ using System.Linq;
 
 namespace E7.Minefield
 {
-
-    public static partial class Beacon
+    public static class Beacon
     {
         /// <summary>
         /// Same as <see cref="FindActive{BEACONTYPE}(BEACONTYPE, out ITestBeacon)"> but use return value instead of `out` and error when no active beacon found.
@@ -90,10 +88,10 @@ namespace E7.Minefield
         /// - **If** it is <see cref="Selectable">, it must **also** be <see cref="Selectable.IsInteractable()">. (This could be prevented with <see cref="CanvasGroup.interactable"> `false` or <see cref="Selectable.interactable">)
         /// </summary>
         /// <exception cref="BeaconException">Thrown when the beacon found does not even contain <see cref="Selectable"> component.
-        public static BeaconWait<T> WaitUntilClickable<T>(T beaconLabel)
+        public static WaitForBeaconClickable<T> WaitUntilClickable<T>(T beaconLabel)
         where T : Enum
         {
-            var bw = new BeaconWait<T>(beaconLabel)
+            var bw = new WaitForBeaconClickable<T>(beaconLabel)
             {
                 ClickableCheck = true
             };

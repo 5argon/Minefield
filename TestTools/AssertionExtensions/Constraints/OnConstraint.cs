@@ -1,10 +1,8 @@
-//When integration testing using "on device" button DEVELOPMENT_BUILD is automatically on.
 using System.Linq;
 using NUnit.Framework.Constraints;
 
 namespace E7.Minefield
 {
-
     public class OnConstraint : OnOffConstraint
     {
         protected override ConstraintResult Assert()

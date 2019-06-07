@@ -1,5 +1,3 @@
-//When integration testing using "on device" button DEVELOPMENT_BUILD is automatically on.
-
 namespace E7.Minefield
 {
     [System.Serializable]

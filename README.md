@@ -275,14 +275,20 @@ Assert.Beacon(beacon, Is.Active);
 Assert.Beacon(beacon, Is.Inactive);
 ```
 
-#### `IMinefieldOnOffStatus`
+### Reporters
 
-Allows you to use `Is.On` or `Is.Off` as a customized way to check something in the scene that is difficult to put in words... or not enough to check on its game object active status or visibility. You provide by yourself what is "on".
+A collection of `interface` you could add to your `MonoBehavior` to assert more customized things. You could think of it as a **hack**, because the test is now kinda invading your code, but it is better than either having to expose `public` and ruin the class design, or try to use hierarchy traversal methods to climb the object tree blindly. This way it is explicit that these are for `Minefield`. I think it's a better hack. Use it if you could accept the hack.
 
-For example this class uses `.enabled` to show-hide its members and `Is.Inactive` won't be able to detect its "invisible" status. Instead, I could write a custom `IsOn` condition and use `Is.Off` in the assertion instead of `Is.Inactive`.
+The assertion on reporters will be via `Is.Reporting.___` fluent assertion API. Though when English grammar permits, some are accessible from `Is.___` as well.
+
+#### `IMinefieldOnOffReporter`
+
+Allows you to assert with `Is.On` and `Is.Off` (or `Is.Reporting.On` and `Is.Reporting.Off`) as a customized way to check for status of something in the scene that is difficult to put in words... or just not enough to check on its game object active status. You provide by yourself what is considered "on".
+
+For example this class uses `.enabled` to show-hide its members and `Is.Inactive` won't be able to detect its "invisible" status since it check on the game object's active. Instead, I could have it reports a custom `IsOn` condition and use `Is.Off` in the assertion instead of `Is.Inactive`.
 
 ```csharp
-public class APHint : MonoBehaviour, IMinefieldOnOffStatus
+public class APHint : MonoBehaviour, IMinefieldOnOffReporter
 {
     public Image starImage;
     public TextMeshProUGUI numberText;
@@ -311,5 +317,30 @@ public class APHint : MonoBehaviour, IMinefieldOnOffStatus
         starImage.enabled = false;
         numberText.enabled = false;
     }
+}
+```
+
+#### `IMinefieldAmountReporter` 
+
+Used with `Is.Reporting.Amount(expectedAmount)` for generic integer check. An example of this is a health indicator that display colored heart icons and hollowed black hearts for diminished health. It is too messy to try to "count the colored heart" from test (I did that "properly" before and it was hell) and this so-called "hack" results in a more concise test code when the health indicator could report its `Amount` of remaining health.
+
+An example of `Is.Reporting` fluent assertion API usage :
+
+```csharp
+[UnityTest]
+public IEnumerator ScoreCounter()
+{
+    //Static hacking before scene start, according to the guidelines.
+    SceneOptions.gameSelector.matchManager.RegisterGame(GameInfoList.Instance.GetInfoWithName("Hockey"));
+    SceneOptions.gameSelector.matchManager.RecordScoreOfLastGame(1, 0, winner: PlayingSide.Lower);
+    SceneOptions.gameSelector.matchManager.RegisterGame(GameInfoList.Instance.GetInfoWithName("PerspectiveBaseball"));
+    SceneOptions.gameSelector.matchManager.RecordScoreOfLastGame(1, 0, winner: PlayingSide.Lower);
+    SceneOptions.gameSelector.matchManager.RegisterGame(GameInfoList.Instance.GetInfoWithName("BombFortress"));
+    SceneOptions.gameSelector.matchManager.RecordScoreOfLastGame(0, 1, winner: PlayingSide.Upper);
+    yield return ActivateScene();
+
+    yield return Beacon.WaitUntilClickable(GameSelector.Navigation.BackLower);
+    Assert.Beacon(GameSelector.Beacon.LowerScoreCounter, Is.Reporting.Amount(2));
+    Assert.Beacon(GameSelector.Beacon.UpperScoreCounter, Is.Reporting.Amount(1));
 }
 ```

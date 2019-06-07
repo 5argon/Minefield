@@ -1,7 +1,7 @@
 using E7.Minefield;
 using UnityEngine;
 
-public class Is : NUnit.Framework.Is
+public partial class Is : NUnit.Framework.Is
 {
     /// <summary>
     /// Active refer to <see cref="GameObject.activeInHierarchy"> that is `true`. Parent object could affect it.
