@@ -3,17 +3,6 @@ using System;
 
 namespace E7.Minefield
 {
-    public interface ITestBeacon
-    {
-        Enum Label { get; }
-        GameObject GameObject { get; }
-    }
-
-    public interface INavigationBeacon : ITestBeacon
-    {
-        RectTransform RectTransform { get; }
-    }
-
     /// <summary>
     /// Non interface base class allows search box compatibility.
     /// </summary>
@@ -21,6 +10,11 @@ namespace E7.Minefield
     {
         public abstract Enum Label { get; }
         public GameObject GameObject => gameObject;
+
+        /// <summary>
+        /// Shortcut to write more concise code in combination with <see cref="Beacon.Get">
+        /// </summary>
+        public T Component<T>() => GameObject.GetComponent<T>();
     }
 
     /// <summary>

@@ -1,5 +1,7 @@
 # Minefield Test Tools
 
+![banner](.Documentation/images/banner.png)
+
 `Minefield` is a library (still in-development) to help you program a concise play mode test in Unity, plus a guideline to design the game so that it is testable by this library.
 
 This is an example of a complete test that try to go from title to mode select, select training mode, wait until character select screen comes up and ready, then check that there is no portrait for the 2nd player because it is a single player mode.
@@ -25,7 +27,7 @@ public class SampleMinefieldTest : SceneTest
 }
 ```
 
-A defining feature includes the test **beacon**, which allows you to use an easy to understand `enum` that you declared yourself to navigate the scene without knowing any game object's name or any animation length to wait for.
+A defining feature includes the test **beacon**, which allows you to use an easy to understand `enum` that you declared yourself to navigate the scene without knowing any game object's name or any animation length to wait for. `enum` also provides advantage of intellisense popup, and symbol searching that roughly tells you about code coverage.
 
 The `enum` is linked to scene object by a special `MonoBehaviour` carrying this `enum` serialized together with your scene, which prevents brittle test that would be written with hard-coded object name or component type matching, at the price of testing library being a bit invasive in your actual game. Plus it allows you to use object search box in Scene view to find and manage all beacons easily.
 
@@ -80,7 +82,7 @@ Reasons for the need of `manifest.json` modification :
 - A **single** `Scene` is a testable unit. Don't make it a scene if you think you can't test on it individually, instead, use the improved prefabs from 2018.3.
 - All scenes must work by itself under `LoadSceneMode.Single`, avoid `LoadSceneMode.Additive`. You should **not** compose your scene such that it includes multiple additive scenes, even if all that may started from loading a single scene. That scheme may be tempting in the past, but it make your project less testable, and also we now have 2018.3 nested prefabs to facilitate assembling scene from multiple pieces. Do not use an another scene as those pieces. Note that non-additive scene could still be loaded asynchronously, only that when it activates it will clean up previous game objects. (Actually, the backend of improved prefabs is reusing the scene data structure! Every prefabs are scenes now.)
 - All scenes must be able to pass a test by just loading it without touching anything else, and wait for 5 seconds. With this design you are able to make a "lazy man's test" by just try loading each individual scene. Some design that prevents this is a scene which require other scenes to function, which if you followed the guideline such scene doesn't exist.
-- In normal development, it must be possible to press play mode on any scene and start playing from that scene, no matter how "cheated" that may felt to you.
+- In normal development, it must be possible to press play mode on any scene and start playing from that scene, no matter how "wrong" that may felt to you regarding to game's status on starting that scene. For example, if the final boss room is a scene, you should be able to start from that scene even if the character will be at level 1. It is more important to make sure that it is not an error. The "state" of the scene will instead be controlled by a `static` variable, in the next topic.
 
 ### A `static` variable to influence the entire scene
 
@@ -125,7 +127,7 @@ How could automated test do an equivalent of manual "can you break this" test? I
     - Parent `CanvasGroup` with `interactable` as `false`.
     - Set `interactable` on your `Selectable` as `false`.
 
-### Ensure all Unity's build tools are working
+### Ensure all Unity's test-related toolings are working
 
 ![run all](.Documentation/images/RunAll.png)
 
@@ -205,10 +207,11 @@ Next, declare a new class with that `enum` as the delegate of either `Navigation
 
 ```csharp
 using E7.Minefield;
-public class ModeSelectBeacon : NavigationBeacon<ModeSelectScreen.Navigation> { }
+public class ModeSelectNavigation : NavigationBeacon<ModeSelectScreen.Navigation> { }
+public class ModeSelectBeacon : TestBeacon<ModeSelectScreen.Beacon> { }
 ```
 
-You are now ready to attach this new class as a component to `GameObject` in the scene. If it is a `NavigationBeacon<>`, the point of attach should be the raycast receiving elements, which depends if you got a `Button`, `EventTrigger`, or something else. The test tools can help you click on these objects. If `TestBeacon<>`, then it could be any `GameObject`.
+You are now ready to attach these new component class to `GameObject` in the scene. If it is a `NavigationBeacon<>`, the point of attach should be the raycast receiving elements, which depends if you got a `Button`, `EventTrigger`, or something else. The test tools can help you click on these objects. If `TestBeacon<>`, then it could be any `GameObject`.
 
 As a bonus you could try typing `TestBeacon` or `NavigationBeacon` in the Scene view search box to return all beacons added so far. This is possible because each generic class you subclassed from is a subclass of non-generic version. The only purpose of this is for this use case because the search box couldn't list a generic class derived class even if the derived class has no generic type param, and it also could not search interfaces.
 
@@ -270,4 +273,43 @@ Sometimes you don't want to just navigate around and call it a day. `Assert.Beac
 ```csharp
 Assert.Beacon(beacon, Is.Active);
 Assert.Beacon(beacon, Is.Inactive);
+```
+
+#### `IMinefieldOnOffStatus`
+
+Allows you to use `Is.On` or `Is.Off` as a customized way to check something in the scene that is difficult to put in words... or not enough to check on its game object active status or visibility. You provide by yourself what is "on".
+
+For example this class uses `.enabled` to show-hide its members and `Is.Inactive` won't be able to detect its "invisible" status. Instead, I could write a custom `IsOn` condition and use `Is.Off` in the assertion instead of `Is.Inactive`.
+
+```csharp
+public class APHint : MonoBehaviour, IMinefieldOnOffStatus
+{
+    public Image starImage;
+    public TextMeshProUGUI numberText;
+    public PlayableDirector showDirector;
+
+    public bool IsOn => starImage.enabled && numberText.enabled;
+
+    public void Set(int apAmount)
+    {
+        if (apAmount != 0)
+        {
+            starImage.enabled = true;
+            numberText.enabled = true;
+            numberText.text = $"+{apAmount.ToString()}";
+            showDirector.Stop();
+            showDirector.Play();
+        }
+        else
+        {
+            Hide();
+        }
+    }
+
+    public void Hide()
+    {
+        starImage.enabled = false;
+        numberText.enabled = false;
+    }
+}
 ```

@@ -5,12 +5,31 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections;
 using System.Linq;
-using NUnit.Framework.Constraints;
 
 namespace E7.Minefield
 {
+
     public static partial class Beacon
     {
+        /// <summary>
+        /// Same as <see cref="FindActive{BEACONTYPE}(BEACONTYPE, out ITestBeacon)"> but use return value instead of `out` and error when no active beacon found.
+        /// 
+        /// Also the returned class is not the interface <see cref="ITestBeacon"> but <see cref="TestBeacon">, which provides some generic methods benefit
+        /// unavailable on interfaces.
+        /// </summary>
+        public static TestBeacon Get<BEACONTYPE>(BEACONTYPE label) where BEACONTYPE : Enum
+        {
+            if (FindActive(label, out ITestBeacon found))
+            {
+                return (TestBeacon)found;
+            }
+            else
+            {
+                throw new Exception($"Label {label} not found on any navigation beacon in the scene.");
+            }
+        }
+        
+
         /// Find an **active** beacon in the scene.
         /// </summary>
         /// <returns>`false` when not found.</returns>
