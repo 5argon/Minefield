@@ -27,9 +27,9 @@ public class SampleMinefieldTest : SceneTest
 }
 ```
 
-A defining feature includes the test **beacon**, which allows you to use an easy to understand `enum` that you declared yourself to navigate the scene without knowing any game object's name or any animation length to wait for. `enum` also provides advantage of intellisense popup, and symbol searching that roughly tells you about code coverage.
+A defining feature includes the test **beacon**, allows you to use an easy to understand `enum` that you declared yourself to navigate the scene without knowing any game object's name or any animation length to wait for. `enum` also provides advantage of intellisense popup, and symbol searching that roughly tells you about code coverage.
 
-The `enum` is linked to scene object by a special `MonoBehaviour` carrying this `enum` serialized together with your scene, which prevents brittle test that would be written with hard-coded object name or component type matching, at the price of testing library being a bit invasive in your actual game. Plus it allows you to use object search box in Scene view to find and manage all beacons easily.
+The `enum` is linked to scene object by a special `MonoBehaviour` carrying this `enum` serialized together with your scene as a test metadata, which prevents brittle test that would be written with hard-coded object name or component type matching, at the price of testing library being a bit invasive in your actual game. Plus it allows you to use object search box in Scene view to find and manage all beacons easily. `GameObject` and uGUI was not quite testable by design and I think this "hack" is the most reasonable one. They are fixing this with the new DOTS Entity Component System where component systems are a lot more test-friendly.
 
 Beacons works well with 2018.3 new prefab workflow. In the case that you have multiple instances or variants of the prefab on the scene, you could vary the beacon as overrides to discern game objects in the test. In object name or component type matching way of writing tests, this would likely produce duplicate entries that you have to deal with.
 
@@ -203,7 +203,7 @@ public class ModeSelectScreen : MonoBehaviour
 
 (Do not put a new entry inbetween the old ones, Unity serialize by `int` value and it will make old serialized value wrong. Or you could use an explicit integer.)
 
-Next, declare a new class with that `enum` as the delegate of either `NavigationBeacon<>` if it is intended to be clicked on by uGUI event system, or `TestBeacon<>` for any `GameObject`. Put your `enum` type in the generic, and you should gain a serializable `enum` field of your type which shows up in editor.
+Next, declare a new class with that `enum` as a generic of either `NavigationBeacon<>` if it is intended to be clicked on by uGUI event system, or `TestBeacon<>` for any `GameObject`. You should gain a serializable `enum` field of your type which shows up in editor.
 
 ```csharp
 using E7.Minefield;
@@ -221,7 +221,7 @@ Make sure you don't have to dig up any other objects that doesn't have a beacon.
 
 Navigation is available from `static` class entry point `Beacon.___`, which all of them require an `enum` as its argument, this `enum` must be on a beacon of type `NavigationBeacon<>`.
 
-You may not have to assert anything at all to test navigation. If it doesn't throw any error then the test had already helped you.
+You may not have to assert anything at all to test navigation. If it doesn't throw any error, then the test had already helped you.
 
 This is an example of tests of my title scene. Started normally you could click on an `EventTrigger` "Touch to start" text to go to the next scene, and if the `static` contains an instruction to skip you are immediately skipped to the next scene (with some special transition that's not exactly the same as clicking "Touch to start".
 
@@ -240,9 +240,7 @@ public class TitleSceneTest : SceneTest
   public IEnumerator TouchToStartGoToModeSelect()
   {
     yield return ActivateScene();
-    yield return Beacon.WaitUntilClickable(TitleLogic.Navigation.TouchToStart);
-    yield return Beacon.Click(TitleLogic.Navigation.TouchToStart);
-    //Or use just `ClickWhenClickable(TitleLogic.Navigation.TouchToStart);` on this kind of pattern.
+    yield return ClickWhenClickable(TitleLogic.Navigation.TouchToStart);
     yield return Beacon.WaitUntilClickable(ModeSelectScreen.Navigation.Training);
   }
 
@@ -260,15 +258,15 @@ public class TitleSceneTest : SceneTest
 }
 ```
 
-You may not see any `Assert`, but the final `WaitUntilClickable` itself is already an implicit assertion that player could also continue on the scene. If that `WaitUntilClickable` which returns `CustomYieldInstruction` didn't go on, the test will fail from the timeout.
+You may not see any `Assert`, but the final `WaitUntilClickable` itself is already an implicit assertion that player could also continue on the scene. If that `WaitUntilClickable` which returns `CustomYieldInstruction` didn't go on, the test will fail from the timeout. `WaitUntilClickable` could also catch one common bug where things are unintentionally clickable in the first `Awake`/`Start` frame because it tries repeatedly.
 
-`Click` is a simulation of pointer down, **wait a frame**, and pointer up plus pointer click together in the next frame. So `yield return` is required because it is not an instantaneous action.
+A `Click` is a simulation of pointer down, **wait a frame**, and pointer up plus pointer click together in the next frame. So `yield return` is required because it is not an instantaneous action.
 
 There are also various utilities that are not related to beacons available in `Utility` `static` class, like waiting for some `GameObject` to became active. They are used by the `Beacon` static class themselves, but in most cases you should try to stick to only `Beacon` class since that signifies that your beacon is enough or not.
 
 ### Assertion
 
-Sometimes you don't want to just navigate around and call it a day. `Assert.Beacon` is the entry point to assert a beacon. The `Is.___`  is emulating NUnit 3's constraint model style, however it is not an entirely a complete extension. (So you can't really do `Is.Not.Active` for example.)
+Sometimes you don't want to just navigate around and call it a day. `Assert.Beacon` is the entry point to assert a beacon. The `Is.___`  is emulating NUnit 3's constraint model style, however it is not an entirely a complete extension. (So you can't really combine with every NUnit's expression, like `Is.Not.Active` for example.)
 
 ```csharp
 Assert.Beacon(beacon, Is.Active);
@@ -277,7 +275,9 @@ Assert.Beacon(beacon, Is.Inactive);
 
 ### Reporters
 
-A collection of `interface` you could add to your `MonoBehavior` to assert more customized things. You could think of it as a **hack**, because the test is now kinda invading your code, but it is better than either having to expose `public` and ruin the class design, or try to use hierarchy traversal methods to climb the object tree blindly. This way it is explicit that these are for `Minefield`. I think it's a better hack. Use it if you could accept the hack.
+A collection of `interface` you could add to your `MonoBehavior` to assert more customized things. You could think of it as an even more **hack**, a test metadata added to your code. But it is better than either having to expose `public` for the purpose of test and ruin the class design, or try to use hierarchy traversal methods to climb the object tree blindly. This way it is explicit that these are for `Minefield`. Use it if you could accept the hack.
+
+(`[InternalsVisibleTo]` to make something testable is also a good alternative sometimes, if `internal` also make sense in your code.)
 
 The assertion on reporters will be via `Is.Reporting.___` fluent assertion API. Though when English grammar permits, some are accessible from `Is.___` as well.
 
@@ -324,7 +324,7 @@ public class APHint : MonoBehaviour, IMinefieldOnOffReporter
 
 Used with `Is.Reporting.Amount(expectedAmount)` for generic integer check. An example of this is a health indicator that display colored heart icons and hollowed black hearts for diminished health. It is too messy to try to "count the colored heart" from test (I did that "properly" before and it was hell) and this so-called "hack" results in a more concise test code when the health indicator could report its `Amount` of remaining health.
 
-An example of `Is.Reporting` fluent assertion API usage :
+An example of `Is.Reporting` fluent assertion API usage combined with amount reporter :
 
 ```csharp
 [UnityTest]
@@ -344,3 +344,7 @@ public IEnumerator ScoreCounter()
     Assert.Beacon(GameSelector.Beacon.UpperScoreCounter, Is.Reporting.Amount(1));
 }
 ```
+
+#### `IMinefieldObjectReporter<T>`
+
+Pretty much could report anything but make sure no other choice exist before falling back to this, since you will need to assert with `Is.Reporting.Object(___)` which may not be aesthetically pleasing to read if that thing doesn't feel like an "object" in programming sense. (e.g. `int` which you could use `IMinefieldAmountReporter`.)

@@ -24,5 +24,7 @@ public partial class Is
         /// Only works for **the first** component with that interface found.
         /// </summary>
         public static AmountConstraint Amount(int expectedAmount) => new AmountConstraint(expectedAmount);
+
+        public static ObjectConstraint<T> Object<T>(T expectedObject) => new ObjectConstraint<T>(expectedObject);
     }
 }

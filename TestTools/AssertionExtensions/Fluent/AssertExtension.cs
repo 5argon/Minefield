@@ -12,4 +12,14 @@ public class Assert : NUnit.Framework.Assert
             throw new AssertionException(result.Description);
         }
     }
+
+    public static void Beacon<BEACONTYPE>(BEACONTYPE beacon, E7.Minefield.BeaconConstraint bc, string description)
+    where BEACONTYPE : Enum
+    {
+        var result = bc.ApplyToBeacon(beacon);
+        if (result.IsSuccess == false)
+        {
+            throw new AssertionException($"{description}\n{result.Description}");
+        }
+    }
 }
