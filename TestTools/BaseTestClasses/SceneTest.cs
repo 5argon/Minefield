@@ -91,24 +91,24 @@ namespace E7.Minefield
         [UnitySetUp]
         public IEnumerator PreloadScene()
         {
-            Debug.Log($"Preloading {Scene}");
+            //Debug.Log($"Preloading {Scene}");
             if (Application.CanStreamedLevelBeLoaded(Scene))
             {
                 aoNormal = SceneManager.LoadSceneAsync(Scene, LoadSceneMode.Single);
                 aoNormal.allowSceneActivation = false;
                 yield return new WaitUntil(() =>
                 {
-                    Debug.Log($"Normal progress {aoNormal.progress}");
+                    //Debug.Log($"Normal progress {aoNormal.progress}");
                     return aoNormal.progress == 0.9f;
                 });
             }
             else
             {
-                Debug.Log($"AAS");
+                //Debug.Log($"AAS");
                 var handle = Addressables.LoadSceneAsync(Scene, loadMode: LoadSceneMode.Single, activateOnLoad: false);
                 aoAAS = handle;
                 yield return handle;
-                Debug.Log($"COMPLETE");
+                //Debug.Log($"COMPLETE");
                 aas = true;
             }
         }
@@ -116,13 +116,13 @@ namespace E7.Minefield
         [UnityTearDown]
         public IEnumerator CleanUp()
         {
-            Debug.Log($"Clean up {Scene}");
+            //Debug.Log($"Clean up {Scene}");
             Utility.CleanTestScene();
             //yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
             TempListener.enabled = true;
             //yield return Resources.UnloadUnusedAssets(); //lol this could cause infinite wait why
             GL.Clear(clearDepth: true, clearColor:true, Color.blue, depth:0);
-            Debug.Log($"Clean up {Scene} complete");
+            //Debug.Log($"Clean up {Scene} complete");
             yield return null;
         }
 

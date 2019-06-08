@@ -373,13 +373,13 @@ namespace E7.Minefield
         /// <param name="screenPosition">In pixel.</param>
         public static IEnumerator RaycastClick(Vector2 screenPosition)
         {
-            Debug.Log("Clicking " + screenPosition);
+            //Debug.Log("Clicking " + screenPosition);
             var fakeClick = ScreenPosToFakeClick(screenPosition);
             var rrgo = RaycastFirst(fakeClick);
 
             if (rrgo != null)
             {
-                Debug.Log("Hit : " + rrgo.name);
+                //Debug.Log("Hit : " + rrgo.name);
                 //If it is not interactable, then the event will get blocked.
 
                 if (ExecuteEvents.CanHandleEvent<IPointerDownHandler>(rrgo))

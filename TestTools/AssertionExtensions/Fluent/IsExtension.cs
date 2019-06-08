@@ -1,3 +1,4 @@
+using System;
 using E7.Minefield;
 using UnityEngine;
 
@@ -17,11 +18,13 @@ public partial class Is : NUnit.Framework.Is
     /// Check out all <see cref="IMinefieldOnOffProvider"> on **all** components on the object.
     /// It is considered "on" if **all** returns "on".
     /// </summary>
-    public static OnConstraint On => new OnConstraint();
+    public static OnOffConstraint On => new OnOffConstraint(lookingForOn: true);
 
     /// <summary>
     /// Check out all <see cref="IMinefieldOnOffProvider"> on **all** components on the object.
     /// It is considered "off" if **any** returns "off".
     /// </summary>
-    public static OffConstraint Off => new OffConstraint();
+    public static OnOffConstraint Off => new OnOffConstraint(lookingForOn: false);
+
+    public static StatusConstraint<T> Currently<T>(T expectedStatus) where T : Enum => new StatusConstraint<T>(expectedStatus);
 }

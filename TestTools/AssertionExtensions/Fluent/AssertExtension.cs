@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using UnityEngine;
 
 public class Assert : NUnit.Framework.Assert
 {
@@ -9,7 +10,7 @@ public class Assert : NUnit.Framework.Assert
         var result = bc.ApplyToBeacon(beacon);
         if (result.IsSuccess == false)
         {
-            throw new AssertionException(result.Description);
+            Assert.Fail(result.Description);
         }
     }
 
@@ -19,7 +20,7 @@ public class Assert : NUnit.Framework.Assert
         var result = bc.ApplyToBeacon(beacon);
         if (result.IsSuccess == false)
         {
-            throw new AssertionException($"{description}\n{result.Description}");
+            Assert.Fail($"{description}\n{result.Description}");
         }
     }
 }

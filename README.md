@@ -68,7 +68,7 @@ Then,
 
 Reasons for the need of `manifest.json` modification :
 
-## Testing assembly shenanigans
+### Testing assembly shenanigans
 
 - Reference from `asmdef` to `UnityEngine.TestTools` and `NUnit.Framework` is strictly for `asmdef` that is checked as "Test Assembly".
 - Of course `Minefield` as a test tools extension need those to call `Assert` and such for you. So `E7.Minefield.TestTools` has "Test Assembly" on.
@@ -143,11 +143,11 @@ After that, you will also be able to utilize [Unity Cloud Build](https://unity3d
 
 ![cloud build](.Documentation/images/CloudBuild.png)
 
-## Design
+# Walkthrough
 
 After following the guidelines, you will be able to use `Minefield` for the following benefits.
 
-### Assembly planning
+## Assembly planning
 
 You will have 3 kind of `asmdef` :
 
@@ -157,7 +157,7 @@ You will have 3 kind of `asmdef` :
 
 However even if you reference your scene `asmdef`, asserting on exposed fields of things is not a good design for test, since in the end you will use them as necessary portals to jump to the thing you actually want to test rather than wanted to test on them, and later you may introduced new exposed field just because you can't go to the desired things to test. This kind of "for test" exposed field should be avoided. (And actually exposed fields should be `[SerializeField] private` rather than `public`, so you can't use them from tests anyway.)
 
-### `SceneTest`
+## `SceneTest`
 
 By subclassing from this class in your test assembly :
 
@@ -169,7 +169,7 @@ By subclassing from this class in your test assembly :
 
 After starting the scene you will want to check up on something or navigate inside the scene. We have no GUI in writing tests and it is difficult to use methods like `GameObject.Find` or `FindObjectOfType` to get the desired object to test "blindly". It is even more difficult to navigate "at the right time" when you could see nothing while writing a test. For this I have designed something called a **beacon**.
 
-### Test beacons
+## Test beacons
 
 This is a way to use `enum` to refer to `GameObject` in your scene, by "attaching the `enum`" to it. Attaching an `enum` is possible by a `MonoBehaviour` carrying that `enum`.
 
@@ -203,12 +203,16 @@ public class ModeSelectScreen : MonoBehaviour
 
 (Do not put a new entry inbetween the old ones, Unity serialize by `int` value and it will make old serialized value wrong. Or you could use an explicit integer.)
 
-Next, declare a new class with that `enum` as a generic of either `NavigationBeacon<>` if it is intended to be clicked on by uGUI event system, or `TestBeacon<>` for any `GameObject`. You should gain a serializable `enum` field of your type which shows up in editor.
+Next, declare a new class with that `enum` as a generic of either `NavigationBeacon<>` if it is intended to be clicked on by uGUI event system, or `TestBeacon<>` for any `GameObject`. You should gain a serializable `enum` field of your type which shows up in editor. Remember to put them in a separated file as per Unity's attachable script rule, so they each get their own `meta` and GUID.
 
 ```csharp
 using E7.Minefield;
-public class ModeSelectNavigation : NavigationBeacon<ModeSelectScreen.Navigation> { }
-public class ModeSelectBeacon : TestBeacon<ModeSelectScreen.Beacon> { }
+public class ModeSelectTestBeacon : TestBeacon<ModeSelectScreen.Beacon> { }
+```
+
+```csharp
+using E7.Minefield;
+public class ModeSelectNavigationBeacon : NavigationBeacon<ModeSelectScreen.Navigation> { }
 ```
 
 You are now ready to attach these new component class to `GameObject` in the scene. If it is a `NavigationBeacon<>`, the point of attach should be the raycast receiving elements, which depends if you got a `Button`, `EventTrigger`, or something else. The test tools can help you click on these objects. If `TestBeacon<>`, then it could be any `GameObject`.
@@ -217,7 +221,7 @@ As a bonus you could try typing `TestBeacon` or `NavigationBeacon` in the Scene 
 
 Make sure you don't have to dig up any other objects that doesn't have a beacon. It is the best if your test contains only beacon queries.
 
-### Navigation with beacons
+## Navigation with beacons
 
 Navigation is available from `static` class entry point `Beacon.___`, which all of them require an `enum` as its argument, this `enum` must be on a beacon of type `NavigationBeacon<>`.
 
@@ -264,7 +268,7 @@ A `Click` is a simulation of pointer down, **wait a frame**, and pointer up plus
 
 There are also various utilities that are not related to beacons available in `Utility` `static` class, like waiting for some `GameObject` to became active. They are used by the `Beacon` static class themselves, but in most cases you should try to stick to only `Beacon` class since that signifies that your beacon is enough or not.
 
-### Assertion
+## Assertion
 
 Sometimes you don't want to just navigate around and call it a day. `Assert.Beacon` is the entry point to assert a beacon. The `Is.___`  is emulating NUnit 3's constraint model style, however it is not an entirely a complete extension. (So you can't really combine with every NUnit's expression, like `Is.Not.Active` for example.)
 
@@ -273,7 +277,7 @@ Assert.Beacon(beacon, Is.Active);
 Assert.Beacon(beacon, Is.Inactive);
 ```
 
-### Reporters
+## Reporters
 
 A collection of `interface` you could add to your `MonoBehavior` to assert more customized things. You could think of it as an even more **hack**, a test metadata added to your code. But it is better than either having to expose `public` for the purpose of test and ruin the class design, or try to use hierarchy traversal methods to climb the object tree blindly. This way it is explicit that these are for `Minefield`. Use it if you could accept the hack.
 
@@ -281,7 +285,7 @@ A collection of `interface` you could add to your `MonoBehavior` to assert more 
 
 The assertion on reporters will be via `Is.Reporting.___` fluent assertion API. Though when English grammar permits, some are accessible from `Is.___` as well.
 
-#### `IMinefieldOnOffReporter`
+### `IMinefieldOnOffReporter`
 
 Allows you to assert with `Is.On` and `Is.Off` (or `Is.Reporting.On` and `Is.Reporting.Off`) as a customized way to check for status of something in the scene that is difficult to put in words... or just not enough to check on its game object active status. You provide by yourself what is considered "on".
 
@@ -320,7 +324,7 @@ public class APHint : MonoBehaviour, IMinefieldOnOffReporter
 }
 ```
 
-#### `IMinefieldAmountReporter` 
+### `IMinefieldAmountReporter` 
 
 Used with `Is.Reporting.Amount(expectedAmount)` for generic integer check. An example of this is a health indicator that display colored heart icons and hollowed black hearts for diminished health. It is too messy to try to "count the colored heart" from test (I did that "properly" before and it was hell) and this so-called "hack" results in a more concise test code when the health indicator could report its `Amount` of remaining health.
 
@@ -345,6 +349,12 @@ public IEnumerator ScoreCounter()
 }
 ```
 
-#### `IMinefieldObjectReporter<T>`
+### `IMinefieldStatusReporter<T>`
 
-Pretty much could report anything but make sure no other choice exist before falling back to this, since you will need to assert with `Is.Reporting.Object(___)` which may not be aesthetically pleasing to read if that thing doesn't feel like an "object" in programming sense. (e.g. `int` which you could use `IMinefieldAmountReporter`.)
+The `T` has been constrained as `Enum`, and you must provide `Status` of that type. This is because a limited choice of `enum` is often used as a current overall state of something. In the assertion, this one is a bit special because you could use either `Is.Currently(___)` or `Is.Reporting.Status(___)`. Wording is a bit different and could fit on different scenario.
+
+(For example if your character could be `Pink` or `Green` you would use `Is.Currently(___)`, but if you are asserting an icon of internet connection status you may want to use `Is.Reporting.Status(___)`.)
+
+### `IMinefieldObjectReporter<T>`
+
+Pretty much could report anything but make sure no other choice exist before falling back to this, since you will need to assert with `Is.Reporting.Object(___)` which may not be aesthetically pleasing to read if that thing doesn't feel like an "object" in programming sense. (e.g. `int` which you could instead use `IMinefieldAmountReporter`.) The equality test is by `object.Equals`.
