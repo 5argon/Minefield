@@ -4,6 +4,8 @@
 
 `Minefield` is a library (still in-development) to help you program a concise play mode test in Unity, plus a guideline to design the game so that it is testable by this library.
 
+It is designed so that **you won't have to press play mode button ever again**, but instead have the Unity Test Runner use `Minefield` to start the scene. If you could make this into a habit, you already have all the tests by the time you finished making the scene. `Minefield` make it easier to stick to this rather than "give in" to the play button because it take less time to write the test. Most of the time you give up writing tests TDD style because it takes too much time and disrupt your scene creation flow.
+
 This is an example of a complete test that try to go from title to mode select, select training mode, wait until character select screen comes up and ready, then check that there is no portrait for the 2nd player because it is a single player mode.
 
 ```csharp
@@ -19,17 +21,19 @@ public class SampleMinefieldTest : SceneTest
   public IEnumerator TitleToModeSelectToTrainingNoUpperCharacter()
   {
     yield return ActivateScene();
-    yield return Beacon.ClickWhenClickable(TitleScreen.Navigation.TouchAnywhere);
-    yield return Beacon.ClickWhenClickable(ModeSelectScreen.Navigation.EnterTrainingMode);
-    yield return Beacon.WaitUntilClickable(CharacterSelectScreen.Navigation.ConfirmCharacter);
+    yield return Beacon.ClickWhen(TitleScreen.Navigation.TouchAnywhere, Is.Clickable);
+    yield return Beacon.ClickWhen(ModeSelectScreen.Navigation.EnterTrainingMode, Is.Clickable);
+    yield return Beacon.WaitUntil(CharacterSelectScreen.Navigation.ConfirmCharacter, Is.Clickable);
     Assert.Beacon(CharacterSelectScreen.Beacon.PlayerTwoCharacter, Is.Inactive);
   }
 }
 ```
 
-A defining feature includes the test **beacon**, allows you to use an easy to understand `enum` that you declared yourself to navigate the scene without knowing any game object's name or any animation length to wait for. `enum` also provides advantage of intellisense popup, and symbol searching that roughly tells you about code coverage.
+A defining feature is the test **beacon**, which allows you to use an easy to understand `enum` that you declared yourself to navigate the scene without knowing any game object's name or any animation length to wait for, the major pain point on writing play mode test. `enum` also provides advantage of intellisense popup, and IDE symbol searching that roughly tells you about code coverage, or easily find missing part that needs some tests.
 
-The `enum` is linked to scene object by a special `MonoBehaviour` carrying this `enum` serialized together with your scene as a test metadata, which prevents brittle test that would be written with hard-coded object name or component type matching, at the price of testing library being a bit invasive in your actual game. Plus it allows you to use object search box in Scene view to find and manage all beacons easily. `GameObject` and uGUI was not quite testable by design and I think this "hack" is the most reasonable one. They are fixing this with the new DOTS Entity Component System where component systems are a lot more test-friendly.
+The `enum` is linked to scene object by a special `MonoBehaviour` carrying this `enum` serialized together with your scene as a test metadata. It prevents brittle test that would be written with hard-coded object name or component type matching, at the price of testing library being a bit invasive in your actual game. On the bright side, you will be adding these as you build the game and they will make you think about all possible navigation scenario that could occur in a scene. Plus it allows you to use object search box in Scene view to find and manage all beacons easily. Other editor toolings in the future could be extended from these beacon components.
+
+`GameObject` and uGUI was not quite testable by design. They are fixing this with the new DOTS Entity Component System where component systems are a lot more test-friendly, but for now I think this "hack" is the most reasonable one. 
 
 Beacons works well with 2018.3 new prefab workflow. In the case that you have multiple instances or variants of the prefab on the scene, you could vary the beacon as overrides to discern game objects in the test. In object name or component type matching way of writing tests, this would likely produce duplicate entries that you have to deal with.
 
@@ -44,7 +48,7 @@ An another feature is that you could write multiple tries per scene without spec
 - Addressable Asset System package : The test could use the name you provided as either regular scene name or AAS key that should lead to the scene.
 - Unity 2019.1 : `asmdef` version define feature so I could exclude AAS code from the library if you don't use AAS in the project.
 
-## How to use
+## How to include
 
 Clone it and use `+` button in your Package Manager menu to look for `package.json`, or use GitHub include by adding this line to your `manifest.json` :
 
@@ -81,8 +85,9 @@ Reasons for the need of `manifest.json` modification :
 
 - A **single** `Scene` is a testable unit. Don't make it a scene if you think you can't test on it individually, instead, use the improved prefabs from 2018.3.
 - All scenes must work by itself under `LoadSceneMode.Single`, avoid `LoadSceneMode.Additive`. You should **not** compose your scene such that it includes multiple additive scenes, even if all that may started from loading a single scene. That scheme may be tempting in the past, but it make your project less testable, and also we now have 2018.3 nested prefabs to facilitate assembling scene from multiple pieces. Do not use an another scene as those pieces. Note that non-additive scene could still be loaded asynchronously, only that when it activates it will clean up previous game objects. (Actually, the backend of improved prefabs is reusing the scene data structure! Every prefabs are scenes now.)
-- All scenes must be able to pass a test by just loading it without touching anything else, and wait for 5 seconds. With this design you are able to make a "lazy man's test" by just try loading each individual scene. Some design that prevents this is a scene which require other scenes to function, which if you followed the guideline such scene doesn't exist.
-- In normal development, it must be possible to press play mode on any scene and start playing from that scene, no matter how "wrong" that may felt to you regarding to game's status on starting that scene. For example, if the final boss room is a scene, you should be able to start from that scene even if the character will be at level 1. It is more important to make sure that it is not an error. The "state" of the scene will instead be controlled by a `static` variable, in the next topic.
+- You will not ever be setting which scene is an active scene because you always have 1 scene. And `Minefield` assumes the active scene is the one you are testing and cleanly destroy everything in between tests. It is difficult to clean up a scene in-between test fast (and truly cleanly) if there is no guidelines about this.
+- All scenes must be able to pass a test by just loading it without touching anything else and wait for a bit. With this design you are able to make a "lazy man's test" by just try loading each individual scene. Some design that prevents this is a scene which require other scenes to function, which if you followed the guideline such scene doesn't exist.
+- In normal development, it must be possible to press play mode on any scene and start playing from that scene, no matter how "wrong" that may felt to you regarding to game's status on starting that scene. For example, if the final boss room is a scene, you should be able to start from that scene even if the character will be at level 1. It is more important to make sure that it is not an error. The "state" of the scene will instead be controlled by a `static` variable, more in the next topic.
 
 ### A `static` variable to influence the entire scene
 
@@ -223,7 +228,7 @@ Make sure you don't have to dig up any other objects that doesn't have a beacon.
 
 ## Navigation with beacons
 
-Navigation is available from `static` class entry point `Beacon.___`, which all of them require an `enum` as its argument, this `enum` must be on a beacon of type `NavigationBeacon<>`.
+Navigation is available from `static` class entry point `Beacon.___`, which all of them require an `enum` as its argument, this `enum` must be on a beacon of type `NavigationBeacon<>`. Then you follow with NUnit 3 style constraint started from `Is.___`.
 
 You may not have to assert anything at all to test navigation. If it doesn't throw any error, then the test had already helped you.
 
@@ -244,8 +249,8 @@ public class TitleSceneTest : SceneTest
   public IEnumerator TouchToStartGoToModeSelect()
   {
     yield return ActivateScene();
-    yield return ClickWhenClickable(TitleLogic.Navigation.TouchToStart);
-    yield return Beacon.WaitUntilClickable(ModeSelectScreen.Navigation.Training);
+    yield return Beacon.ClickWhen(TitleLogic.Navigation.TouchToStart, Is.Clickable);
+    yield return Beacon.WaitUntil(ModeSelectScreen.Navigation.Training, Is.Clickable);
   }
 
   [UnityTest]
@@ -257,12 +262,12 @@ public class TitleSceneTest : SceneTest
         titleMode = SceneOptions.Title.TitleMode.SkipToModeSelect
     };
     yield return ActivateScene();
-    yield return Beacon.WaitUntilClickable(ModeSelectScreen.Navigation.Training);
+    yield return Beacon.WaitUntil(ModeSelectScreen.Navigation.Training, Is.Clickable);
   }
 }
 ```
 
-You may not see any `Assert`, but the final `WaitUntilClickable` itself is already an implicit assertion that player could also continue on the scene. If that `WaitUntilClickable` which returns `CustomYieldInstruction` didn't go on, the test will fail from the timeout. `WaitUntilClickable` could also catch one common bug where things are unintentionally clickable in the first `Awake`/`Start` frame because it tries repeatedly.
+You may not see any `Assert`, but the final `WaitUntil` plus `Is.Clickable` constraint itself is already an implicit assertion that player could arrive at the destination. If that didn't go on, the test will fail from the timeout. `WaitUntil` `Is.Clickable` could also catch one common bug where things are unintentionally clickable in the first `Awake`/`Start` frame because it tries repeatedly.
 
 A `Click` is a simulation of pointer down, **wait a frame**, and pointer up plus pointer click together in the next frame. So `yield return` is required because it is not an instantaneous action.
 
@@ -280,8 +285,6 @@ Assert.Beacon(beacon, Is.Inactive);
 ## Reporters
 
 A collection of `interface` you could add to your `MonoBehavior` to assert more customized things. You could think of it as an even more **hack**, a test metadata added to your code. But it is better than either having to expose `public` for the purpose of test and ruin the class design, or try to use hierarchy traversal methods to climb the object tree blindly. This way it is explicit that these are for `Minefield`. Use it if you could accept the hack.
-
-(`[InternalsVisibleTo]` to make something testable is also a good alternative sometimes, if `internal` also make sense in your code.)
 
 The assertion on reporters will be via `Is.Reporting.___` fluent assertion API. Though when English grammar permits, some are accessible from `Is.___` as well.
 
@@ -343,7 +346,7 @@ public IEnumerator ScoreCounter()
     SceneOptions.gameSelector.matchManager.RecordScoreOfLastGame(0, 1, winner: PlayingSide.Upper);
     yield return ActivateScene();
 
-    yield return Beacon.WaitUntilClickable(GameSelector.Navigation.BackLower);
+    yield return Beacon.WaitUntil(GameSelector.Navigation.BackLower, Is.Clickable);
     Assert.Beacon(GameSelector.Beacon.LowerScoreCounter, Is.Reporting.Amount(2));
     Assert.Beacon(GameSelector.Beacon.UpperScoreCounter, Is.Reporting.Amount(1));
 }
@@ -351,7 +354,7 @@ public IEnumerator ScoreCounter()
 
 ### `IMinefieldStatusReporter<T>`
 
-The `T` has been constrained as `Enum`, and you must provide `Status` of that type. This is because a limited choice of `enum` is often used as a current overall state of something. In the assertion, this one is a bit special because you could use either `Is.Currently(___)` or `Is.Reporting.Status(___)`. Wording is a bit different and could fit on different scenario.
+The `T` has been constrained as `Enum`, and you must provide `T Status` of that type. This is because a limited choice of `enum` is often used as a summarized, current overall state of something. In the assertion, this one is a bit special because you could use either `Is.Currently(___)` or `Is.Reporting.Status(___)`. Wording is a bit different and could fit on different scenario.
 
 (For example if your character could be `Pink` or `Green` you would use `Is.Currently(___)`, but if you are asserting an icon of internet connection status you may want to use `Is.Reporting.Status(___)`.)
 

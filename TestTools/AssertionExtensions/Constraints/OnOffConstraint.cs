@@ -5,7 +5,7 @@ namespace E7.Minefield
 {
     public class OnOffConstraint : ReporterBasedConstraint<IMinefieldOnOffReporter>
     {
-        public override string Description 
+        public override string Description
         => $"Expecting game object {FoundBeacon.GameObject.name} to report {(lookingForOn ? "On" : "Off")} but instead got {(lookingForOn ? "Off" : "On")}";
 
         protected bool lookingForOn;
@@ -16,6 +16,11 @@ namespace E7.Minefield
 
         protected override ConstraintResult Assert()
         {
+            if (FindResult == false)
+            {
+                return new ConstraintResult(this, null, isSuccess: false);
+            }
+
             if (lookingForOn)
             {
                 var allOn = GetOnOffs().All(x => x.IsOn);

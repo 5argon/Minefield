@@ -1,39 +1,24 @@
-﻿using UnityEngine;
-using System;
+using NUnit.Framework.Constraints;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace E7.Minefield
 {
-    public class WaitForBeaconClickable<T> : CustomYieldInstruction
-    where T : Enum
+    public class ClickableConstraint : BeaconConstraint
     {
-        public override bool keepWaiting
+        protected override ConstraintResult Assert()
         {
-            get
-            {
-                if (Beacon.FindActive(Label, out ITestBeacon found) && found is INavigationBeacon foundNb && PassedAdditionalCriterias(foundNb))
-                {
-                    targetBeacon = foundNb;
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-        }
-
-        private bool PassedAdditionalCriterias(INavigationBeacon found)
-        {
-            if (ClickableCheck)
+            var found = FoundBeacon;
+            bool isClickable = true;
+            if (found is INavigationBeacon inb)
             {
                 //Criteria : 1. Raycast could hit it. 2. able to handle down or click, 3. if has selectable, it must be interactable.
                 bool handleDown = ExecuteEvents.CanHandleEvent<IPointerDownHandler>(found.GameObject);
                 bool handleUp = ExecuteEvents.CanHandleEvent<IPointerUpHandler>(found.GameObject);
                 bool handleClick = ExecuteEvents.CanHandleEvent<IPointerClickHandler>(found.GameObject);
 
-                var rt = found.RectTransform;
+                var rt = inb.RectTransform;
                 GameObject firstHit = Utility.RaycastFirst(rt);
                 var hittable = ReferenceEquals(firstHit, found.GameObject);
 
@@ -44,21 +29,15 @@ namespace E7.Minefield
                 //Debug.Log($"{found.GameObject.name} - {hittable} {handleDown} {handleClick} {selectable} {selectable?.IsInteractable()}");
                 if (!hittable || !interactable || (!handleDown && !handleUp && !handleClick))
                 {
-                    return false;
+                    isClickable = false;
                 }
             }
-            return true;
-        }
+            else
+            {
+                isClickable = false;
+            }
 
-        private T Label { get; }
-
-        // Criterias
-        internal bool ClickableCheck { private get; set; }
-
-        public INavigationBeacon targetBeacon;
-        public WaitForBeaconClickable(T label)
-        {
-            this.Label = label;
+            return new ConstraintResult(this, FoundBeacon, isSuccess: FindResult && isClickable);
         }
     }
 }

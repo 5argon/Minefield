@@ -7,14 +7,14 @@ namespace E7.Minefield
     where T : Enum
     {
         public override string Description 
-        => $"Expecting game object {FoundBeacon.GameObject.name} to report status {ExpectedStatus} but instead got {GetFirstReporter().Status}.";
+        => FindResult ? $"Expecting game object {FoundBeacon.GameObject.name} to report status {ExpectedStatus} but instead got {GetFirstReporter().Status}."
+        : $"Beacon {beaconRequested} not found so could not get the requested reporter {nameof(IMinefieldStatusReporter<T>)}.";
 
         T ExpectedStatus { get; }
         public StatusConstraint(T expectedStatus) => this.ExpectedStatus = expectedStatus;
         protected override ConstraintResult Assert()
         {
-            var reportedStatus = GetFirstReporter().Status;
-            return new ConstraintResult(this, FoundBeacon, isSuccess: FindResult && reportedStatus.Equals(ExpectedStatus));
+            return new ConstraintResult(this, FoundBeacon, isSuccess: FindResult && GetFirstReporter().Status.Equals(ExpectedStatus));
         }
     }
 }

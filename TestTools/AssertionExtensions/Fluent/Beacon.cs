@@ -10,6 +10,25 @@ namespace E7.Minefield
     public static class Beacon
     {
         /// <summary>
+        /// Remember that base condition for all constraints is that the beacon must be found, and to be found the game object must be active.
+        /// </summary>
+        public static IEnumerator WaitUntil<T>(T beacon, BeaconConstraint bc)
+            where T : Enum
+        {
+            yield return new WaitUntil(() => bc.ApplyToBeacon(beacon).IsSuccess);
+        }
+
+        /// <summary>
+        /// Like <see cref="WaitUntil{T}(T, BeaconConstraint)"> but additionally include <see cref="Click{T}(T)"> in one yield.
+        /// </summary>
+        public static IEnumerator ClickWhen<T>(T beacon, BeaconConstraint bc)
+            where T : Enum
+        {
+            yield return new WaitUntil(() => bc.ApplyToBeacon(beacon).IsSuccess);
+            yield return Click<T>(beacon);
+        }
+
+        /// <summary>
         /// Same as <see cref="FindActive{BEACONTYPE}(BEACONTYPE, out ITestBeacon)"> but use return value instead of `out` and error when no active beacon found.
         /// 
         /// Also the returned class is not the interface <see cref="ITestBeacon"> but <see cref="TestBeacon">, which provides some generic methods benefit
@@ -26,26 +45,15 @@ namespace E7.Minefield
                 throw new Exception($"Label {label} not found on any navigation beacon in the scene.");
             }
         }
-        
 
+
+        /// <summary>
         /// Find an **active** beacon in the scene.
         /// </summary>
         /// <returns>`false` when not found.</returns>
         /// <exception cref="Exception">Thrown when found multiple beacons with the same <paramref name="label">.</exception>
         public static bool FindActive<BEACONTYPE>(BEACONTYPE label, out ITestBeacon foundBeacon) where BEACONTYPE : Enum
             => FindActiveInternal(label, out foundBeacon);
-
-        internal static bool FindActiveForAssert<BEACONTYPE>(BEACONTYPE label, out ITestBeacon foundBeacon)
-        {
-            if (label is Enum e)
-            {
-                return FindActiveInternal(e, out foundBeacon);
-            }
-            else
-            {
-                throw new BeaconException($"{label} is not an enum.");
-            }
-        }
 
         private static bool FindActiveInternal<BEACONTYPE>(BEACONTYPE label, out ITestBeacon foundBeacon)
         {
@@ -76,44 +84,6 @@ namespace E7.Minefield
                 foundBeacon = testBeacon;
                 return true;
             }
-        }
-
-        /// <summary>
-        /// Keep checking for a beacon on uGUI component which will eventually became active **and** clickable to the player.
-        /// 
-        /// "Clickable" is :
-        /// - Has `RectTransform`
-        /// - A raycast from the center of that `RectTransform` could hit it. (This could be prevented with <see cref="Graphic.raycastTarget"> `false` or <see cref="CanvasGroup.blocksRaycasts"> `false`.)
-        /// - Something must be able to happen on click, that is it must be <see cref="IPointerDownHandler">, <see cref="IPointerUpHandler">, or <see cref="IPointerClickHandler">.
-        /// - **If** it is <see cref="Selectable">, it must **also** be <see cref="Selectable.IsInteractable()">. (This could be prevented with <see cref="CanvasGroup.interactable"> `false` or <see cref="Selectable.interactable">)
-        /// </summary>
-        /// <exception cref="BeaconException">Thrown when the beacon found does not even contain <see cref="Selectable"> component.
-        public static WaitForBeaconClickable<T> WaitUntilClickable<T>(T beaconLabel)
-        where T : Enum
-        {
-            var bw = new WaitForBeaconClickable<T>(beaconLabel)
-            {
-                ClickableCheck = true
-            };
-
-            return bw;
-        }
-
-        /// <summary>
-        /// Keep checking for a beacon on uGUI component which will eventually became active **and** clickable to the player, then click it.
-        /// 
-        /// "Clickable" is :
-        /// - Has `RectTransform`
-        /// - A raycast from the center of that `RectTransform` could hit it. (This could be prevented with <see cref="Graphic.raycastTarget"> `false` or <see cref="CanvasGroup.blocksRaycasts"> `false`.)
-        /// - Something must be able to happen on click, that is it must be <see cref="IPointerDownHandler">, <see cref="IPointerUpHandler">, or <see cref="IPointerClickHandler">.
-        /// - **If** it is <see cref="Selectable">, it must **also** be <see cref="Selectable.IsInteractable()">. (This could be prevented with <see cref="CanvasGroup.interactable"> `false` or <see cref="Selectable.interactable">)
-        /// </summary>
-        /// <exception cref="BeaconException">Thrown when the beacon found does not even contain <see cref="Selectable"> component.
-        public static IEnumerator ClickWhenClickable<T>(T beaconLabel)
-        where T : Enum
-        {
-            yield return WaitUntilClickable<T>(beaconLabel);
-            yield return Click<T>(beaconLabel);
         }
 
         /// <summary>
