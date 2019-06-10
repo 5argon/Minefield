@@ -11,6 +11,10 @@ namespace E7.Minefield
     {
         /// <summary>
         /// Remember that base condition for all constraints is that the beacon must be found, and to be found the game object must be active.
+        /// 
+        /// It will not fail the test if the constraint doesn't happen yet, please check manually if you really have that type of
+        /// beacon in the scene or it would wait forever when you actually forgot to add the beacon. (Unlike assertion where you immediately get
+        /// an error message telling you about missing beacon.)
         /// </summary>
         public static IEnumerator WaitUntil<T>(T beacon, BeaconConstraint bc)
             where T : Enum
@@ -46,6 +50,23 @@ namespace E7.Minefield
             }
         }
 
+        /// <summary>
+        /// Same as <see cref="FindActive{BEACONTYPE}(BEACONTYPE, out ITestBeacon)"> but use return value instead of `out` and error when no active beacon found.
+        /// 
+        /// Also the returned class is not the interface <see cref="ITestBeacon"> but <see cref="TestBeacon">, which provides some generic methods benefit
+        /// unavailable on interfaces.
+        /// </summary>
+        public static COMPONENTTYPE GetComponent<COMPONENTTYPE>(Enum label) where COMPONENTTYPE : Component
+        {
+            if (FindActive(label, out ITestBeacon found))
+            {
+                return ((TestBeacon)found).GetComponent<COMPONENTTYPE>();
+            }
+            else
+            {
+                throw new Exception($"Label {label} not found on any navigation beacon in the scene.");
+            }
+        }
 
         /// <summary>
         /// Find an **active** beacon in the scene.
