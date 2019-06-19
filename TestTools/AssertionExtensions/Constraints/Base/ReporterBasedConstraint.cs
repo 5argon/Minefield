@@ -1,3 +1,7 @@
+using NUnit.Framework;
+using UnityEngine;
+using UnityEngine.TestTools;
+
 namespace E7.Minefield
 {
     public abstract class ReporterBasedConstraint<T> : BeaconConstraint
@@ -5,14 +9,17 @@ namespace E7.Minefield
     {
         protected T GetFirstReporter()
         {
-            if(FindResult == false)
+            //Debug.Log($"Getting reporter ");
+            if (FindResult == false)
             {
+                //Debug.Log($"NO");
                 throw new BeaconException($"Cannot ask for reporter of type {typeof(T).Name} because the beacon is not found in the first place.");
             }
             var firstReporter = FoundBeacon.GameObject.GetComponent<T>();
             if (firstReporter == null)
             {
-                throw new BeaconException($"Constraint needed {typeof(T).Name} attached on the game object with the beacon but it is not found.");
+                //Debug.Log($"NO2");
+                throw new BeaconException($"Constraint needed {typeof(T).Name} attached on the game object {FoundBeacon.GameObject.name} with the beacon {FoundBeacon.Label} but it is not found.");
             }
             return firstReporter;
         }
@@ -26,7 +33,7 @@ namespace E7.Minefield
             var allReporters = FoundBeacon.GameObject.GetComponents<T>();
             if(allReporters.Length == 0)
             {
-                throw new BeaconException($"Constraint needed {typeof(T).Name} attached on the game object with the beacon but it is not found.");
+                throw new BeaconException($"Constraint needed {typeof(T).Name} attached on the game object {FoundBeacon.GameObject.name} with the beacon {FoundBeacon.Label} but it is not found.");
             }
             return allReporters;
         }

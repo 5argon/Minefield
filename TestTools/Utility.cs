@@ -368,7 +368,10 @@ namespace E7.Minefield
         public static IEnumerator RaycastClick(RectTransform rect, Vector2 relativePositionInRect) => RaycastClick(RelativePositionOfRectTransform(rect, relativePositionInRect));
 
         /// <summary>
-        /// Use coroutine on this because there is a frame in-between pointer down and up.
+        /// Simulate a click. Definition of a click is pointer down this frame then up at the same coordinate the next frame. So you need a coroutine on this.
+        /// 
+        /// It is still possible to produce impossible action, such as clicking 2 times on the same button. Even with coroutine, the up of the first click will be at
+        /// the same frame as down of the next one. This is not physically possible. So if you need to double click, wait a frame manually.
         /// </summary>
         /// <param name="screenPosition">In pixel.</param>
         public static IEnumerator RaycastClick(Vector2 screenPosition)
@@ -387,6 +390,7 @@ namespace E7.Minefield
                     ExecuteEvents.ExecuteHierarchy(rrgo, fakeClick, ExecuteEvents.pointerDownHandler);
                 }
 
+                //This is to wait 1 frame between down and up, the fastest and realistic scenario possible.
                 yield return null;
 
                 if (ExecuteEvents.CanHandleEvent<IPointerUpHandler>(rrgo))

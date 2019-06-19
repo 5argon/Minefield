@@ -39,6 +39,10 @@ namespace E7.Minefield
         /// - (6/6/2019) There is a bug where if you pause and stepping frame, at the activation moment Awake will immediately come, then Start the next frame. (wtf)
         /// 
         /// So it take a minimum of 3 frames to get a scene that you could query game objects.
+        /// 
+        /// * For any reason, you must call this somewhere in the test case, because it have to be paired with scene loading that was done
+        /// automatically for you at setup. Or else there will be a scene stuck at near-complete state that could wreck the next test.
+        /// For example if you want to call `Assert.Ignore` to early out, do it after the scene activated so the next case could start cleanly.
         /// </summary>
         protected IEnumerator ActivateScene()
         {
@@ -53,6 +57,18 @@ namespace E7.Minefield
 
             TempListener.enabled = false;
             yield return null;
+        }
+
+        /// <summary>
+        /// Useful when you want to run the scene again fresh in the same test case, perhaps keeping some
+        /// evaluation result in a variable to compare with a new run. Remember that this do not include your
+        /// `[SetUp]` logic.
+        /// </summary>
+        protected IEnumerator RestartScene()
+        {
+            yield return CleanUp();
+            yield return PreloadScene();
+            yield return ActivateScene();
         }
 
         /// <summary>

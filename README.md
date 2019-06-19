@@ -2,9 +2,19 @@
 
 ![banner](.Documentation/images/banner.png)
 
-`Minefield` is a library (still in-development) to help you program a concise play mode test in Unity, plus a guideline to design the game so that it is testable by this library.
+`Minefield` is a library (still in-development) to help you program a concise **navigation** play mode test in Unity, plus a guideline to design the game so that it is testable by this library.
 
-It is designed so that **you won't have to press play mode button ever again**, but instead have the Unity Test Runner use `Minefield` to start the scene. If you could make this into a habit, you already have all the tests by the time you finished making the scene. `Minefield` make it easier to stick to this rather than "give in" to the play button because it take less time to write the test. Most of the time you give up writing tests TDD style because it takes too much time and disrupt your scene creation flow.
+It is designed so that you won't have to press play mode button ever again while developing navigation features in the scene. Instead have the Unity Test Runner use `Minefield` to start the scene. If you could make this into a habit, you already have all the tests by the time you finished making the scene. `Minefield` make it easier to stick to this rather than "give in" to the play button because it take less time to write the test. Most of the time you give up writing tests because it takes too much time and disrupt your scene creation flow.
+
+## Motivation and emphasis on navigations
+
+Long time ago I have a team of 4 members. Due to bad management often the work pile up on me when others are left idle with nothing to do. Every time I add any new feature, there is fear of regression which could popup somewhere in the game. The solution back then is I would ask Ben, my teammate : "We will ship this soon, you are currently free so could you **go to all scenes and push all buttons** in the game?" This "make sure everything works by mindlessly navigating around" test happen every release. And I believe almost all kind of games need this assurance, regardless of genre or the game's content.
+
+Fast forward to now, others all quit and got far more stable day job. No amount of money I could offer to them that's worth their time anymore compared to what they could earn. I need an automated testing library that could make *that kind of test* as fast as possible to survive alone. It may not be able to query and check for everything in Unity, and it may not able to do mocks, stubs, doubles, fakes, etc. But it has to be the fastest to code up a navigation test.
+
+The original requirements "go to all scenes and push all buttons" are satisfied by 2 main design of `Minefield` : an ability to use a single scene as a unit of test, and an ability to navigate when able to or otherwise wait for it.
+
+## Design
 
 This is an example of a complete test that try to go from title to mode select, select training mode, wait until character select screen comes up and ready, then check that there is no portrait for the 2nd player because it is a single player mode.
 
@@ -15,8 +25,10 @@ using E7.Minefield;
 
 public class SampleMinefieldTest : SceneTest
 {
+  //A primary unit of testing in Minefield is a scene. It could start any scene specified here cleanly.
   protected override string Scene => "Title";
 
+  //All cases in this class test the same scene.
   [UnityTest]
   public IEnumerator TitleToModeSelectToTrainingNoUpperCharacter()
   {
@@ -29,9 +41,13 @@ public class SampleMinefieldTest : SceneTest
 }
 ```
 
-A defining feature is the test **beacon**, which allows you to use an easy to understand `enum` that you declared yourself to navigate the scene without knowing any game object's name or any animation length to wait for, the major pain point on writing play mode test. `enum` also provides advantage of intellisense popup, and IDE symbol searching that roughly tells you about code coverage, or easily find missing part that needs some tests.
+A defining feature is the test **beacon**, which allows you to use an easy to understand `enum` that you declared yourself to navigate the scene without knowing any game object's name or any animation length to wait for, the major pain point on writing play mode test. This make the test loosely coupled with the scene in the sense that your scene maybe extremely complex, but the test could remain a very simple series of wait-and-clicks.
 
-The `enum` is linked to scene object by a special `MonoBehaviour` carrying this `enum` serialized together with your scene as a test metadata. It prevents brittle test that would be written with hard-coded object name or component type matching, at the price of testing library being a bit invasive in your actual game. On the bright side, you will be adding these as you build the game and they will make you think about all possible navigation scenario that could occur in a scene. Plus it allows you to use object search box in Scene view to find and manage all beacons easily. Other editor toolings in the future could be extended from these beacon components.
+The `enum` is linked to scene object by a special `MonoBehaviour` carrying this `enum` serialized together with your scene as a test metadata. It prevents brittle test that would be the case if you try to assert for hard-coded object name or getting some specific component type, at the price of testing library being a bit invasive in your actual game. On the bright side, you will be adding these as you build the game and they will help you think about all possible navigation scenario that could occur in a scene. Plus it allows you to use object search box in Scene view to find and manage all beacons easily. Other editor toolings in the future could be extended from these beacon components. Do not consider them as noises from the testing library that spill onto your game objects, think of them as a *necessary* components to make a testable game even though at runtime you will not use them, a testable game is a complete game.
+
+`enum` also provides advantage of intellisense popup, and IDE symbol searching that roughly tells you about code coverage, or easily find missing part that needs some tests.
+
+Testing by beacon navigation is also loose enough to my liking, I don't need to look around for everything on every step, just look for defined beacons. If something is not of interest, it should not be defined as a beacon. The test will give confidence and at the same time don't limit creativity freedom that much when you need to change something in the scene. (Since the navigation is likely preserved regardless of your artistic choice made in the game.) 
 
 `GameObject` and uGUI was not quite testable by design. They are fixing this with the new DOTS Entity Component System where component systems are a lot more test-friendly, but for now I think this "hack" is the most reasonable one. 
 
@@ -39,7 +55,7 @@ Beacons works well with 2018.3 new prefab workflow. In the case that you have mu
 
 Navigations are simulated by recreating the same `EventSystem` raycasting routine from `UnityEngine.UI` namespace that is used by real player, referenced from the [`UnityEngine.UI` repository](https://bitbucket.org/Unity-Technologies/ui).
 
-An another feature is that you could write multiple tries per scene without specifying the scene name to load on every test case, thanks to `abstract` subclassing scheme. This make it possible to organize your tests into one class per scene. An explicit `ActivateScene()` call allows you to modify any context that would influence the test in your own `[SetUp]` or `[UnitySetUp]` before it starts.
+An another feature is that you could write multiple tries per scene without specifying the scene name to load on every test case, thanks to `abstract` subclassing scheme. This make it possible to organize your tests into one class per scene. The need for explicit `ActivateScene()` call design allows you to modify any context that would influence the test in your own `[SetUp]` or `[UnitySetUp]` before it starts.
 
 ## Requirements
 
@@ -83,7 +99,7 @@ Reasons for the need of `manifest.json` modification :
 
 ### A scene for testable unit, a prefab for content composition
 
-- A **single** `Scene` is a testable unit. Don't make it a scene if you think you can't test on it individually, instead, use the improved prefabs from 2018.3.
+- A **single** `Scene` is a testable unit. Don't make it a scene if you think you can't test on it individually, instead, use the improved prefabs from 2018.3 to compose your content rather than multiple scenes.
 - All scenes must work by itself under `LoadSceneMode.Single`, avoid `LoadSceneMode.Additive`. You should **not** compose your scene such that it includes multiple additive scenes, even if all that may started from loading a single scene. That scheme may be tempting in the past, but it make your project less testable, and also we now have 2018.3 nested prefabs to facilitate assembling scene from multiple pieces. Do not use an another scene as those pieces. Note that non-additive scene could still be loaded asynchronously, only that when it activates it will clean up previous game objects. (Actually, the backend of improved prefabs is reusing the scene data structure! Every prefabs are scenes now.)
 - You will not ever be setting which scene is an active scene because you always have 1 scene. And `Minefield` assumes the active scene is the one you are testing and cleanly destroy everything in between tests. It is difficult to clean up a scene in-between test fast (and truly cleanly) if there is no guidelines about this.
 - All scenes must be able to pass a test by just loading it without touching anything else and wait for a bit. With this design you are able to make a "lazy man's test" by just try loading each individual scene. Some design that prevents this is a scene which require other scenes to function, which if you followed the guideline such scene doesn't exist.
@@ -93,14 +109,18 @@ Reasons for the need of `manifest.json` modification :
 
 A scene may only change its starting behaviour due to **external** `static` variables.
 
-- It must be possible to hack up this `static` variable before starting the scene to produce every kind of possible outcomes. For example, if your title screen is planned to be playing full intro on starting the game, but skipping intro if you back to it from other menu, you must have only a `bool` in your `static` that determines the outcome should the title plays intro or not. You should not try to figure out what is the previous scene, instead the previous scene will modify this `bool` and title screen doesn't have to be aware.
-- This `static` variable will be on a different `asmdef` that the scene refers to. In effect due to circular dependency restriction, the `static` variable has no knowledge of any scene's `asmdef`. (Other than variable naming which could be the name of scene that will take the variable) The restriction will force you to not use any scene specific data type on this `static` variable and use more primitive fields. You may use scene-agnostic data type such as your struct that represent player's save data.
-- You should not rely on leftover `GameObject` from previous scenes.
+I was once a developer who allergic to `static` and use stunts like `DontDestroyOnLoad` game object to pass values between scenes, or use `ScriptableObject` (and that kinda make a "disk-static" variable anyways), or use singleton pattern which instantiate a non `static` object from `static` entry point. Turns out, what I wanted all along perfectly fits the definition of `static` in the first place. No reason to avoid just because "`static` is evil" as commonly misunderstood. It's also not a cheat, or dirty/unorderly programming. It's a design tool available in C# for use.
+
+- `static` represent a single place source of data. And that's a very powerful trait for predicatable and testable design because all could access the variable equally. What works in the test directly translates to the real thing. But in exchange of residual values problem, which is considered a bug and you have to clean them up properly. Think of it as a native resource, you carefully manage it as opposed to instance variables which you could leave it to garbage collector or stack/code scope to reset them.
+- It must be possible to hack up this `static` variable before starting the scene to produce every kind of possible outcomes. For example, if your title screen is planned to be playing full intro on starting the game, but skipping intro if you back to it from mode select menu, you must have only a `bool` in your `static` that determines the outcome should the title plays intro or not. You should not try to figure out what is the previous scene, also the previous scene should not try to access the destination scene's content. Instead the previous scene will modify this `static` `bool` and title screen doesn't have to be aware who modified it.
+- This `static` variable will be on a different `asmdef` that the scene refers to. In effect due to circular dependency restriction, the `static` variable has no knowledge of any scene's `asmdef`. (Other than variable naming which could be the name of scene that will take the variable) The restriction will force you to not use any scene specific data type on this `static` variable and use more primitive fields. You may use scene-agnostic data type such as your struct that represent player's save data, or various "manager" structs.
+- You should keep your static full of `struct` because it allows you to have a usable default value without initialization. It is annoying to find a place to instantiate `static` variable if you have any `class` type in it, because it feels like there is no proper place. Sometimes you want to use `List` for example and it is unavoidable. In that case you could use `[RuntimeInitializeOnLoad]`, but remember that unit tests will not run through this and you must manually instantiate. (However play mode tests do.) One other solution is wrapping any part of it with `class` and have a `null` check, if `null` then instantiate a new one.
+- There should be no `static` variable configuration that produces error on starting any scene, even default values. Nested `class` type usually produces `null` that your scene code didn't prepared for.
+- You should not rely on leftover `GameObject` passed from the previous scenes.
 - You should not make an inspector exposed public field on some objects in the scene in order to customize its starting behaviour. To customize starting behaviour as you iterate your game, make a `[RuntimeInitializeOnLoad]` script that hack and change the `static` variable before your scene loads. The scene should not be aware of this script, it should just load from whatever in the `static` variable at that time. If you need inspector GUI to do this, make a `ScriptableObject` in `Resources` then load and migrate its value to the `static` variable in your `[RuntimeInitializeOnLoad]`.
 - You should not rely on loading persistent file from disk. That file must be loaded and put into the `static` variable for the scene to read. If this load must be done every time as a saved player data for example, this logic should not be in any of scene's game object `Awake` or `Start` (the so-called "entry point") but instead you must use `[RuntimeInitializeOnLoad]` for the real entry point, so the code become scene-agnostic. You may `if` the scene name with `SceneManager` in this code in order to do it on only certain scene, as a workaround for not being able to use that scene's game objects.
 - All this is for that in testing code we have no GUI. We will be configuring by replacing the `static` variable with desired values and starting the scene over and over. If you design your `static` right, all possible outcomes will be covered.
-- There should be no `static` variable configuration that produces error on starting any scene, even default values. This will help you keep `null` orderly, and take care of default value type.
-- The scene cannot have a logic that hack and change its own `static` variable, the scene can only change other scene's `static` variable in order to navigate to that scene. Some exception includes transition to the same scene, for example changing game's language and you want to refresh the scene.
+- The scene cannot have a logic that hack and change **its own** `static` variable, the scene can only change other scene's `static` variable in order to navigate to that scene. Some exceptions including transition to the same scene, for example changing game's language and you want to refresh the scene.
 - Instead of `static` adjustment before starting the scene, it is also acceptable to vary scene's behaviour by making a [prefab variant](https://docs.unity3d.com/Manual/PrefabVariants.html) with small difference, then put it on a different scene. For example :
     - I have a character select screen which is a bit different depends on if you come here on single player or two players mode. Instead of a `bool isTwoPlayers;` on the `static`, I could make a big prefab for use in two players mode first and name the scene `TwoPlayerCharacterSelect`.
     - Then make a variant of that big prefab that set inactive the right side character selector, then put that variant in a new scene called `SinglePlayerCharacterSelect`. This way, you are still using prefabs to compose your game in a way that it is maintainable. (Changes on either one should reflect to the other)

@@ -9,6 +9,23 @@ namespace E7.Minefield
 {
     public static class Beacon
     {
+        // public sealed class ThrowableWaitUntil : IEnumerator
+        // {
+        //     Func<bool> m_Predicate;
+        //     public ThrowableWaitUntil(Func<bool> predicate) { m_Predicate = predicate; }
+
+        //     public object Current => null;
+
+        //     public bool MoveNext()
+        //     {
+        //         try
+        //         {
+        //         }
+        //     }
+
+        //     public void Reset() {} 
+        // }
+
         /// <summary>
         /// Remember that base condition for all constraints is that the beacon must be found, and to be found the game object must be active.
         /// 
@@ -19,8 +36,31 @@ namespace E7.Minefield
         public static IEnumerator WaitUntil<T>(T beacon, BeaconConstraint bc)
             where T : Enum
         {
+            // Debug.Log($"Wait until {Time.frameCount} {bc}");
             yield return new WaitUntil(() => bc.ApplyToBeacon(beacon).IsSuccess);
+            //Debug.Log($"Wait until {Time.frameCount} {bc} {bc.ApplyToBeacon(beacon).IsSuccess}");
+            // while (true)
+            // {
+            //     // try
+            //     // {
+            //         if (bc.ApplyToBeacon(beacon).IsSuccess)
+            //         {
+            //             break;
+            //         }
+            //     // }
+            //     // catch
+            //     // {
+            //         //Debug.Log($"Caught sometihing");
+            //     //     throw;
+            //     // }
+            //     yield return null;
+            // }
+            // Debug.Log($"Wait ok {Time.frameCount}");
         }
+
+        public static bool Check<T>(T beacon, BeaconConstraint bc)
+            where T : Enum
+            => bc.ApplyToBeacon(beacon).IsSuccess;
 
         /// <summary>
         /// Like <see cref="WaitUntil{T}(T, BeaconConstraint)"> but additionally include <see cref="Click{T}(T)"> in one yield.
@@ -51,7 +91,10 @@ namespace E7.Minefield
         }
 
         /// <summary>
-        /// Same as <see cref="FindActive{BEACONTYPE}(BEACONTYPE, out ITestBeacon)"> but use return value instead of `out` and error when no active beacon found.
+        /// Same as <see cref="FindActive{BEACONTYPE}(BEACONTYPE, out ITestBeacon)"> but use return value instead of `out` and error when no active beacon found, 
+        /// then immediately get component of the game object with that beacon in one command.
+        /// 
+        /// Useful for asserting any component, for example : `Assert.That(Beacon.GetComponent<TMP_Text>(beacon).text, Does.Contain("Hello"))`
         /// 
         /// Also the returned class is not the interface <see cref="ITestBeacon"> but <see cref="TestBeacon">, which provides some generic methods benefit
         /// unavailable on interfaces.
@@ -108,8 +151,13 @@ namespace E7.Minefield
         }
 
         /// <summary>
-        /// Raycast click on a beacon.
+        /// Simulate a click on a beacon.
         /// The beacon label must be on <see cref="NavigationBeacon{T}"> in the scene.
+        /// 
+        /// Definition of a click is pointer down this frame then up at the same coordinate the next frame. So you need a coroutine on this.
+        /// 
+        /// It is still possible to produce impossible action, such as clicking 2 times on the same button. Even with coroutine, the up of the first click will be at
+        /// the same frame as down of the next one. This is not physically possible. So if you need to double click, wait a frame manually.
         /// </summary>
         public static IEnumerator Click<T>(T label) where T : Enum
         {
