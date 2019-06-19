@@ -10,7 +10,7 @@ It is designed so that you won't have to press play mode button ever again while
 
 Long time ago I have a team of 4 members. Due to bad management often the work pile up on me when others are left idle with nothing to do. Every time I add any new feature, there is fear of regression which could popup somewhere in the game. The solution back then is I would ask Ben, my teammate : "We will ship this soon, you are currently free so could you **go to all scenes and push all buttons** in the game?" This "make sure everything works by mindlessly navigating around" test happen every release. And I believe almost all kind of games need this assurance, regardless of genre or the game's content.
 
-Fast forward to now, others all quit and got far more stable day job. No amount of money I could offer to them that's worth their time anymore compared to what they could earn. I need an automated testing library that could make *that kind of test* as fast as possible to survive alone. It may not be able to query and check for everything in Unity, and it may not able to do mocks, stubs, doubles, fakes, etc. But it has to be the fastest to code up a navigation test.
+Fast forward to now, others all quit and got far more stable day job. No amount of money I could offer to them that's worth their time anymore compared to what they could earn. I need an automated testing library that could make *that kind of test* as fast as possible to survive alone. It may not be able to query and check for everything in Unity, and it may not able to do mocks, stubs, doubles, fakes, etc. But it has to be the fastest to code up a mindless navigation test.
 
 The original requirements "go to all scenes and push all buttons" are satisfied by 2 main design of `Minefield` : an ability to use a single scene as a unit of test, and an ability to navigate when able to or otherwise wait for it.
 
@@ -198,11 +198,13 @@ After starting the scene you will want to check up on something or navigate insi
 
 This is a way to use `enum` to refer to `GameObject` in your scene, by "attaching the `enum`" to it. Attaching an `enum` is possible by a `MonoBehaviour` carrying that `enum`.
 
-It make writing a test more fun because `enum` could be auto completed and self described, rather than having to use something like `GameObject.Find` which rely on object's `string` name that may be refactored without the test updating along. `enum` could be mass-refactored by most code editor.
+It make writing a test more fun because `enum` could be auto completed and self described, rather than having to use something like `GameObject.Find` which rely on object's `string` name that may be refactored without the test updating along. `enum` could be mass-refactored by most code editors.
 
-It will also provide various test tools based on using these `enum`.
+### Label declaration
 
-To use beacons, first you will declare some `enum` that represents all possible actions in the scene. This is called a beacon's **label**. This is like Flux or Redux's action string if you came from front end dev, however they could also represent any test checking point and doesn't have to be strictly "action". Other than they will help us test, it is an overview of what's possible, and a checklist if you are missing any tests or not.
+To use beacons, first you will declare some `enum` that represents all possible actions in the scene. This is called a beacon's **label**. This is like Flux or Redux's action string if you do front end dev, however they could also represent any test checking point and doesn't have to be strictly "action". Other than they will help us test, it is an overview of what's possible, and a checklist if you are missing any tests or not.
+
+You can nest the definition in one of your class so you could reuse name. For example I would like to always name it `Navigation` but there are different `Navigation` on the other scenes.
 
 ```csharp
 public class ModeSelectScreen : MonoBehaviour
@@ -226,7 +228,9 @@ public class ModeSelectScreen : MonoBehaviour
     ...
 ```
 
-(Do not put a new entry inbetween the old ones, Unity serialize by `int` value and it will make old serialized value wrong. Or you could use an explicit integer.)
+(Do not put a new entry inbetween the old ones afterwards, Unity serialize by `int` value and it will make old serialized value wrong. You could use an explicit integer to pin the value.)
+
+### Subclass an attachable component of that kind of label
 
 Next, declare a new class with that `enum` as a generic of either `NavigationBeacon<>` if it is intended to be clicked on by uGUI event system, or `TestBeacon<>` for any `GameObject`. You should gain a serializable `enum` field of your type which shows up in editor. Remember to put them in a separated file as per Unity's attachable script rule, so they each get their own `meta` and GUID.
 
@@ -240,13 +244,21 @@ using E7.Minefield;
 public class ModeSelectNavigationBeacon : NavigationBeacon<ModeSelectScreen.Navigation> { }
 ```
 
-You are now ready to attach these new component class to `GameObject` in the scene. If it is a `NavigationBeacon<>`, the point of attach should be the raycast receiving elements, which depends if you got a `Button`, `EventTrigger`, or something else. The test tools can help you click on these objects. If `TestBeacon<>`, then it could be any `GameObject`.
+You are now ready to attach these new component classes to any `GameObject` in the scene. If it is a `NavigationBeacon<>`, the point of attach should be the raycast receiving elements, which depends if you got a `Button`, `EventTrigger`, or something else. The test tools can help you click on these objects. If `TestBeacon<>`, then it could be any `GameObject`.
+
+### Script icon tools
+
+![Script icon](.Documentation/images/ScriptIcon.png)
+
+By selecting `Assets > Minefield > Auto-assign all script icons`, all your subclasses of `NavigationBeacon<>` or `TestBeacon<>` will get an icon so they became more obvious in the Inspector.
+
+### Other beacon management tricks
 
 As a bonus you could try typing `TestBeacon` or `NavigationBeacon` in the Scene view search box to return all beacons added so far. This is possible because each generic class you subclassed from is a subclass of non-generic version. The only purpose of this is for this use case because the search box couldn't list a generic class derived class even if the derived class has no generic type param, and it also could not search interfaces.
 
-Make sure you don't have to dig up any other objects that doesn't have a beacon. It is the best if your test contains only beacon queries.
-
 ## Navigation with beacons
+
+We have finished our business with the scene and now ready to write some tests. Make sure that in the test, you don't have to dig up any other objects that doesn't have a beacon. It is the best if your test contains only beacon queries.
 
 Navigation is available from `static` class entry point `Beacon.___`, which all of them require an `enum` as its argument, this `enum` must be on a beacon of type `NavigationBeacon<>`. Then you follow with NUnit 3 style constraint started from `Is.___`.
 
@@ -295,11 +307,50 @@ There are also various utilities that are not related to beacons available in `U
 
 ## Assertion
 
-Sometimes you don't want to just navigate around and call it a day. `Assert.Beacon` is the entry point to assert a beacon. The `Is.___`  is emulating NUnit 3's constraint model style, however it is not an entirely a complete extension. (So you can't really combine with every NUnit's expression, like `Is.Not.Active` for example.)
+Sometimes you don't want to just navigate around and call it a day. `Assert.Beacon` is the entry point to assert a beacon. The `Is.___`  is emulating NUnit 3's constraint model style, however it is not an entirely a complete extension. (So you can't really combine with every NUnit's expression, like `Is.Not.Active` for example.) This is called Minefield-only constraints.
 
 ```csharp
 Assert.Beacon(beacon, Is.Active);
 Assert.Beacon(beacon, Is.Inactive);
+```
+
+### Stuff you could do
+
+For use with `yield return` while in a test :
+
+```csharp
+Beacon.WaitUntil(____, Is.____);
+
+// Fail the test immediately if the beacon to click is not found or inactive.
+Beacon.Click(____);
+
+// Continue to wait for a click. The test could still fail with timeout if it is not able to click for a long time.
+Beacon.ClickWhen(____, Is.____);
+```
+
+Assert with Minefield-only constraints : 
+
+```csharp
+// Instead of asserting and fail immediately, just return a bool.
+// Useful in creating a `break` case in a `while` loop, etc.
+Beacon.Check(____, Is.____);
+
+// A shortcut for `Assert.That(Beacon.Check(____, Is.____))`
+Assert.Beacon(____, Is.____);
+```
+
+Assert with regular NUnit `Assert.That` and NUnit constraints :
+
+```csharp
+// Get the `GameObject` with the beacon to do anything you want.
+Beacon.Get(____);
+
+// Same as doing the Get above then `.GetComponent` on the returned game object, in a single command.
+Beacon.GetComponent<T>(____);
+
+// For example it is common that you may want to check up some text content currently displaying.
+// By having a beacon on game object with TextMeshPro, you could : 
+// Assert.That(Beacon.GetComponent<TMP_Text>(____).text, Does.Contain(____));
 ```
 
 ## Reporters
@@ -376,7 +427,7 @@ public IEnumerator ScoreCounter()
 
 The `T` has been constrained as `Enum`, and you must provide `T Status` of that type. This is because a limited choice of `enum` is often used as a summarized, current overall state of something. In the assertion, this one is a bit special because you could use either `Is.Currently(___)` or `Is.Reporting.Status(___)`. Wording is a bit different and could fit on different scenario.
 
-(For example if your character could be `Pink` or `Green` you would use `Is.Currently(___)`, but if you are asserting an icon of internet connection status you may want to use `Is.Reporting.Status(___)`.)
+(For example if your character could be `Pink` or `Green` you would use `Is.Currently(___)`, but if you are asserting an icon of internet connection status you may want to use `Is.Reporting.Status(___)` for grammar's sake.)
 
 ### `IMinefieldObjectReporter<T>`
 
