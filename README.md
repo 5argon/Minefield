@@ -326,6 +326,10 @@ Beacon.Click(____);
 
 // Continue to wait for a click. The test could still fail with timeout if it is not able to click for a long time.
 Beacon.ClickWhen(____, Is.____);
+
+// This is useful to create a "dumb AI" where normally complex actions are required to get through the scene, 
+// but a simple spam without considering any timing could also do so in a less ideal way.
+Beacon.SpamUntil(____, Is.____, spamAction);
 ```
 
 Assert with Minefield-only constraints : 

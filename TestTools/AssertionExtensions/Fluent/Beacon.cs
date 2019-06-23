@@ -58,6 +58,38 @@ namespace E7.Minefield
             // Debug.Log($"Wait ok {Time.frameCount}");
         }
 
+        /// <summary>
+        /// Until the constraint returns true, repeat the action.
+        /// 
+        /// The action could spans multiple frames because it works like a coroutine function.
+        /// The constraint check occur again when the <paramref name="spamAction"> has completed all of its frames.
+        /// 
+        /// This is useful to create a "dumb AI" where normally complex actions are required to get through the scene, 
+        /// but a simple spam without considering any timing could also do so in a less ideal way.
+        /// 
+        /// For example, testing a Mario stage with an objective if you could respawn after death or not, 
+        /// could be simplified to holding right and jump repeatedly.
+        /// You are bound to die sooner or later that way. Then you could use this test regardless of stages.
+        /// </summary>
+        public static IEnumerator SpamUntil<T>(T beacon, BeaconConstraint bc, Func<IEnumerator> spamAction)
+            where T : Enum
+        {
+            while (Beacon.Check(beacon, bc) == false)
+            {
+                if (spamAction != null)
+                {
+                    yield return spamAction();
+                }
+                else
+                {
+                    yield return null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Just check if the constraint passed or not, without affecting failing/passing of the test.
+        /// </summary>
         public static bool Check<T>(T beacon, BeaconConstraint bc)
             where T : Enum
             => bc.ApplyToBeacon(beacon).IsSuccess;
