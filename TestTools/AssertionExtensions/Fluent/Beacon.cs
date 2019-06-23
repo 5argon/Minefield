@@ -64,6 +64,22 @@ namespace E7.Minefield
 
         /// <summary>
         /// Like <see cref="WaitUntil{T}(T, BeaconConstraint)"> but additionally include <see cref="Click{T}(T)"> in one yield.
+        /// 
+        /// Some note about the "click", it is a frame of clicking down, wait a frame, then a frame of up.
+        /// 
+        /// The gotcha of this "up" is that if you have an another click following, the next "down"
+        /// will occur on the same frame as previous up. In some situation like you do clicking on the same button
+        /// but expect the first click to disable the button and wait for the later one, you may ended up double clicking the button in the same frame if that
+        /// disable didn't occur immediately.
+        /// 
+        /// (For example the disable is planned to be an effect from `TimelineAsset` that plays as a result of a button press,
+        /// which need one more frame to take effect.)
+        /// 
+        /// This is **your bug** however, as it is possible in real play by having a player use the 2nd finger to touch
+        /// on the same frame that the first finger lifted off, and that means Minefield is doing a good job catching this bug. You better ensure the disable
+        /// comes immediately so <see cref="ClickWhen{T}(T, BeaconConstraint)"> is usable consecutively without `yield return null` in between to "cheat" it.
+        /// (For example on `TimelineAsset` case, instead of just `Play()` it as a result of button press, also `Evaluate()` it so the disable take effect
+        /// without waiting one more frame.
         /// </summary>
         public static IEnumerator ClickWhen<T>(T beacon, BeaconConstraint bc)
             where T : Enum
@@ -73,7 +89,7 @@ namespace E7.Minefield
         }
 
         /// <summary>
-        /// Same as <see cref="FindActive{BEACONTYPE}(BEACONTYPE, out ITestBeacon)"> but use return value instead of `out` and error when no active beacon found.
+        /// Same as <see cref="FindActive{BEACONTYPE}(BEACONTYPE, out ITestBeacon)"> but use return value instead of `out`, and throw immediately when no active beacon found.
         /// 
         /// Also the returned class is not the interface <see cref="ITestBeacon"> but <see cref="TestBeacon">, which provides some generic methods benefit
         /// unavailable on interfaces.
@@ -156,8 +172,19 @@ namespace E7.Minefield
         /// 
         /// Definition of a click is pointer down this frame then up at the same coordinate the next frame. So you need a coroutine on this.
         /// 
-        /// It is still possible to produce impossible action, such as clicking 2 times on the same button. Even with coroutine, the up of the first click will be at
-        /// the same frame as down of the next one. This is not physically possible. So if you need to double click, wait a frame manually.
+        /// The gotcha of this "up" is that if you have an another click following, the next "down"
+        /// will occur on the same frame as previous up. In some situation like you do clicking on the same button
+        /// but expect the first click to disable the button and wait for the later one, you may ended up double clicking the button in the same frame if that
+        /// disable didn't occur immediately.
+        /// 
+        /// (For example the disable is planned to be an effect from `TimelineAsset` that plays as a result of a button press,
+        /// which need one more frame to take effect.)
+        /// 
+        /// This is **your bug** however, as it is possible in real play by having a player use the 2nd finger to touch
+        /// on the same frame that the first finger lifted off, and that means Minefield is doing a good job catching this bug. You better ensure the disable
+        /// comes immediately so <see cref="ClickWhen{T}(T, BeaconConstraint)"> is usable consecutively without `yield return null` in between to "cheat" it.
+        /// (For example on `TimelineAsset` case, instead of just `Play()` it as a result of button press, also `Evaluate()` it so the disable take effect
+        /// without waiting one more frame.
         /// </summary>
         public static IEnumerator Click<T>(T label) where T : Enum
         {

@@ -368,6 +368,22 @@ namespace E7.Minefield
         public static IEnumerator RaycastClick(RectTransform rect, Vector2 relativePositionInRect) => RaycastClick(RelativePositionOfRectTransform(rect, relativePositionInRect));
 
         /// <summary>
+        /// Divide the screen into 2 equal rectangle vertically, touch the center of the **lower** ones.
+        /// </summary>
+        public static IEnumerator TouchLowerHalf()
+        {
+            yield return Utility.RaycastClick(new Vector2(Screen.width / 2f, Screen.height / 4f));
+        }
+
+        /// <summary>
+        /// Divide the screen into 2 equal rectangle vertically, touch the center of the **upper** ones.
+        /// </summary>
+        public static IEnumerator TouchUpperHalf()
+        {
+            yield return Utility.RaycastClick(new Vector2(Screen.width / 2f, Screen.height * 3f / 4f));
+        }
+
+        /// <summary>
         /// Simulate a click. Definition of a click is pointer down this frame then up at the same coordinate the next frame. So you need a coroutine on this.
         /// 
         /// It is still possible to produce impossible action, such as clicking 2 times on the same button. Even with coroutine, the up of the first click will be at
@@ -403,6 +419,9 @@ namespace E7.Minefield
                 }
             }
         }
+
+        private static Vector2 previousClickPosition;
+        private static int previousClickFrame;
 
         public static bool IsSceneLoaded(string sceneName)
         {
