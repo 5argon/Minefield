@@ -14,6 +14,9 @@ namespace E7.Minefield
 
     public interface INavigationBeacon : ITestBeacon
     {
-        RectTransform RectTransform { get; }
+        /// <summary>
+        /// When simulating a click on this beacon, it will click on this point.
+        /// </summary>
+        Vector2 ScreenClickPoint { get; }
     }
 }

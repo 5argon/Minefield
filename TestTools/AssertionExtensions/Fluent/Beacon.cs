@@ -59,7 +59,7 @@ namespace E7.Minefield
         }
 
         /// <summary>
-        /// Until the constraint returns true, repeat the action.
+        /// Until the constraint returns `true`, repeat the action.
         /// 
         /// The action could spans multiple frames because it works like a coroutine function.
         /// The constraint check occur again when the <paramref name="spamAction"> has completed all of its frames.
@@ -73,8 +73,28 @@ namespace E7.Minefield
         /// </summary>
         public static IEnumerator SpamUntil<T>(T beacon, BeaconConstraint bc, Func<IEnumerator> spamAction)
             where T : Enum
+            => SpamInternal(beacon, bc, spamAction, lookFor: false);
+
+        /// <summary>
+        /// Until the constraint returns `false`, repeat the action.
+        /// 
+        /// The action could spans multiple frames because it works like a coroutine function.
+        /// The constraint check occur again when the <paramref name="spamAction"> has completed all of its frames.
+        /// 
+        /// This is useful to create a "dumb AI" where normally complex actions are required to get through the scene, 
+        /// but a simple spam without considering any timing could also do so in a less ideal way.
+        /// 
+        /// For example, testing a Mario stage with an objective if you could respawn after death or not, 
+        /// could be simplified to holding right and jump repeatedly.
+        /// You are bound to die sooner or later that way. Then you could use this test regardless of stages.
+        /// </summary>
+        public static IEnumerator SpamWhile<T>(T beacon, BeaconConstraint bc, Func<IEnumerator> spamAction)
+            where T : Enum
+            => SpamInternal(beacon, bc, spamAction, lookFor: true);
+
+        private static IEnumerator SpamInternal<T>(T beacon, BeaconConstraint bc, Func<IEnumerator> spamAction, bool lookFor) where T : Enum
         {
-            while (Beacon.Check(beacon, bc) == false)
+            while (Beacon.Check(beacon, bc) == lookFor)
             {
                 if (spamAction != null)
                 {
@@ -218,16 +238,19 @@ namespace E7.Minefield
         /// (For example on `TimelineAsset` case, instead of just `Play()` it as a result of button press, also `Evaluate()` it so the disable take effect
         /// without waiting one more frame.
         /// </summary>
-        public static IEnumerator Click<T>(T label) where T : Enum
+        public static IEnumerator Click<T>(T label, bool ignoreError = false) where T : Enum
         {
             if (FindActive(label, out ITestBeacon b) && b is INavigationBeacon nb)
             {
                 //Debug.Log($"Type matches {nb.Label.GetType()} {label}");
-                yield return Utility.RaycastClick(nb.RectTransform);
+                yield return Utility.RaycastClick(nb.ScreenClickPoint);
             }
             else
             {
-                throw new Exception($"Label {label} not found on any navigation beacon in the scene.");
+                if (!ignoreError)
+                {
+                    throw new Exception($"Label {label} not found on any navigation beacon in the scene.");
+                }
             }
         }
     }

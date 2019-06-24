@@ -18,20 +18,30 @@ namespace E7.Minefield
     }
 
     /// <summary>
-    /// Non interface base class allows search box compatibility.
+    /// Non-interface base class allows search box compatibility.
     /// </summary>
     public abstract class NavigationBeacon : TestBeacon, ITestBeacon, INavigationBeacon
     {
-        public RectTransform RectTransform
+        public Vector2 ScreenClickPoint
         {
             get
             {
-                var r = GetComponent<RectTransform>();
-                if (r == null)
+                var rectTransform = GetComponent<RectTransform>();
+                var collider2d = GetComponent<Collider2D>();
+                var collider = GetComponent<Collider>();
+                if (rectTransform != null)
                 {
-                    throw new Exception($"Navigation beacon {Label} is on an object {name} without {nameof(RectTransform)}.");
+                    return Utility.ScreenCenterOfRectTransform(rectTransform);
                 }
-                return r;
+                if (collider2d != null)
+                {
+                    return Camera.main.WorldToScreenPoint(collider2d.bounds.center);
+                }
+                if (collider != null)
+                {
+                    return Camera.main.WorldToScreenPoint(collider.bounds.center);
+                }
+                throw new Exception($"Navigation beacon {Label} is on an object {name} without {nameof(RectTransform)}, {nameof(Collider)}, or {nameof(Collider2D)}. We need something to click on.");
             }
         }
     }

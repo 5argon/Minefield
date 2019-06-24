@@ -18,8 +18,7 @@ namespace E7.Minefield
                 bool handleUp = ExecuteEvents.CanHandleEvent<IPointerUpHandler>(found.GameObject);
                 bool handleClick = ExecuteEvents.CanHandleEvent<IPointerClickHandler>(found.GameObject);
 
-                var rt = inb.RectTransform;
-                GameObject firstHit = Utility.RaycastFirst(rt);
+                GameObject firstHit = Utility.RaycastFirst(inb.ScreenClickPoint);
                 var hittable = ReferenceEquals(firstHit, found.GameObject);
 
                 var selectable = found.GameObject.GetComponent<Selectable>();

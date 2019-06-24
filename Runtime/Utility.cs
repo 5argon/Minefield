@@ -267,12 +267,12 @@ namespace E7.Minefield
             }
         }
 
-        public static Vector2 CenterOfRectNamed(string gameObjectName)
+        public static Vector2 ScreenCenterOfRectNamed(string gameObjectName)
         {
             GameObject go = GameObject.Find(gameObjectName);
             if (go != null)
             {
-                return CenterOfRectTransform(go.GetComponent<RectTransform>());
+                return ScreenCenterOfRectTransform(go.GetComponent<RectTransform>());
             }
             else
             {
@@ -281,21 +281,15 @@ namespace E7.Minefield
             }
         }
 
-        public static Vector2 CenterOfRectTransform(RectTransform rect) => RelativePositionOfRectTransform(rect, new Vector2(0.5f, 0.5f));
-        // {
-        //     Vector3[] corners = new Vector3[4];
-        //     rect.GetWorldCorners(corners);
-        //     return Vector3.Lerp(Vector3.Lerp(corners[0], corners[1], 0.5f), Vector3.Lerp(corners[2], corners[3], 0.5f), 0.5f);
-        // }
+        public static Vector2 ScreenCenterOfRectTransform(RectTransform rect) => ScreenPositionFromRelativeOfRectTransform(rect, new Vector2(0.5f, 0.5f));
 
-        public static Vector2 RelativePositionOfRectTransform(RectTransform rect, Vector2 relativePosition)
+        /// <summary>
+        /// Turns relative position inside a rect transform into an absolute screen position.
+        /// </summary>
+        public static Vector2 ScreenPositionFromRelativeOfRectTransform(RectTransform rect, Vector2 relativePosition)
         {
             Vector3[] corners = new Vector3[4];
             rect.GetWorldCorners(corners);
-            // foreach(Vector3 c in corners)
-            // {
-            //     Debug.Log(c);
-            // }
             return new Vector2(Vector3.Lerp(corners[1], corners[2], relativePosition.x).x, Vector3.Lerp(corners[0], corners[1], relativePosition.y).y);
         }
 
@@ -316,7 +310,7 @@ namespace E7.Minefield
         /// <summary>
         /// Performs a raycast test and returns the first object that receives the ray.
         /// </summary>
-        public static GameObject RaycastFirst(RectTransform rect) => RaycastFirst(CenterOfRectTransform(rect));
+        public static GameObject RaycastFirst(RectTransform rect) => RaycastFirst(ScreenCenterOfRectTransform(rect));
 
         /// <summary>
         /// Performs a raycast test and returns the first object that receives the ray.
@@ -359,13 +353,18 @@ namespace E7.Minefield
         /// Clicks on the center of provided RectTransform.
         /// Use coroutine on this because there is a frame in-between pointer down and up.
         /// </summary>
-        public static IEnumerator RaycastClick(RectTransform rect) => RaycastClick(CenterOfRectTransform(rect));
+        public static IEnumerator RaycastClick(RectTransform rect) => RaycastClick(ScreenCenterOfRectTransform(rect));
+
+        /// <summary>
+        /// Clicks on the center of provided bounds, looking from the main camera.
+        /// </summary>
+        public static IEnumerator RaycastClick(Bounds b) => RaycastClick(Camera.main.WorldToScreenPoint(b.center));
 
         /// <summary>
         /// Clicks on a relative position in the rect.
         /// Use coroutine on this because there is a frame in-between pointer down and up.
         /// </summary>
-        public static IEnumerator RaycastClick(RectTransform rect, Vector2 relativePositionInRect) => RaycastClick(RelativePositionOfRectTransform(rect, relativePositionInRect));
+        public static IEnumerator RaycastClick(RectTransform rect, Vector2 relativePositionInRect) => RaycastClick(ScreenPositionFromRelativeOfRectTransform(rect, relativePositionInRect));
 
         /// <summary>
         /// Divide the screen into 2 equal rectangle vertically, touch the center of the **lower** ones.

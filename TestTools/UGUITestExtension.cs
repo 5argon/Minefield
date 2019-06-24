@@ -108,7 +108,7 @@ namespace E7.Minefield
             return false; //It's visible
         }
 
-        private static Vector2 Center(this Graphic graphic) => Utility.CenterOfRectTransform(graphic.rectTransform);
+        private static Vector2 Center(this Graphic graphic) => Utility.ScreenCenterOfRectTransform(graphic.rectTransform);
         public static void ClickAtCenter(this Graphic graphic) => Utility.RaycastClick(graphic.Center());
     }
 }
