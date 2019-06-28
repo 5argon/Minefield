@@ -104,6 +104,18 @@ namespace E7.Minefield
 
         internal const string tempListenerName = "Minefield audio listener";
 
+        [SetUp]
+        public void SceneTestSetUp()
+        {
+            Utility.MinefieldTesting = true;
+        }
+
+        [TearDown]
+        public void SceneTestTearDown()
+        {
+            Utility.MinefieldTesting = false;
+        }
+
         [UnitySetUp]
         public IEnumerator PreloadScene()
         {

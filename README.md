@@ -4,11 +4,13 @@
 
 `Minefield` is a library (still in-development) to help you program a concise **navigation** play mode test in Unity, plus a guideline to design the game so that it is testable by this library.
 
-It is designed so that you won't have to press play mode button ever again while developing navigation features in the scene. Instead have the Unity Test Runner use `Minefield` to start the scene. If you could make this into a habit, you already have all the tests by the time you finished making the scene. `Minefield` make it easier to stick to this rather than "give in" to the play button because it take less time to write the test. Most of the time you give up writing tests because it takes too much time and disrupt your scene creation flow.
+It is designed so that you won't have to press play mode button ever again while developing navigation features in the scene. Instead have the Unity Test Runner use `Minefield` to start the scene. If you could make this into a habit, you already have all the tests by the time you finished making the scene. `Minefield` make it easier to stick to this rather than "give in" to the play button because it take less time to write the test, to the point that you could do it while working on the scene which your brain are likely in *creative mode*. Most of the time you give up writing tests because it takes too much time to *sidetrack* and disrupt your scene creation flow.
+
+Because you are still writing pure Unity tests, of course you could use it together with something like [Performance Testing](https://docs.unity3d.com/Packages/com.unity.test-framework.performance@0.1/manual/index.html) package to create a performance test of scenes while navigating around.
 
 ## Motivation and emphasis on navigations
 
-Long time ago I have a team of 4 members. Due to bad management often the work pile up on me when others are left idle with nothing to do. Every time I add any new feature, there is fear of regression which could popup somewhere in the game. The solution back then is I would ask Ben, my teammate : "We will ship this soon, you are currently free so could you **go to all scenes and push all buttons** in the game?" This "make sure everything works by mindlessly navigating around" test happen every release. And I believe almost all kind of games need this assurance, regardless of genre or the game's content.
+Long time ago I have a team of 4 members. Due to bad management often the work pile up on me when others are left idle with nothing to do. Every time I add any new feature, there is fear of regression which could popup somewhere in the game. The solution back then is I would ask Ben, my teammate : "We will ship this soon, you are currently free so could you **go to all scenes and push all buttons** in the game?" This "make sure everything works by mindlessly navigating around" test happen every release. And I believe almost all kind of games need this assurance, regardless of genre or the game's content. More specific tests like checking correctness of game variables or presentation comes later. (Which Minefield could also help to some degree, but not its the main design.)
 
 Fast forward to now, others all quit and got far more stable day job. No amount of money I could offer to them that's worth their time anymore compared to what they could earn. I need an automated testing library that could make *that kind of test* as fast as possible to survive alone. It may not be able to query and check for everything in Unity, and it may not able to do mocks, stubs, doubles, fakes, etc. But it has to be the fastest to code up a mindless navigation test.
 
@@ -88,7 +90,7 @@ Then,
 
 Reasons for the need of `manifest.json` modification :
 
-### Testing assembly shenanigans
+### Testing assembly problems
 
 - Reference from `asmdef` to `UnityEngine.TestTools` and `NUnit.Framework` is strictly for `asmdef` that is checked as "Test Assembly".
 - Of course `Minefield` as a test tools extension need those to call `Assert` and such for you. So `E7.Minefield.TestTools` has "Test Assembly" on.
@@ -99,7 +101,7 @@ Reasons for the need of `manifest.json` modification :
 
 ### A scene for testable unit, a prefab for content composition
 
-- A **single** `Scene` is a testable unit. Don't make it a scene if you think you can't test on it individually, instead, use the improved prefabs from 2018.3 to compose your content rather than multiple scenes.
+- A **single** `Scene` is a testable unit. Don't make it a scene if you think you can't test on it individually, instead, use the improved prefabs from 2018.3 to compose your content rather than multiple scenes. If your game is composed of multiple scenes and you always work on multiple scenes in edit mode for example, it is likely going against this library. Either refactor to comply or see [other Unity testing library alternatives](https://forum.unity.com/threads/what-options-do-i-have-for-automation-and-unit-testing-in-unity.682720/).
 - All scenes must work by itself under `LoadSceneMode.Single`, avoid `LoadSceneMode.Additive`. You should **not** compose your scene such that it includes multiple additive scenes, even if all that may started from loading a single scene. That scheme may be tempting in the past, but it make your project less testable, and also we now have 2018.3 nested prefabs to facilitate assembling scene from multiple pieces. Do not use an another scene as those pieces. Note that non-additive scene could still be loaded asynchronously, only that when it activates it will clean up previous game objects. (Actually, the backend of improved prefabs is reusing the scene data structure! Every prefabs are scenes now.)
 - You will not ever be setting which scene is an active scene because you always have 1 scene. And `Minefield` assumes the active scene is the one you are testing and cleanly destroy everything in between tests. It is difficult to clean up a scene in-between test fast (and truly cleanly) if there is no guidelines about this.
 - All scenes must be able to pass a test by just loading it without touching anything else and wait for a bit. With this design you are able to make a "lazy man's test" by just try loading each individual scene. Some design that prevents this is a scene which require other scenes to function, which if you followed the guideline such scene doesn't exist.
@@ -330,6 +332,7 @@ Beacon.ClickWhen(____, Is.____);
 // This is useful to create a "dumb AI" where normally complex actions are required to get through the scene, 
 // but a simple spam without considering any timing could also do so in a less ideal way.
 Beacon.SpamUntil(____, Is.____, spamAction);
+Beacon.SpamWhile(____, Is.____, spamAction);
 ```
 
 Assert with Minefield-only constraints : 
@@ -436,3 +439,19 @@ The `T` has been constrained as `Enum`, and you must provide `T Status` of that 
 ### `IMinefieldObjectReporter<T>`
 
 Pretty much could report anything but make sure no other choice exist before falling back to this, since you will need to assert with `Is.Reporting.Object(___)` which may not be aesthetically pleasing to read if that thing doesn't feel like an "object" in programming sense. (e.g. `int` which you could instead use `IMinefieldAmountReporter`.) The equality test is by `object.Equals`.
+
+## Minefield as Play Button replacement
+
+You could turn your Test Runner tab into a play button! Test cases are now your active development/design iteration tools and no more just to prevent regressions. This has several advantages :
+
+- No need to dig your huge Project tab and go to the correct scene before you could try something, because `SceneTest` itself knows how to start the scene just from the test case.
+- You could start with any desired data state, since Minefield allows you to do anything before explicitly doing `ActivateScene()`, while in normal play mode button press you get no chance to do custom things at all before your `Awake` and that maybe already too late or requiring extra hacks to alter script execution order. Well, `[RuntimeInitializeOnLoad(RuntimeInitializeLoadType.BeforeSceneLoad)]` exists, but not ideal since it applies permanently to the whole project and to all play mode tests.
+    - An example of problem is when you made a Facebook page liking system which then unlocks something in the game permanently after coming back. (Saved in serialized binary or `PlayerPrefs`.) It is a hassle if you just press play mode button since you could do it only once according to your game logic.
+    - You then need to reset your save every time to test it again, when you add something more to it. (For example, new visual effects after coming back from Facebook for the first time.)
+    - You could write a save reset in `[RuntimeInitializeOnLoad]`, but in other situations you will want your save file to be at some intermediate state to test out and now your reset code is not desirable. Setup per test case is the true solution, plus you got a test to run later to check for regression. Nothing to lose other than you have to break the habit of pressing that play button.
+- Minefield navigation methods could lend you a hand to go to the place you want before handing the control to you.
+    - An example situation, you are making backpack inventory screen system. But by how it was wired up with the game it is hard to instantly start at this backpack screen with everything functional. (That is, it is hard to test separately since it is not a scene but perhaps a prefab) To test it meaningfully you have to start the game normally, press button to open menu, and select "backpack" choice before you even get to test how things you are making works. (Scrolling properly? Displaying properly?) You will encounter some bugs, and it will get progressively tiring to navigate to the backpack.
+
+To do this Minefield provide you 2 things : `[NoTimeout]` to put on the test method, and `yield return Utility.WaitForever();` for you to put after activating the scene. Now the test case behave like a supercharged play mode button!
+
+If you make these cases as purely development tools and not intended them to become a real test cases later, it maybe helpful to categorize them so category drop down will help you get to these cases easier.

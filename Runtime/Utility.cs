@@ -6,11 +6,31 @@ using UnityEngine.EventSystems;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using NUnit.Framework;
 
 namespace E7.Minefield
 {
+    /// <summary>
+    /// Used together with <see cref="Utility.WaitForever"> to make a test that works like supercharged play mode button with custom setup.
+    /// 
+    /// When you just start writing a test to be an alternative to Play Mode button, when the condition wasn't fleshed out well yet
+    /// you may want unlimited time to play around.
+    /// </summary>
+    public class NoTimeoutAttribute : TimeoutAttribute
+    {
+        public NoTimeoutAttribute() : base(int.MaxValue) { }
+    }
+
     public static class Utility
     {
+        /// <summary>
+        /// A boolean indicating automated testing. It is useful to cheat your code if you can't find a way to make the test play nice with it.
+        /// 
+        /// For example, a test that clicks a button that opens up a Facebook page. It switch to the other app, and the test don't know
+        /// how to switch back. You can simply check in the code if it is a test, then don't open the browser. Use it sparingly!
+        /// </summary>
+        public static bool MinefieldTesting { get; set; }
+
         /// <summary>
         /// Shorthand for new-ing <see cref="WaitForSecondsRealtime">.
         /// </summary>
@@ -82,6 +102,17 @@ namespace E7.Minefield
                 t = (T)UnityEngine.Object.FindObjectOfType(typeof(T));
                 yield return new WaitForSeconds(0.1f);
             }
+        }
+
+        /// <summary>
+        /// Used together with <see cref="NoTimeoutAttribute"> to make a test that works like supercharged play mode button with custom setup.
+        /// 
+        /// When you just start writing a test to be an alternative to Play Mode button, when the condition wasn't fleshed out well yet
+        /// you may want unlimited time to play around.
+        /// </summary>
+        public static IEnumerator WaitForever() 
+        {
+            yield return new WaitForSeconds(float.MaxValue);
         }
 
         public static IEnumerator WaitUntilSceneLoaded(string sceneName)
