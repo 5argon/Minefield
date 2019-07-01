@@ -62,7 +62,8 @@ namespace E7.Minefield
         /// <summary>
         /// Useful when you want to run the scene again fresh in the same test case, perhaps keeping some
         /// evaluation result in a variable to compare with a new run. Remember that this do not include your
-        /// `[SetUp]` logic.
+        /// `[SetUp]` logic. Which is useful for example, you want to test if what you did previously is properly
+        /// persisted by the save file or not.
         /// </summary>
         protected IEnumerator RestartScene()
         {

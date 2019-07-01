@@ -166,7 +166,7 @@ For now, let's make sure you have no fear of pressing this button every night be
 - Relying on `DEVELOPMENT_BUILD` preprocessor directive. The button will turn on `DEVELOPMENT_BUILD` and your game should execute properly with this directive on.
 - Relying on manual post-build hacking, because this button currently send the build straight to the device.
 
-After that, you will also be able to utilize [Unity Cloud Build](https://unity3d.com/unity/features/cloud-build)'s auto test per build feature.
+Got 9$ a month to spare? If you have [Unity Teams Advanced](https://unity3d.com/teams), you will also be able to utilize [Unity Cloud Build](https://unity3d.com/unity/features/cloud-build)'s auto test per-build feature.
 
 ![cloud build](.Documentation/images/CloudBuild.png)
 

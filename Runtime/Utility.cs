@@ -11,13 +11,23 @@ namespace E7.Minefield
 {
     public static class Utility
     {
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
         /// <summary>
         /// A boolean indicating automated testing. It is useful to cheat your code if you can't find a way to make the test play nice with it.
         /// 
         /// For example, a test that clicks a button that opens up a Facebook page. It switch to the other app, and the test don't know
-        /// how to switch back. You can simply check in the code if it is a test, then don't open the browser. Use it sparingly!
+        /// how to switch back. You can simply check in the code if it is a test, then don't open the browser. Or test running
+        /// Unity Ads, which the test couldn't click the Close button even in test mode. Or the test going into purchasing logic that
+        /// triggers OS native popup. Or anywhere that requires internet connection, and you may want the test to cheat something.
+        /// 
+        /// Use it sparingly!
+        /// 
+        /// Everywhere you use this in the game needs UNITY_EDITOR || DEVELOPMENT_BUILD preprocessor.
+        /// It make sure this cheat cannot get into the real game no matter what.
         /// </summary>
         public static bool MinefieldTesting { get; set; }
+#endif
 
         /// <summary>
         /// Shorthand for new-ing <see cref="WaitForSecondsRealtime">.
@@ -321,7 +331,7 @@ namespace E7.Minefield
             }
             else
             {
-                Debug.LogError("Can't find " + gameObjectName);
+                //Debug.LogError("Can't find " + gameObjectName);
                 return Vector2.zero;
             }
         }
@@ -340,14 +350,19 @@ namespace E7.Minefield
         {
             List<RaycastResult> results = new List<RaycastResult>();
             EventSystem.current.RaycastAll(fakeClick, results);
-            //Debug.Log($"Hit {results.Count} count");
 
             RaycastResult FindFirstRaycast(List<RaycastResult> candidates)
             {
+                //Debug.Log($"Hit {candidates.Count} count {string.Join(" ", candidates.Select(x => x.gameObject.name))}");
+                candidates.Sort(RaycastComparer);
+                //Debug.Log($"After sort {candidates.Count} count {string.Join(" ", candidates.Select(x => x.gameObject.name))}");
                 for (var i = 0; i < candidates.Count; ++i)
                 {
                     if (candidates[i].gameObject == null)
+                    {
                         continue;
+                    }
+                    //Debug.Log($"Choosing {candidates[i].gameObject.name}");
 
                     return candidates[i];
                 }
@@ -358,6 +373,76 @@ namespace E7.Minefield
             var rrgo = rr.gameObject;
             //Debug.Log($"{rrgo}");
             return rrgo;
+        }
+
+        /// <summary>
+        /// Yoinked fron EventSystem.cs source code...
+        /// </summary>
+        private static int RaycastComparer(RaycastResult lhs, RaycastResult rhs)
+        {
+            if (lhs.module != rhs.module)
+            {
+                var lhsEventCamera = lhs.module.eventCamera;
+                var rhsEventCamera = rhs.module.eventCamera;
+                if (lhsEventCamera != null && rhsEventCamera != null && lhsEventCamera.depth != rhsEventCamera.depth)
+                {
+                    //Debug.Log($"AAA");
+                    // need to reverse the standard compareTo
+                    if (lhsEventCamera.depth < rhsEventCamera.depth)
+                    {
+                        return 1;
+                    }
+                    if (lhsEventCamera.depth == rhsEventCamera.depth)
+                    {
+                        return 0;
+                    }
+
+                    return -1;
+                }
+
+                //Debug.Log($"AAA");
+                if (lhs.module.sortOrderPriority != rhs.module.sortOrderPriority)
+                {
+                    return rhs.module.sortOrderPriority.CompareTo(lhs.module.sortOrderPriority);
+                }
+
+                //Debug.Log($"AAA");
+                if (lhs.module.renderOrderPriority != rhs.module.renderOrderPriority)
+                {
+                    return rhs.module.renderOrderPriority.CompareTo(lhs.module.renderOrderPriority);
+                }
+            }
+
+            if (lhs.sortingLayer != rhs.sortingLayer)
+            {
+                //Debug.Log($"AAA");
+                // Uses the layer value to properly compare the relative order of the layers.
+                var rid = SortingLayer.GetLayerValueFromID(rhs.sortingLayer);
+                var lid = SortingLayer.GetLayerValueFromID(lhs.sortingLayer);
+                return rid.CompareTo(lid);
+            }
+
+
+            if (lhs.sortingOrder != rhs.sortingOrder)
+            {
+                //Debug.Log($"AAA");
+                return rhs.sortingOrder.CompareTo(lhs.sortingOrder);
+            }
+
+            if (lhs.depth != rhs.depth)
+            {
+                //Debug.Log($"AAA {lhs.gameObject.name} {lhs.depth} {rhs.gameObject.name} {rhs.depth}");
+                return rhs.depth.CompareTo(lhs.depth);
+            }
+
+            if (lhs.distance != rhs.distance)
+            {
+                //Debug.Log($"AAA");
+                return lhs.distance.CompareTo(rhs.distance);
+            }
+
+            //Debug.Log($"AAA");
+            return lhs.index.CompareTo(rhs.index);
         }
 
         public static PointerEventData ScreenPosToFakeClick(Vector2 screenPosition)

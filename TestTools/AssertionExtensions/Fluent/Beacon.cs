@@ -37,25 +37,25 @@ namespace E7.Minefield
             where T : Enum
         {
             // Debug.Log($"Wait until {Time.frameCount} {bc}");
-            yield return new WaitUntil(() => bc.ApplyToBeacon(beacon).IsSuccess);
+            // yield return new WaitUntil(() => bc.ApplyToBeacon(beacon).IsSuccess);
             //Debug.Log($"Wait until {Time.frameCount} {bc} {bc.ApplyToBeacon(beacon).IsSuccess}");
-            // while (true)
-            // {
-            //     // try
-            //     // {
-            //         if (bc.ApplyToBeacon(beacon).IsSuccess)
-            //         {
-            //             break;
-            //         }
-            //     // }
-            //     // catch
-            //     // {
-            //         //Debug.Log($"Caught sometihing");
-            //     //     throw;
-            //     // }
-            //     yield return null;
-            // }
-            // Debug.Log($"Wait ok {Time.frameCount}");
+            while (true)
+            {
+                try
+                {
+                    if (bc.ApplyToBeacon(beacon).IsSuccess)
+                    {
+                        break;
+                    }
+                }
+                catch(Exception e)
+                {
+                    Debug.Log($"Caught sometihing >>> {e}");
+                    throw;
+                }
+                yield return null;
+            }
+            //Debug.Log($"Wait ok {Time.frameCount}");
         }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace E7.Minefield
         public static IEnumerator ClickWhen<T>(T beacon, BeaconConstraint bc)
             where T : Enum
         {
-            yield return new WaitUntil(() => bc.ApplyToBeacon(beacon).IsSuccess);
+            yield return WaitUntil(beacon, bc);
             yield return Click<T>(beacon);
         }
 
@@ -204,6 +204,7 @@ namespace E7.Minefield
                     }
                     testBeacon = b;
                     found = true;
+                    //Debug.Log($"WE FOUND IT");
                 }
             }
             if (!found)
