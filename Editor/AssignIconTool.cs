@@ -45,7 +45,7 @@ namespace E7.Minefield
             {
                 //There are null returning from GetClass as well (why?)
                 var cls = x.GetClass();
-                return cls == null ? false : typeof(ITestBeacon).IsAssignableFrom(cls);
+                return cls == null ? false : typeof(ILabelBeacon).IsAssignableFrom(cls);
             });
 
             Texture2D navigationBeaconIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(AssetDatabase.GUIDToAssetPath("3d6634608b55541ddac251be41744121"));
@@ -55,7 +55,7 @@ namespace E7.Minefield
             {
                 Debug.Log($"[Minefield] Assigning a new script icon to {bc.name}");
                 SetIconForObject.Invoke(null, new object[] { bc,
-                    typeof(INavigationBeacon).IsAssignableFrom(bc.GetClass()) ?
+                    typeof(IHandlerBeacon).IsAssignableFrom(bc.GetClass()) ?
                     navigationBeaconIcon : testBeaconIcon });
                 CopyMonoScriptIconToImporters.Invoke(null, new object[] { bc });
             }

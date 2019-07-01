@@ -23,14 +23,16 @@ namespace E7.Minefield
         /// 
         /// Use it sparingly!
         /// 
+        /// Another use is to skip analytics code when it is a test running.
+        /// 
         /// Everywhere you use this in the game needs UNITY_EDITOR || DEVELOPMENT_BUILD preprocessor.
-        /// It make sure this cheat cannot get into the real game no matter what.
+        /// It is a safe measure to make sure no cheat can slip into the real game.
         /// </summary>
         public static bool MinefieldTesting { get; set; }
 #endif
 
         /// <summary>
-        /// Shorthand for new-ing <see cref="WaitForSecondsRealtime">.
+        /// A shorthand for new-ing <see cref="WaitForSecondsRealtime"> for the lazy.
         /// </summary>
         public static WaitForSecondsRealtime Wait(float seconds) => new WaitForSecondsRealtime(seconds);
 
@@ -39,7 +41,7 @@ namespace E7.Minefield
         /// 
         /// This actually demolish only the active scene at the time of test case ending, if you follow
         /// Minefield's guidelines you will have only 1 active scene at all time, and so it is easy to
-        /// clean up.
+        /// clean up. DontDestroyOnLoad scene will be untouched.
         /// </summary>
         public static void CleanTestScene()
         {

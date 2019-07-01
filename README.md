@@ -12,7 +12,7 @@ Because you are still writing pure Unity tests, of course you could use it toget
 
 Long time ago I have a team of 4 members. Due to bad management often the work pile up on me when others are left idle with nothing to do. Every time I add any new feature, there is fear of regression which could popup somewhere in the game. The solution back then is I would ask Ben, my teammate : "We will ship this soon, you are currently free so could you **go to all scenes and push all buttons** in the game?" This "make sure everything works by mindlessly navigating around" test happen every release. And I believe almost all kind of games need this assurance, regardless of genre or the game's content. More specific tests like checking correctness of game variables or presentation comes later. (Which Minefield could also help to some degree, but not its the main design.)
 
-Fast forward to now, others all quit and got far more stable day job. No amount of money I could offer to them that's worth their time anymore compared to what they could earn. I need more of my own time to compensate that. An utomated testing library that could make *that kind of test* as fast as possible is the solution to survive alone. It may not be able to query and check for everything in Unity, and it may not able to do mocks, stubs, doubles, fakes, etc. But it has to be the fastest to code up a mindless navigation test.
+Fast forward to now, others all quit and got far more stable day job. No amount of money I could offer to them that's worth their *time* anymore compared to what they could earn. Because time is money, what if I could get more of my own time to compensate? An automated testing library that could make *that kind of test* as fast as possible is the solution to survive alone. It may not be able to query and check for everything in Unity, and it may not able to do mocks, stubs, doubles, fakes, etc. But it has to be the fastest to code up a mindless navigation test.
 
 The original requirements "go to all scenes and push all buttons" are satisfied by 2 main design of `Minefield` : an ability to use a single scene as a unit of test, and an ability to navigate when able to or otherwise wait for it.
 
@@ -43,21 +43,35 @@ public class SampleMinefieldTest : SceneTest
 }
 ```
 
+### Scene as a unit of test
+
+One stand out feature is that `Scene`. Minefield consider a scene as one testable unit. Therefore not every kind of game is "testable" by Minefield, for example, if your game is composed of multiple active scenes, and each of those do not work on their own, can't advance without the other scene present, or throws errors. I have provided some guidelines to make the game testable by Minefield below.
+
+Now, the strength of this approach is that you could write multiple cases per scene without specifying the scene name to load on every test case, thanks to test subclassing scheme. This make it possible to organize your tests into one class per scene which is very logical. The explicit `ActivateScene()` call is an intentional design that allows you to modify any context that would influence the test in your own `[SetUp]` or `[UnitySetUp]` before it starts. You can even turn each case into a super play mode button that set the stage to what you want consistently every time.
+
+### Test metadata
+
 A defining feature is the test **beacon**, which allows you to use an easy to understand `enum` that you declared yourself to navigate the scene without knowing any game object's name or any animation length to wait for, the major pain point on writing play mode test. This make the test loosely coupled with the scene in the sense that your scene maybe extremely complex, but the test could remain a very simple series of wait-and-clicks.
 
-The `enum` is linked to scene object by a special `MonoBehaviour` carrying this `enum` serialized together with your scene as a test metadata. It prevents brittle test that would be the case if you try to assert for hard-coded object name or getting some specific component type, at the price of testing library being a bit invasive in your actual game. On the bright side, you will be adding these as you build the game and they will help you think about all possible navigation scenario that could occur in a scene. Plus it allows you to use object search box in Scene view to find and manage all beacons easily. Other editor toolings in the future could be extended from these beacon components. Do not consider them as noises from the testing library that spill onto your game objects, think of them as a *necessary* components to make a testable game even though at runtime you will not use them, a testable game is a complete game.
+The `enum` is linked to scene object by a special `MonoBehaviour` carrying this `enum` serialized together with your scene. It prevents brittle test that would be the case if you try to assert for hard-coded object name or getting some specific component type, at the price of testing library being a bit invasive in your actual game. On the bright side, you will be adding these as you build the game and they will help you think about all possible navigation scenario that could occur in a scene. Plus it allows you to use object search box in Scene view to find and manage all beacons easily. Other editor toolings in the future could be extended from these beacon components.
 
 `enum` also provides advantage of intellisense popup, and IDE symbol searching that roughly tells you about code coverage, or easily find missing part that needs some tests.
 
-Testing by beacon navigation is also loose enough to my liking, I don't need to look around for everything on every step, just look for defined beacons. If something is not of interest, it should not be defined as a beacon. The test will give confidence and at the same time don't limit creativity freedom that much when you need to change something in the scene. (Since the navigation is likely preserved regardless of your artistic choice made in the game.) 
+Later you will also learn about **reporters**, which is an another metadata to add to the code to reduce friction in asserting for values of things in the scene. Together, the object is pinpointed with a beacon, then assert by querying the reporters on it.
 
-`GameObject` and uGUI was not quite testable by design. They are fixing this with the new DOTS Entity Component System where component systems are a lot more test-friendly, but for now I think this "hack" is the most reasonable one. 
+The theme of Minefield is that by adding some **test metadata** into your actual game, we could drastically reduce an amount of code to write in the test. And because test code are repeated many times per case written, this trade is very reasonable and it will encourage you to provide more coverage. Instead of considering them as noises from the testing library that spill onto your game objects, think of them as a *necessary* components to make a complete (i.e. testable) game even though at runtime you will not use them at all.
 
-Beacons works well with 2018.3 new prefab workflow. In the case that you have multiple instances or variants of the prefab on the scene, you could vary the beacon as overrides to discern game objects in the test. In object name or component type matching way of writing tests, this would likely produce duplicate entries that you have to deal with.
+### Loose design reduces test code maintenance
 
-Navigations are simulated by recreating the same `EventSystem` raycasting routine from `UnityEngine.UI` namespace that is used by real player, referenced from the [`UnityEngine.UI` repository](https://bitbucket.org/Unity-Technologies/ui).
+Testing by beacon navigation is also loose enough to my liking. I often don't need to look around for everything on every step, these defined beacons are now all possible choice I should cover instead of having to use `GetComponent<?>` and think what *else* should I test. If something is not of interest, it should not be defined as a beacon in the first place.
 
-An another feature is that you could write multiple tries per scene without specifying the scene name to load on every test case, thanks to `abstract` subclassing scheme. This make it possible to organize your tests into one class per scene. The need for explicit `ActivateScene()` call design allows you to modify any context that would influence the test in your own `[SetUp]` or `[UnitySetUp]` before it starts.
+When you move around your game objects in the scene, of course the beacon component goes with them as per usual Unity, so you have easier time maintaining the test code. If you do `Transform` hierarchy crawling in the test to get to your destination, eventually you will be scared to change because you don't want to refactor the test and moreover there is no compile error triggered at all. Minefield will give confidence and at the same time don't limit creativity freedom that much when you need to change something in the scene.
+
+Beacons works well with 2018.3 new prefab workflow, because component could be an override at any level. In the case that you have multiple instances or variants of the prefab on the scene, you could vary the beacon as overrides to discern game objects in the test. Before, you may have to name your object explicitly as something and use it in the test, or try to search for a component type. That will eventually produces duplicate entries when you continue making your scene with more nested prefabs, which started with the same name and components.
+
+Often when writing "graphical" test like this, it is difficult to picture where you are right now in the head. Writing Minefield tests take that away, because just look at a list of beacons you defined yourself the scene became clear like you are holding a map.
+
+`GameObject` and uGUI was not quite testable by design. They are fixing this with the new DOTS Entity Component System where each system code are a lot more test-friendly in isolation. For now I think this "hack" combined with scene-as-a-unit test is the most reasonable one. 
 
 ## Requirements
 
@@ -232,13 +246,13 @@ public class ModeSelectScreen : MonoBehaviour
 
 (Do not put a new entry inbetween the old ones afterwards, Unity serialize by `int` value and it will make old serialized value wrong. You could use an explicit integer to pin the value.)
 
-### Subclass an attachable component of that kind of label
+### Subclass an attachable beacon component of that kind of label
 
-Next, declare a new class with that `enum` as a generic of either `NavigationBeacon<>` if it is intended to be clicked on by uGUI event system, or `TestBeacon<>` for any `GameObject`. You should gain a serializable `enum` field of your type which shows up in editor. Remember to put them in a separated file as per Unity's attachable script rule, so they each get their own `meta` and GUID.
+Next, declare a new class with that `enum` as a generic of either `NavigationBeacon<>` if it is intended to be clicked on by uGUI event system, or `LabelBeacon<>` for any `GameObject` you want to access or assert easily in the test. You should gain a serializable `enum` field of your type which shows up in editor. Remember to put them in a separated file as per Unity's attachable script rule, so they each get their own `meta` and GUID.
 
 ```csharp
 using E7.Minefield;
-public class ModeSelectTestBeacon : TestBeacon<ModeSelectScreen.Beacon> { }
+public class ModeSelectBeacon : LabelBeacon<ModeSelectScreen.Beacon> { }
 ```
 
 ```csharp
@@ -246,17 +260,23 @@ using E7.Minefield;
 public class ModeSelectNavigationBeacon : NavigationBeacon<ModeSelectScreen.Navigation> { }
 ```
 
-You are now ready to attach these new component classes to any `GameObject` in the scene. If it is a `NavigationBeacon<>`, the point of attach should be the raycast receiving elements, which depends if you got a `Button`, `EventTrigger`, or something else. The test tools can help you click on these objects. If `TestBeacon<>`, then it could be any `GameObject`.
+You are now ready to attach these new component classes to any `GameObject` in the scene. If it is a `NavigationBeacon<>`, the point of attach should be the raycast receiving elements, which depends if you got a `Button`, `EventTrigger`, or something else. The test tools can help you click on these objects. If `LabelBeacon<>`, then it could be any `GameObject`.
 
 ### Script icon tools
 
 ![Script icon](.Documentation/images/ScriptIcon.png)
 
-By selecting `Assets > Minefield > Auto-assign all script icons`, all your subclasses of `NavigationBeacon<>` or `TestBeacon<>` will get an icon so they became more obvious in the Inspector.
+By selecting `Assets > Minefield > Auto-assign all script icons`, all your subclasses of `NavigationBeacon<>` or `LabelBeacon<>` will get an icon so they became more obvious in the Inspector.
 
 ### Other beacon management tricks
 
-As a bonus you could try typing `TestBeacon` or `NavigationBeacon` in the Scene view search box to return all beacons added so far. This is possible because each generic class you subclassed from is a subclass of non-generic version. The only purpose of this is for this use case because the search box couldn't list a generic class derived class even if the derived class has no generic type param, and it also could not search interfaces.
+As a bonus you could try typing `LabelBeacon` or `NavigationBeacon` in the Scene view search box to return all beacons added so far. This is possible because each generic class you subclassed from is a subclass of non-generic version. The only purpose of this is for this use case because the search box couldn't list a generic class derived class even if the derived class has no generic type param, and it also could not search interfaces.
+
+### `HandlerBeacon`
+
+Actually the class hierarchy goes like this : `NavigationBeacon` : `HandlerBeacon` : `LabelBeacon`. You use `HandlerBeacon` like `NavigationBeacon`, except that thing is not really for navigating the scene. For example an on-screen jump button on endless runner game should be a `HandlerBeacon` instead if you want it to be testable.
+
+Functionally it is no different and you could simulate a click the same way, but some functionality planned in the future will be exclusive to navigation. For example, automatic Firebase Analytics integration to log how your user interact with your game. It doesn't make much sense to log each jump button press that would be pressed thousand of times per session.
 
 ## Navigation with beacons
 
@@ -303,7 +323,7 @@ public class TitleSceneTest : SceneTest
 
 You may not see any `Assert`, but the final `WaitUntil` plus `Is.Clickable` constraint itself is already an implicit assertion that player could arrive at the destination. If that didn't go on, the test will fail from the timeout. `WaitUntil` `Is.Clickable` could also catch one common bug where things are unintentionally clickable in the first `Awake`/`Start` frame because it tries repeatedly.
 
-A `Click` is a simulation of pointer down, **wait a frame**, and pointer up plus pointer click together in the next frame. So `yield return` is required because it is not an instantaneous action.
+A `Click` is a simulation of pointer down, **wait a frame**, and pointer up plus pointer click together in the next frame. So `yield return` is required because it is not an instantaneous action. Inside those methods, navigations are simulated by recreating the same `EventSystem` raycasting routine from `UnityEngine.UI` namespace that is used by real player, referenced from the [`UnityEngine.UI` repository](https://bitbucket.org/Unity-Technologies/ui).
 
 There are also various utilities that are not related to beacons available in `Utility` `static` class, like waiting for some `GameObject` to became active. They are used by the `Beacon` static class themselves, but in most cases you should try to stick to only `Beacon` class since that signifies that your beacon is enough or not.
 
@@ -440,9 +460,9 @@ The `T` has been constrained as `Enum`, and you must provide `T Status` of that 
 
 Pretty much could report anything but make sure no other choice exist before falling back to this, since you will need to assert with `Is.Reporting.Object(___)` which may not be aesthetically pleasing to read if that thing doesn't feel like an "object" in programming sense. (e.g. `int` which you could instead use `IMinefieldAmountReporter`.) The equality test is by `object.Equals`.
 
-## Minefield as Play Button replacement
+## Minefield as a play button replacement
 
-You could turn your Test Runner tab into a play button! Test cases are now your active development/design iteration tools and no more just to prevent regressions. This has several advantages :
+You could turn your Test Runner tab into a play button galore! Test cases are now your active development/design iteration tools and no more just to prevent regressions. This has several advantages :
 
 - No need to dig your huge Project tab and go to the correct scene before you could try something, because `SceneTest` itself knows how to start the scene just from the test case.
 - You could start with any desired data state, since Minefield allows you to do anything before explicitly doing `ActivateScene()`, while in normal play mode button press you get no chance to do custom things at all before your `Awake` and that maybe already too late or requiring extra hacks to alter script execution order. Well, `[RuntimeInitializeOnLoad(RuntimeInitializeLoadType.BeforeSceneLoad)]` exists, but not ideal since it applies permanently to the whole project and to all play mode tests.
@@ -452,6 +472,6 @@ You could turn your Test Runner tab into a play button! Test cases are now your 
 - Minefield navigation methods could lend you a hand to go to the place you want before handing the control to you.
     - An example situation, you are making backpack inventory screen system. But by how it was wired up with the game it is hard to instantly start at this backpack screen with everything functional. (That is, it is hard to test separately since it is not a scene but perhaps a prefab) To test it meaningfully you have to start the game normally, press button to open menu, and select "backpack" choice before you even get to test how things you are making works. (Scrolling properly? Displaying properly?) You will encounter some bugs, and it will get progressively tiring to navigate to the backpack.
 
-To do this Minefield provide you 2 things : `[NoTimeout]` to put on the test method, and `yield return Utility.WaitForever();` for you to put after activating the scene. Now the test case behave like a supercharged play mode button!
+To do this Minefield provide you 2 things : `[NoTimeout]` to put on the test method, and `yield return Utility.WaitForever();` for you to put after activating the scene. Now the test case behave like a supercharged play mode button! After you finished playing around, you could then "cement" it by removing both. Keep doing this always, and you now have a test covering everything you touch. It's like TDD but on higher integration test level.
 
 If you make these cases as purely development tools and not intended them to become a real test cases later, it maybe helpful to categorize them so category drop down will help you get to these cases easier.

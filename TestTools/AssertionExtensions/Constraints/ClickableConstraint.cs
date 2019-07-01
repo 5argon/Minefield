@@ -8,7 +8,7 @@ namespace E7.Minefield
     /// <summary>
     /// "Clickable" is :
     /// 
-    /// - Has `RectTransform`, `Collider2D`, or `Collider`. Which it will use the center coordinate of that component to click. (<see cref="NavigationBeacon"> ensure this.)
+    /// - Has `RectTransform`, `Collider2D`, or `Collider`. Which it will use the center coordinate of that component to click. (<see cref="HandlerBeacon"> ensure this.)
     /// 
     /// - Something must be able to happen on click, 
     /// Expected object must be able to handle **at least one of** <see cref="IPointerDownHandler">, <see cref="IPointerUpHandler">, or <see cref="IPointerClickHandler">.
@@ -32,7 +32,7 @@ namespace E7.Minefield
             var found = FoundBeacon;
             //Debug.Log($"Asserting clickable constraint : {found?.GameObject?.name}");
             bool isClickable = true;
-            if (found is INavigationBeacon inb)
+            if (found is IHandlerBeacon inb)
             {
                 GameObject firstHit = Utility.RaycastFirst(inb.ScreenClickPoint);
 

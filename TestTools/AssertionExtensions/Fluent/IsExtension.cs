@@ -27,11 +27,11 @@ public partial class Is : NUnit.Framework.Is
     public static OnOffConstraint Off => new OnOffConstraint(lookingForOn: false);
 
     /// <summary>
-    /// Keep checking for a <see cref="NavigationBeacon{T}"> on uGUI component which will eventually became active **and** clickable to the player.
+    /// Keep checking for a <see cref="HandlerBeacon{T}"> on uGUI component which will eventually became active **and** clickable to the player.
     /// 
     /// "Clickable" is :
     /// 
-    /// - Has `RectTransform`, `Collider2D`, or `Collider`. Which it will use the center coordinate of that component to click. (<see cref="NavigationBeacon"> ensure this.)
+    /// - Has `RectTransform`, `Collider2D`, or `Collider`. Which it will use the center coordinate of that component to click. (<see cref="HandlerBeacon"> ensure this.)
     /// 
     /// - Something must be able to happen on click, 
     /// Expected object must be able to handle **at least one of** <see cref="IPointerDownHandler">, <see cref="IPointerUpHandler">, or <see cref="IPointerClickHandler">.

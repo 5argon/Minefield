@@ -141,16 +141,16 @@ namespace E7.Minefield
         }
 
         /// <summary>
-        /// Same as <see cref="FindActive{BEACONTYPE}(BEACONTYPE, out ITestBeacon)"> but use return value instead of `out`, and throw immediately when no active beacon found.
+        /// Same as <see cref="FindActive{BEACONTYPE}(BEACONTYPE, out ILabelBeacon)"> but use return value instead of `out`, and throw immediately when no active beacon found.
         /// 
-        /// Also the returned class is not the interface <see cref="ITestBeacon"> but <see cref="TestBeacon">, which provides some generic methods benefit
+        /// Also the returned class is not the interface <see cref="ILabelBeacon"> but <see cref="LabelBeacon">, which provides some generic methods benefit
         /// unavailable on interfaces.
         /// </summary>
-        public static TestBeacon Get<BEACONTYPE>(BEACONTYPE label) where BEACONTYPE : Enum
+        public static LabelBeacon Get<BEACONTYPE>(BEACONTYPE label) where BEACONTYPE : Enum
         {
-            if (FindActive(label, out ITestBeacon found))
+            if (FindActive(label, out ILabelBeacon found))
             {
-                return (TestBeacon)found;
+                return (LabelBeacon)found;
             }
             else
             {
@@ -159,19 +159,19 @@ namespace E7.Minefield
         }
 
         /// <summary>
-        /// Same as <see cref="FindActive{BEACONTYPE}(BEACONTYPE, out ITestBeacon)"> but use return value instead of `out` and error when no active beacon found, 
+        /// Same as <see cref="FindActive{BEACONTYPE}(BEACONTYPE, out ILabelBeacon)"> but use return value instead of `out` and error when no active beacon found, 
         /// then immediately get component of the game object with that beacon in one command.
         /// 
         /// Useful for asserting any component, for example : `Assert.That(Beacon.GetComponent<TMP_Text>(beacon).text, Does.Contain("Hello"))`
         /// 
-        /// Also the returned class is not the interface <see cref="ITestBeacon"> but <see cref="TestBeacon">, which provides some generic methods benefit
+        /// Also the returned class is not the interface <see cref="ILabelBeacon"> but <see cref="LabelBeacon">, which provides some generic methods benefit
         /// unavailable on interfaces.
         /// </summary>
         public static COMPONENTTYPE GetComponent<COMPONENTTYPE>(Enum label) where COMPONENTTYPE : Component
         {
-            if (FindActive(label, out ITestBeacon found))
+            if (FindActive(label, out ILabelBeacon found))
             {
-                return ((TestBeacon)found).GetComponent<COMPONENTTYPE>();
+                return ((LabelBeacon)found).GetComponent<COMPONENTTYPE>();
             }
             else
             {
@@ -184,14 +184,14 @@ namespace E7.Minefield
         /// </summary>
         /// <returns>`false` when not found.</returns>
         /// <exception cref="Exception">Thrown when found multiple beacons with the same <paramref name="label">.</exception>
-        public static bool FindActive<BEACONTYPE>(BEACONTYPE label, out ITestBeacon foundBeacon) where BEACONTYPE : Enum
+        public static bool FindActive<BEACONTYPE>(BEACONTYPE label, out ILabelBeacon foundBeacon) where BEACONTYPE : Enum
             => FindActiveInternal(label, out foundBeacon);
 
-        private static bool FindActiveInternal<BEACONTYPE>(BEACONTYPE label, out ITestBeacon foundBeacon)
+        private static bool FindActiveInternal<BEACONTYPE>(BEACONTYPE label, out ILabelBeacon foundBeacon)
         {
-            var beacons = UnityEngine.Object.FindObjectsOfType<MonoBehaviour>().OfType<ITestBeacon>();
+            var beacons = UnityEngine.Object.FindObjectsOfType<MonoBehaviour>().OfType<ILabelBeacon>();
             //Debug.Log($"Find active {beacons.Count()}");
-            ITestBeacon testBeacon = null;
+            ILabelBeacon testBeacon = null;
             bool found = false;
             foreach (var b in beacons)
             {
@@ -221,7 +221,7 @@ namespace E7.Minefield
 
         /// <summary>
         /// Simulate a click on a beacon.
-        /// The beacon label must be on <see cref="NavigationBeacon{T}"> in the scene.
+        /// The beacon label must be on <see cref="HandlerBeacon{T}"> in the scene.
         /// 
         /// Definition of a click is pointer down this frame then up at the same coordinate the next frame. So you need a coroutine on this.
         /// 
@@ -241,7 +241,7 @@ namespace E7.Minefield
         /// </summary>
         public static IEnumerator Click<T>(T label, bool ignoreError = false) where T : Enum
         {
-            if (FindActive(label, out ITestBeacon b) && b is INavigationBeacon nb)
+            if (FindActive(label, out ILabelBeacon b) && b is IHandlerBeacon nb)
             {
                 //Debug.Log($"Type matches {nb.Label.GetType()} {label}");
                 yield return Utility.RaycastClick(nb.ScreenClickPoint);

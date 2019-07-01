@@ -6,14 +6,14 @@ namespace E7.Minefield
     public abstract class BeaconConstraint : Constraint
     {
         protected Enum beaconRequested;
-        protected ITestBeacon FoundBeacon { private set; get; }
+        protected ILabelBeacon FoundBeacon { private set; get; }
         protected bool FindResult { private set; get; }
         //Overrides and interface implementation could not use constraints.
         public ConstraintResult ApplyToBeacon<BEACONTYPE>(BEACONTYPE beacon)
         where BEACONTYPE : Enum
         {
             this.beaconRequested = beacon;
-            this.FindResult = Beacon.FindActive(beacon, out ITestBeacon found);
+            this.FindResult = Beacon.FindActive(beacon, out ILabelBeacon found);
             this.FoundBeacon = found;
             return Assert();
         }
