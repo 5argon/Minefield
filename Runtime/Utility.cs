@@ -305,7 +305,7 @@ namespace E7.Minefield
             }
             else
             {
-                Debug.LogError("Can't find " + gameObjectName);
+                //Debug.LogError("Can't find " + gameObjectName);
                 return Vector2.zero;
             }
         }
@@ -489,6 +489,9 @@ namespace E7.Minefield
         /// <summary>
         /// Simulate a click. Definition of a click is pointer down this frame then up at the same coordinate the next frame. So you need a coroutine on this.
         /// 
+        /// After finding the first object that blocks the ray, if that object do not have down, up, or click event it will be bubble up
+        /// until finding someone that could handle it.
+        /// 
         /// It is still possible to produce impossible action, such as clicking 2 times on the same button. Even with coroutine, the up of the first click will be at
         /// the same frame as down of the next one. This is not physically possible. So if you need to double click, wait a frame manually.
         /// </summary>
@@ -502,24 +505,16 @@ namespace E7.Minefield
             if (rrgo != null)
             {
                 //Debug.Log("Hit : " + rrgo.name);
-                //If it is not interactable, then the event will get blocked.
 
-                if (ExecuteEvents.CanHandleEvent<IPointerDownHandler>(rrgo))
-                {
-                    ExecuteEvents.ExecuteHierarchy(rrgo, fakeClick, ExecuteEvents.pointerDownHandler);
-                }
+                //No ned to check can handle event, there is a check inside.
+
+                ExecuteEvents.ExecuteHierarchy<IPointerDownHandler>(rrgo, fakeClick, ExecuteEvents.pointerDownHandler);
 
                 //This is to wait 1 frame between down and up, the fastest and realistic scenario possible.
                 yield return null;
 
-                if (ExecuteEvents.CanHandleEvent<IPointerUpHandler>(rrgo))
-                {
-                    ExecuteEvents.ExecuteHierarchy(rrgo, fakeClick, ExecuteEvents.pointerUpHandler);
-                }
-                if (ExecuteEvents.CanHandleEvent<IPointerClickHandler>(rrgo))
-                {
-                    ExecuteEvents.ExecuteHierarchy(rrgo, fakeClick, ExecuteEvents.pointerClickHandler);
-                }
+                ExecuteEvents.ExecuteHierarchy<IPointerUpHandler>(rrgo, fakeClick, ExecuteEvents.pointerUpHandler);
+                ExecuteEvents.ExecuteHierarchy<IPointerClickHandler>(rrgo, fakeClick, ExecuteEvents.pointerClickHandler);
             }
         }
 
