@@ -18,7 +18,7 @@ namespace E7.Minefield
     /// You have to activate the scene manually!
     /// It's for full control of setting up any data before the scene starts.
     /// </summary>
-    public abstract class SceneTest
+    public abstract class SceneTest : MinefieldTest
     {
         /// <summary>
         /// Scene to load on each test's [SetUp]. You have to <see cref="ActivateScene()"> manually in your test case.
@@ -104,18 +104,6 @@ namespace E7.Minefield
         }
 
         internal const string tempListenerName = "Minefield audio listener";
-
-        [SetUp]
-        public void SceneTestSetUp()
-        {
-            Utility.MinefieldTesting = true;
-        }
-
-        [TearDown]
-        public void SceneTestTearDown()
-        {
-            Utility.MinefieldTesting = false;
-        }
 
         [UnitySetUp]
         public IEnumerator PreloadScene()
