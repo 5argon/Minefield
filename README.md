@@ -380,6 +380,14 @@ Beacon.GetComponent<T>(____);
 // Assert.That(Beacon.GetComponent<TMP_Text>(____).text, Does.Contain(____));
 ```
 
+### Using `[Values]`
+
+In NUnit, [`[Values(...)]`](https://github.com/nunit/docs/wiki/Values-Attribute) normally could be used to create a parameterized test with specified values as each case, automatically permutated if multiple. However just `[Values]` with no values specified at all has [special use for `bool` and `Enum` data type](https://github.com/nunit/docs/wiki/Values-Attribute#values-with-enum-or-boolean). Because these has reasonable finite possible values, all the cases could be generated automatically.
+
+Because a beacon label is an `Enum`, you could easily have a test that "try everything" with very little code. For example a language selection screen, you want to test if each language button works or not by looking at some text in the next screen after pressing it. Languages are sensitive to game resource so testing just one language isn't enough. (e.g. you added a new language, but forgot to add fonts then it fail only on that language.)
+
+If you made a navigation beacon for each language's button, you can create this test `SelectLanguageAndCheckTranslatedTitleScreen( [Values] LanguageScreenNavigation beaconLabels )` and cases that try each button will all automatically be there.
+
 ## Reporters
 
 A collection of `interface` you could add to your `MonoBehavior` to assert more customized things. You could think of it as an even more **hack**, a test metadata added to your code. But it is better than either having to expose `public` for the purpose of test and ruin the class design, or try to use hierarchy traversal methods to climb the object tree blindly. This way it is explicit that these are for `Minefield`. Use it if you could accept the hack.
