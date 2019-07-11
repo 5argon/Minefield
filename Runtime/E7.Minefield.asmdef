@@ -1,7 +1,6 @@
 {
     "name": "E7.Minefield",
     "references": [
-        "Unity.Addressables",
         "Unity.ResourceManager",
         "Unity.TextMeshPro"
     ],

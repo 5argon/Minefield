@@ -120,6 +120,7 @@ Reasons for the need of `manifest.json` modification :
 - You will not ever be setting which scene is an active scene because you always have 1 scene. And `Minefield` assumes the active scene is the one you are testing and cleanly destroy everything in between tests. It is difficult to clean up a scene in-between test fast (and truly cleanly) if there is no guidelines about this.
 - All scenes must be able to pass a test by just loading it without touching anything else and wait for a bit. With this design you are able to make a "lazy man's test" by just try loading each individual scene. Some design that prevents this is a scene which require other scenes to function, which if you followed the guideline such scene doesn't exist.
 - In normal development, it must be possible to press play mode on any scene and start playing from that scene, no matter how "wrong" that may felt to you regarding to game's status on starting that scene. For example, if the final boss room is a scene, you should be able to start from that scene even if the character will be at level 1. It is more important to make sure that it is not an error. The "state" of the scene will instead be controlled by a `static` variable, more in the next topic.
+- Because a scene represent a "screen", in place like Firebase Analytics current screen parameter you can easily refer to the current active scene. If you compose your game from multiple scenes it is not possible without manual work to label each "screen".
 
 ### A `static` variable to influence the entire scene
 
@@ -196,25 +197,27 @@ You will have 3 kind of `asmdef` :
 2. Scene `asmdef` referencing to core `asmdef` in order to access the `static` variable, or modify the `static` variable to make the next scene behave the way it wats.
 3. Test `asmdef` referencing also to core `asmdef` to change the `static` variable before each test. It may optionally reference scene `asmdef`.
 
-However even if you reference your scene `asmdef`, asserting on exposed fields of things is not a good design for test, since in the end you will use them as necessary portals to jump to the thing you actually want to test rather than wanted to test on them, and later you may introduced new exposed field just because you can't go to the desired things to test. This kind of "for test" exposed field should be avoided. (And actually exposed fields should be `[SerializeField] private` rather than `public`, so you can't use them from tests anyway.)
+However even if you reference your scene `asmdef`, asserting on exposed fields of things is not a good design for test, since in the end you will use them as necessary portals to jump to the thing you actually want to test rather than wanted to test on them, and later you may introduced new exposed field just because you can't go to the desired things to test. This kind of "for test" exposed field should be avoided. (And actually exposed fields should be `[SerializeField] private` rather than `public`, so you can't use them from tests anyway.) Instead, Minefield's "reporters" combined with beacons should take this task, which you will learn about it soon.
 
 ## `SceneTest`
 
 By subclassing from this class in your test assembly :
 
-- Each subclass will be a test for a single scene. You will have to provide your scene name because the `abstract` variable will ask you to.
+- Each subclass will be a collection of test cases for a single scene. You will have to provide your scene name because the `abstract` variable will ask you to.
 - Each test case will be a fresh start of this scene. The built-in `[SetUp]` and `[TearDown]` will take care of everything for you.
 - You will need to call `ActivateScene()` `protected` method **manually**. This design gives you an opportunity to hack up the `static` variable before allowing the scene to start, while don't have to specify the scene name on every test case because the subclass already asked you for it.
 - Before your test case even begin the scene is already waited and 100% loaded thanks to `[UnitySetUp]`, and only needs an activation. Other scenes you may want to load in the test needs a proper wait but as the guideline says you shouldn't have to compose the test from multiple scenes to get along with `Minefield`.
 - As in C# in general `static` variable do not reset in-between multiple test cases, **it will carry over**, because there is no domain reload in-between. (It is a good thing because the reload cost big performance hit.) You should always setup your `static` variable even though you think you don't want any particular value. In fact you may want a default, so you should set it to `default`/`new` instead of doing nothing. Do this in your own `[SetUp]` or `[UnitySetUp]` in your subclass.
+- Inversely, you may not touch the `static` variable as a statement that you are confident that no matter what the value is this test will pass. If you run multiple tests in series and the test fail because of spill over `static` values, then you got some work to do because your assumption is not true. Most of the time, you should fix the game so it truly ignore unrelated `static` values, rather than fix the test to pass by resetting the `static` value.
+    - One from my own experience is that there is a game mode A that you couldn't earn bonus point no metter what, and a game mode B which you could earn bonus only if one other flag Z is true. So that flag Z is useless outside of that mode. In the test of mode A I hack up a `static` that the mode is A, without explicitly resetting Z to `false` because there is no way the player could enter mode A with flag Z active in the first place. Turns out, in the test I am in mode A *and* I could earn bonus because Z is active. In this case you have 2 choices : the test is wrong, you should explicitly says Z must be `false`, and, the game is wrong, you should make sure mode A do not give bonus even if Z is active. I tends to choose the latter.
 
 After starting the scene you will want to check up on something or navigate inside the scene. We have no GUI in writing tests and it is difficult to use methods like `GameObject.Find` or `FindObjectOfType` to get the desired object to test "blindly". It is even more difficult to navigate "at the right time" when you could see nothing while writing a test. For this I have designed something called a **beacon**.
 
 ## Test beacons
 
-This is a way to use `enum` to refer to `GameObject` in your scene, by "attaching the `enum`" to it. Attaching an `enum` is possible by a `MonoBehaviour` carrying that `enum`.
+This is a way to use `enum` to refer to `GameObject` in your scene, by "attaching an `enum`" to it. Attaching an `enum` is possible by a `MonoBehaviour` carrying that `enum`.
 
-It make writing a test more fun because `enum` could be auto completed and self described, rather than having to use something like `GameObject.Find` which rely on object's `string` name that may be refactored without the test updating along. `enum` could be mass-refactored by most code editors.
+It make writing a test more fun because `enum` could be auto completed and self described, rather than having to use something like `GameObject.Find` which rely on object's `string` name that may be refactored without the test updating along. `enum` could be mass-refactored by most code editors. Also it ensure you never jump more than once to reach your desired object. No more `.transform.GetChild` hierarchy crawling.
 
 ### Label declaration
 
@@ -248,7 +251,7 @@ public class ModeSelectScreen : MonoBehaviour
 
 ### Subclass an attachable beacon component of that kind of label
 
-Next, declare a new class with that `enum` as a generic of either `NavigationBeacon<>` if it is intended to be clicked on by uGUI event system, or `LabelBeacon<>` for any `GameObject` you want to access or assert easily in the test. You should gain a serializable `enum` field of your type which shows up in editor. Remember to put them in a separated file as per Unity's attachable script rule, so they each get their own `meta` and GUID.
+Next, declare a new class with that `enum` as a generic of either `NavigationBeacon<>` if it is intended to be clicked on by uGUI event system, or `LabelBeacon<>` for any `GameObject` you just want to access or assert easily in the test but not for clicking. You should gain a serializable `enum` field of your type which shows up in editor. Remember to put them in a separated file as per Unity's attachable script rule, so they each get their own `meta` and GUID.
 
 ```csharp
 using E7.Minefield;
@@ -260,7 +263,11 @@ using E7.Minefield;
 public class ModeSelectNavigationBeacon : NavigationBeacon<ModeSelectScreen.Navigation> { }
 ```
 
-You are now ready to attach these new component classes to any `GameObject` in the scene. If it is a `NavigationBeacon<>`, the point of attach should be the raycast receiving elements, which depends if you got a `Button`, `EventTrigger`, or something else. The test tools can help you click on these objects. If `LabelBeacon<>`, then it could be any `GameObject`.
+You are now ready to attach these new component classes to any `GameObject` in the scene. If it is a `NavigationBeacon<>`, the point of attach should be the raycast receiving elements, which depends if you got a `Button`, `EventTrigger`, or something else. The test tools can help you click on these objects.
+
+Note that Minefield *knows how to bubble up events* like uGUI event system. One common case is the default `Button` from the right click create menu. The object holding event handlers is the `Button` (`IPointerClickHandler` you see as "on click" on the inspector), however inside the button there is a text with blocks raycast. The text don't have any event handlers but it will be the first thing that the raycast hit and got chosen. Because this text has no handlers, the event bubbled up the hierarchy to reach the button anyways. What I want to say is that if you attach `NavigationBeacon` on the text you could still click on it and have the event on higher object invoked.
+
+If `LabelBeacon<>`, then it could be any `GameObject`.
 
 ### Script icon tools
 
@@ -386,11 +393,37 @@ In NUnit, [`[Values(...)]`](https://github.com/nunit/docs/wiki/Values-Attribute)
 
 Because a beacon label is an `Enum`, you could easily have a test that "try everything" with very little code. For example a language selection screen, you want to test if each language button works or not by looking at some text in the next screen after pressing it. Languages are sensitive to game resource so testing just one language isn't enough. (e.g. you added a new language, but forgot to add fonts then it fail only on that language.)
 
-If you made a navigation beacon for each language's button, you can create this test `SelectLanguageAndCheckTranslatedTitleScreen( [Values] LanguageScreenNavigation beaconLabels )` and cases that try each button will all automatically be there.
+If you made a navigation beacon for each language's button, you can create one test that automatically spawns a case for each available languages, clicking on each language's correct spot. Like this : 
+
+```csharp
+// Somewhere in main game code
+public class LanguageScreen : MonoBehaviour
+{
+    public enum Navi
+    {
+        English,
+        Japanese,
+        Thai
+    }
+    ...
+}
+```
+
+```csharp
+// In the test assembly
+[UnityTest]
+public IEnumerator TestLanguageButtons([Values] LanguageScreen.Navi languageLabel)
+{
+    LocalSave.Manager.ResetActive();
+    yield return ActivateScene();
+    yield return Beacon.ClickWhen(languageLabel, Is.Clickable);
+    yield return Beacon.WaitUntil(TitleLogic.Navigation.TouchToStart, Is.Clickable);
+}
+```
 
 ## Reporters
 
-A collection of `interface` you could add to your `MonoBehavior` to assert more customized things. You could think of it as an even more **hack**, a test metadata added to your code. But it is better than either having to expose `public` for the purpose of test and ruin the class design, or try to use hierarchy traversal methods to climb the object tree blindly. This way it is explicit that these are for `Minefield`. Use it if you could accept the hack.
+A collection of `interface` you could add to your `MonoBehavior` to assert more customized things. You could think of it as an even more **hacks**, more test metadata added to your code. But it is better than either having to expose `public` for the purpose of test and ruin the class design, or try to use hierarchy traversal methods to climb the object tree blindly. This way it is explicit that these are for `Minefield`. Use it if you could accept the hack.
 
 The assertion on reporters will be via `Is.Reporting.___` fluent assertion API. Though when English grammar permits, some are accessible from `Is.___` as well.
 

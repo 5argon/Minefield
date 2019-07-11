@@ -3,11 +3,14 @@ using NUnit.Framework;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using System.Collections;
-using UnityEngine.ResourceManagement.ResourceProviders;
 using System;
+using System.Linq;
+
+#if HAS_AAS
+using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using System.Linq;
+#endif
 
 namespace E7.Minefield
 {
@@ -24,10 +27,11 @@ namespace E7.Minefield
         /// Scene to load on each test's [SetUp]. You have to <see cref="ActivateScene()"> manually in your test case.
         /// </summary>
         protected abstract string Scene { get; }
-
-        private AsyncOperationHandle<SceneInstance> aoAAS;
         private AsyncOperation aoNormal;
+#if HAS_AAS
         private bool aas;
+        private AsyncOperationHandle<SceneInstance> aoAAS;
+#endif
 
         /// <summary>
         /// To begin test, call this after you finish setting up things.
@@ -46,11 +50,13 @@ namespace E7.Minefield
         /// </summary>
         protected IEnumerator ActivateScene()
         {
+#if HAS_AAS
             if (aas)
             {
                 aoAAS.Result.Activate();
             }
             else
+#endif
             {
                 aoNormal.allowSceneActivation = true;
             }
@@ -121,12 +127,16 @@ namespace E7.Minefield
             }
             else
             {
+#if HAS_AAS
                 //Debug.Log($"AAS");
                 var handle = Addressables.LoadSceneAsync(Scene, loadMode: LoadSceneMode.Single, activateOnLoad: false);
                 aoAAS = handle;
                 yield return handle;
                 //Debug.Log($"COMPLETE");
                 aas = true;
+#else
+                throw new Exception($"The specified scene {Scene} could not be be loaded.");
+#endif
             }
         }
 

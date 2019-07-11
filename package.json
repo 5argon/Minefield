@@ -14,8 +14,5 @@
     "category": [
         "Testing"
     ],
-    "dependencies": {
-        "com.unity.addressables": "0.8.6-preview"
-    },
     "description": "MINEFIELD DEPLOYED"
 }
