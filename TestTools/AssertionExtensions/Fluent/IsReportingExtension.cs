@@ -8,7 +8,6 @@ public partial class Is
     /// </summary>
     public static class Reporting
     {
-
         /// <summary>
         /// Check out all <see cref="IMinefieldOnOffProvider"> on **all** components on the object.
         /// It is considered "on" if **all** returns "on".
@@ -26,6 +25,8 @@ public partial class Is
         /// Only works for **the first** component with that interface found.
         /// </summary>
         public static AmountConstraint Amount(int expectedAmount) => new AmountConstraint(expectedAmount);
+
+        public static StringContainsConstraint StringContaining(string expectedSubstring) => new StringContainsConstraint(expectedSubstring);
 
         public static ObjectConstraint<T> Object<T>(T expectedObject) => new ObjectConstraint<T>(expectedObject);
 

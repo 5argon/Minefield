@@ -22,6 +22,7 @@ namespace E7.Minefield
         public override Enum Label => label;
     }
 
+    [DisallowMultipleComponent]
     /// <summary>
     /// The simplest beacon that you could look up things from the scene by label.
     /// 
