@@ -22,13 +22,13 @@ namespace E7.Minefield
         public override Enum Label => label;
     }
 
-    [DisallowMultipleComponent]
     /// <summary>
     /// The simplest beacon that you could look up things from the scene by label.
     /// 
     /// This non-generic version is not meant to be subclassed, it is just to allow compatibility with Unity search box
     /// which couldn't handle generic class.
     /// </summary>
+    [DisallowMultipleComponent]
     public abstract class LabelBeacon : MonoBehaviour, ILabelBeacon
     {
         public abstract Enum Label { get; }

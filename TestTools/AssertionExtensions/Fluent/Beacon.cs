@@ -1,7 +1,5 @@
 using UnityEngine;
 using System;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 using System.Collections;
 using System.Linq;
 
@@ -27,10 +25,13 @@ namespace E7.Minefield
         // }
 
         /// <summary>
-        /// Remember that base condition for all constraints is that the beacon must be found, and to be found the game object must be active.
+        /// Remember that base condition for all constraints is that the beacon must be found,
+        /// and to be found the game object must be active.
         /// 
-        /// It will not fail the test if the constraint doesn't happen yet, please check manually if you really have that type of
-        /// beacon in the scene or it would wait forever when you actually forgot to add the beacon. (Unlike assertion where you immediately get
+        /// It will not fail the test if the constraint doesn't happen yet,
+        /// please check manually if you really have that type of
+        /// beacon in the scene or it would wait forever when you actually forgot to add the beacon.
+        /// (Unlike assertion where you immediately get
         /// an error message telling you about missing beacon.)
         /// </summary>
         public static IEnumerator WaitUntil<T>(T beacon, BeaconConstraint bc)
@@ -62,7 +63,7 @@ namespace E7.Minefield
         /// Until the constraint returns `true`, repeat the action.
         /// 
         /// The action could spans multiple frames because it works like a coroutine function.
-        /// The constraint check occur again when the <paramref name="spamAction"> has completed all of its frames.
+        /// The constraint check occur again when the <paramref name="spamAction"/> has completed all of its frames.
         /// 
         /// This is useful to create a "dumb AI" where normally complex actions are required to get through the scene, 
         /// but a simple spam without considering any timing could also do so in a less ideal way.
@@ -79,7 +80,7 @@ namespace E7.Minefield
         /// Until the constraint returns `false`, repeat the action.
         /// 
         /// The action could spans multiple frames because it works like a coroutine function.
-        /// The constraint check occur again when the <paramref name="spamAction"> has completed all of its frames.
+        /// The constraint check occur again when the <paramref name="spamAction"/> has completed all of its frames.
         /// 
         /// This is useful to create a "dumb AI" where normally complex actions are required to get through the scene, 
         /// but a simple spam without considering any timing could also do so in a less ideal way.
@@ -115,23 +116,9 @@ namespace E7.Minefield
             => bc.ApplyToBeacon(beacon).IsSuccess;
 
         /// <summary>
-        /// Like <see cref="WaitUntil{T}(T, BeaconConstraint)"> but additionally include <see cref="Click{T}(T)"> in one yield.
+        /// Like <see cref="WaitUntil{T}(T, BeaconConstraint)"/>
+        /// but additionally include <see cref="Click{T}"/> in one yield.
         /// 
-        /// Some note about the "click", it is a frame of clicking down, wait a frame, then a frame of up.
-        /// 
-        /// The gotcha of this "up" is that if you have an another click following, the next "down"
-        /// will occur on the same frame as previous up. In some situation like you do clicking on the same button
-        /// but expect the first click to disable the button and wait for the later one, you may ended up double clicking the button in the same frame if that
-        /// disable didn't occur immediately.
-        /// 
-        /// (For example the disable is planned to be an effect from `TimelineAsset` that plays as a result of a button press,
-        /// which need one more frame to take effect.)
-        /// 
-        /// This is **your bug** however, as it is possible in real play by having a player use the 2nd finger to touch
-        /// on the same frame that the first finger lifted off, and that means Minefield is doing a good job catching this bug. You better ensure the disable
-        /// comes immediately so <see cref="ClickWhen{T}(T, BeaconConstraint)"> is usable consecutively without `yield return null` in between to "cheat" it.
-        /// (For example on `TimelineAsset` case, instead of just `Play()` it as a result of button press, also `Evaluate()` it so the disable take effect
-        /// without waiting one more frame.
         /// </summary>
         public static IEnumerator ClickWhen<T>(T beacon, BeaconConstraint bc)
             where T : Enum
@@ -141,10 +128,11 @@ namespace E7.Minefield
         }
 
         /// <summary>
-        /// Same as <see cref="FindActive{BEACONTYPE}(BEACONTYPE, out ILabelBeacon)"> but use return value instead of `out`, and throw immediately when no active beacon found.
+        /// Same as <see cref="FindActive{BEACONTYPE}(BEACONTYPE, out ILabelBeacon)"/>
+        /// but use return value instead of `out`, and throw immediately when no active beacon found.
         /// 
-        /// Also the returned class is not the interface <see cref="ILabelBeacon"> but <see cref="LabelBeacon">, which provides some generic methods benefit
-        /// unavailable on interfaces.
+        /// Also the returned class is not the interface <see cref="ILabelBeacon"/> but <see cref="LabelBeacon"/>,
+        /// which provides some generic methods benefit unavailable on interfaces.
         /// </summary>
         public static LabelBeacon Get<BEACONTYPE>(BEACONTYPE label) where BEACONTYPE : Enum
         {
@@ -159,14 +147,17 @@ namespace E7.Minefield
         }
 
         /// <summary>
-        /// Same as <see cref="FindActive{BEACONTYPE}(BEACONTYPE, out ILabelBeacon)"> but use return value instead of `out` and error when no active beacon found, 
+        /// Same as <see cref="FindActive{BEACONTYPE}(BEACONTYPE, out ILabelBeacon)"/> but use return value
+        /// instead of `out` and error when no active beacon found, 
         /// then immediately get component of the game object with that beacon in one command.
-        /// 
-        /// Useful for asserting any component, for example : `Assert.That(Beacon.GetComponent<TMP_Text>(beacon).text, Does.Contain("Hello"))`
-        /// 
-        /// Also the returned class is not the interface <see cref="ILabelBeacon"> but <see cref="LabelBeacon">, which provides some generic methods benefit
-        /// unavailable on interfaces.
         /// </summary>
+        /// <remarks>
+        /// Useful for asserting any component,
+        /// for example : `Assert.That(Beacon.GetComponent&lt;TMP_Text&gt;(beacon).text, Does.Contain("Hello"))`
+        /// 
+        /// Also the returned class is not the interface <see cref="ILabelBeacon"/> but <see cref="LabelBeacon"/>,
+        /// which provides some generic methods benefit unavailable on interfaces.
+        /// </remarks>
         public static COMPONENTTYPE GetComponent<COMPONENTTYPE>(Enum label) where COMPONENTTYPE : Component
         {
             if (FindActive(label, out ILabelBeacon found))
@@ -183,7 +174,9 @@ namespace E7.Minefield
         /// Find an **active** beacon in the scene.
         /// </summary>
         /// <returns>`false` when not found.</returns>
-        /// <exception cref="Exception">Thrown when found multiple beacons with the same <paramref name="label">.</exception>
+        /// <exception cref="Exception">
+        /// Thrown when found multiple beacons with the same <paramref name="label"/>.
+        /// </exception>
         public static bool FindActive<BEACONTYPE>(BEACONTYPE label, out ILabelBeacon foundBeacon) where BEACONTYPE : Enum
             => FindActiveInternal(label, out foundBeacon);
 
@@ -221,24 +214,29 @@ namespace E7.Minefield
 
         /// <summary>
         /// Simulate a click on a beacon.
-        /// The beacon label must be on <see cref="HandlerBeacon{T}"> in the scene.
-        /// 
-        /// Definition of a click is pointer down this frame then up at the same coordinate the next frame. So you need a coroutine on this.
+        /// The beacon label must be on <see cref="HandlerBeacon{T}"/> in the scene.
+        /// </summary>
+        /// <remarks>
+        /// Definition of a click is pointer down this frame then up at the same coordinate the next frame.
+        /// So you need a coroutine on this.
         /// 
         /// The gotcha of this "up" is that if you have an another click following, the next "down"
         /// will occur on the same frame as previous up. In some situation like you do clicking on the same button
-        /// but expect the first click to disable the button and wait for the later one, you may ended up double clicking the button in the same frame if that
-        /// disable didn't occur immediately.
+        /// but expect the first click to disable the button and wait for the later one,
+        /// you may ended up double clicking the button in the same frame if that disable didn't occur immediately.
         /// 
-        /// (For example the disable is planned to be an effect from `TimelineAsset` that plays as a result of a button press,
-        /// which need one more frame to take effect.)
+        /// (For example the disable is planned to be an effect from `TimelineAsset`
+        /// that plays as a result of a button press, which need one more frame to take effect.)
         /// 
         /// This is **your bug** however, as it is possible in real play by having a player use the 2nd finger to touch
-        /// on the same frame that the first finger lifted off, and that means Minefield is doing a good job catching this bug. You better ensure the disable
-        /// comes immediately so <see cref="ClickWhen{T}(T, BeaconConstraint)"> is usable consecutively without `yield return null` in between to "cheat" it.
-        /// (For example on `TimelineAsset` case, instead of just `Play()` it as a result of button press, also `Evaluate()` it so the disable take effect
-        /// without waiting one more frame.
-        /// </summary>
+        /// on the same frame that the first finger lifted off, and that means Minefield is
+        /// doing a good job catching this bug. You better ensure the disable
+        /// comes immediately so <see cref="ClickWhen{T}(T, BeaconConstraint)"/> is usable consecutively
+        /// without `yield return null` in between to "cheat" it.
+        /// 
+        /// (For example on `TimelineAsset` case, instead of just `Play()` it as a result of button press,
+        /// also `Evaluate()` it so the disable take effect without waiting one more frame.)
+        /// </remarks>
         public static IEnumerator Click<T>(T label, bool ignoreError = false) where T : Enum
         {
             if (FindActive(label, out ILabelBeacon b) && b is IHandlerBeacon nb)
