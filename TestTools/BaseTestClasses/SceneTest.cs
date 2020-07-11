@@ -24,7 +24,8 @@ namespace E7.Minefield
     public abstract class SceneTest : MinefieldTest
     {
         /// <summary>
-        /// Scene to load on each test's [SetUp]. You have to <see cref="ActivateScene()"> manually in your test case.
+        /// Scene to load on each test's [SetUp].
+        /// You have to <see cref="ActivateScene()"/> manually in your test case.
         /// </summary>
         protected abstract string Scene { get; }
         private AsyncOperation aoNormal;
@@ -35,19 +36,26 @@ namespace E7.Minefield
 
         /// <summary>
         /// To begin test, call this after you finish setting up things.
-        /// 
+        /// </summary>
+        /// <remarks>
         /// Important notes about scene activation : 
         /// - On begin loading, the progress is always 0.
         /// - Allow activation or not, the next scene it could be at most progress 0.9
-        /// - If allowed activation while the progress is 0.9, the **next frame** is where awake and start will be called.
-        /// - (6/6/2019) There is a bug where if you pause and stepping frame, at the activation moment Awake will immediately come, then Start the next frame. (wtf)
+        /// - If allowed activation while the progress is 0.9, the **next frame**
+        /// is where awake and start will be called.
+        /// - (6/6/2019) There is a bug where if you pause and stepping frame,
+        /// at the activation moment Awake will immediately come, then Start the next frame. (wtf)
         /// 
         /// So it take a minimum of 3 frames to get a scene that you could query game objects.
         /// 
-        /// * For any reason, you must call this somewhere in the test case, because it have to be paired with scene loading that was done
-        /// automatically for you at setup. Or else there will be a scene stuck at near-complete state that could wreck the next test.
-        /// For example if you want to call `Assert.Ignore` to early out, do it after the scene activated so the next case could start cleanly.
-        /// </summary>
+        /// * For any reason, you must call this somewhere in the test case,
+        /// because it have to be paired with scene loading that was done
+        /// automatically for you at setup. Or else there will be a scene stuck at near-complete state
+        /// that could wreck the next test.
+        /// 
+        /// For example if you want to call `Assert.Ignore` to early out,
+        /// do it after the scene activated so the next case could start cleanly.
+        /// </remarks>
         protected IEnumerator ActivateScene()
         {
 #if HAS_AAS
@@ -79,7 +87,8 @@ namespace E7.Minefield
         }
 
         /// <summary>
-        /// We likely do a scene load after starting a test. Scene load with Single mode won't destroy the test runner game object with this.
+        /// We likely do a scene load after starting a test.
+        /// Scene load with Single mode won't destroy the test runner game object with this.
         /// </summary>
         [SetUp]
         public void ProtectTestRunner()

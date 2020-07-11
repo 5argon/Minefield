@@ -14,25 +14,31 @@ namespace E7.Minefield
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         /// <summary>
-        /// A boolean indicating automated testing. It is useful to cheat your code if you can't find a way to make the test play nice with it.
+        /// A boolean indicating automated testing.
+        /// It is useful to cheat your code if you can't find a way to make the test play nice with it.
+        /// </summary>
+        /// <remarks>
+        /// For example :
         /// 
-        /// For example, a test that clicks a button that opens up a Facebook page. It switch to the other app, and the test don't know
-        /// how to switch back. You can simply check in the code if it is a test, then don't open the browser. Or test running
-        /// Unity Ads, which the test couldn't click the Close button even in test mode. Or the test going into purchasing logic that
-        /// triggers OS native popup. Or anywhere that requires internet connection, and you may want the test to cheat something.
+        /// - a test that clicks a button that opens up a Facebook page.
+        /// It switch to the other app, and the test don't know how to switch back.
+        /// You can simply check in the code if it is a test, then don't open the browser.
+        /// - Or test running Unity Ads, which the test couldn't click the Close button even in test mode.
+        /// - Or the test going into purchasing logic that triggers OS native popup.
+        /// - Or anywhere that requires internet connection, and you may want the test to cheat something.
         /// 
         /// Use it sparingly!
         /// 
         /// Another use is to skip analytics code when it is a test running.
         /// 
-        /// Everywhere you use this in the game needs UNITY_EDITOR || DEVELOPMENT_BUILD preprocessor.
+        /// Everywhere you use this in the game needs `UNITY_EDITOR || DEVELOPMENT_BUILD` preprocessor.
         /// It is a safe measure to make sure no cheat can slip into the real game.
-        /// </summary>
+        /// </remarks>
         public static bool MinefieldTesting { get; set; }
 #endif
 
         /// <summary>
-        /// A shorthand for new-ing <see cref="WaitForSecondsRealtime"> for the lazy.
+        /// A shorthand for new-ing <see cref="WaitForSecondsRealtime"/> for the lazy.
         /// </summary>
         public static WaitForSecondsRealtime Wait(float seconds) => new WaitForSecondsRealtime(seconds);
 
@@ -105,10 +111,11 @@ namespace E7.Minefield
         }
 
         /// <summary>
-        /// Used together with <see cref="NoTimeoutAttribute"> to make a test that works like supercharged play mode button with custom setup.
+        /// Used together with `[NoTimeout]` to make a test that works
+        /// like supercharged play mode button with custom setup.
         /// 
-        /// When you just start writing a test to be an alternative to Play Mode button, when the condition wasn't fleshed out well yet
-        /// you may want unlimited time to play around.
+        /// When you just start writing a test to be an alternative to Play Mode button,
+        /// when the condition wasn't fleshed out well yet you may want unlimited time to play around.
         /// </summary>
         public static IEnumerator WaitForever() 
         {
@@ -124,7 +131,7 @@ namespace E7.Minefield
         }
 
         /// <summary>
-        /// Find the first game object of type <typeparamref name="T"> AND IT MUST BE ACTIVE.
+        /// Find the first game object of type <typeparamref name="T"/> AND IT MUST BE ACTIVE.
         /// </summary>
         public static T Find<T>() where T : Component
         {
@@ -132,8 +139,8 @@ namespace E7.Minefield
         }
 
         /// <summary>
-        /// Find the first game object of type <typeparamref name="T"> AND IT MUST BE ACTIVE.
-        /// Narrow the search on only scene named <paramref name="sceneName">.
+        /// Find the first game object of type <typeparamref name="T"/> AND IT MUST BE ACTIVE.
+        /// Narrow the search on only scene named <paramref name="sceneName"/>.
         /// </summary>
         public static T Find<T>(string sceneName) where T : Component
         {
@@ -149,7 +156,7 @@ namespace E7.Minefield
         }
 
         /// <summary>
-        /// Like <see cref="Find{T}"> but it returns a game object.
+        /// Like <see cref="Find{T}()"/> but it returns a game object.
         /// The object must be ACTIVE to be found!
         /// </summary>
         public static GameObject FindGameObject<T>() where T : Component
@@ -176,7 +183,8 @@ namespace E7.Minefield
         }
 
         /// <summary>
-        /// Get a component of type <typeparamref name="T"> from a game object with a specific name <paramref name="gameObjectName">.
+        /// Get a component of type <typeparamref name="T"/> from a game object
+        /// with a specific name <paramref name="gameObjectName"/>.
         /// </summary>
         public static T FindNamed<T>(string gameObjectName) where T : Component
         {
@@ -192,7 +200,7 @@ namespace E7.Minefield
         }
 
         /// <summary>
-        /// Check for amount of childs of a game object <paramref name="go">.
+        /// Check for amount of childs of a game object <paramref name="go"/>.
         /// </summary>
         public static int ActiveChildCount(GameObject go)
         {
@@ -205,7 +213,9 @@ namespace E7.Minefield
         }
 
         /// <summary>
-        /// Will try to find the parent first regardless of type, then a child under that parent regardless of type, then get component of type <typeparamref name="T">.
+        /// Will try to find the parent first regardless of type,
+        /// then a child under that parent regardless of type,
+        /// then get component of type <typeparamref name="T"/>.
         /// </summary>
         public static T FindNamed<T>(string parentName, string childName) where T : Component
         {
@@ -489,13 +499,16 @@ namespace E7.Minefield
         }
 
         /// <summary>
-        /// Simulate a click. Definition of a click is pointer down this frame then up at the same coordinate the next frame. So you need a coroutine on this.
+        /// Simulate a click. Definition of a click is pointer down this frame
+        /// then up at the same coordinate the next frame. So you need a coroutine on this.
         /// 
-        /// After finding the first object that blocks the ray, if that object do not have down, up, or click event it will be bubble up
-        /// until finding someone that could handle it.
+        /// After finding the first object that blocks the ray, if that object do not have down, up,
+        /// or click event it will be bubble up until finding someone that could handle it.
         /// 
-        /// It is still possible to produce impossible action, such as clicking 2 times on the same button. Even with coroutine, the up of the first click will be at
-        /// the same frame as down of the next one. This is not physically possible. So if you need to double click, wait a frame manually.
+        /// It is still possible to produce impossible action, such as clicking 2 times on the same button.
+        /// Even with coroutine, the up of the first click will be at
+        /// the same frame as down of the next one. This is not physically possible.
+        /// So if you need to double click, wait a frame manually.
         /// </summary>
         /// <param name="screenPosition">In pixel.</param>
         public static IEnumerator RaycastClick(Vector2 screenPosition)
