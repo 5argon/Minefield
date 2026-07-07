@@ -1,0 +1,93 @@
+.mf-toolbar {
+    flex-direction: row;
+    align-items: center;
+    padding: 3px 4px;
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(0, 0, 0, 0.3);
+}
+
+.mf-toolbar > .unity-button {
+    margin-right: 6px;
+}
+
+.mf-status {
+    -unity-text-align: middle-left;
+    margin-left: 6px;
+    opacity: 0.7;
+    flex-grow: 1;
+}
+
+.mf-pane {
+    flex-grow: 1;
+    min-height: 48px;
+}
+
+.mf-title {
+    -unity-font-style: bold;
+    padding: 4px 6px;
+}
+
+.mf-header-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mf-open {
+    margin-right: 6px;
+}
+
+.mf-warning {
+    color: rgb(224, 128, 64);
+    -unity-font-style: bold;
+    padding: 2px 6px;
+    white-space: normal;
+}
+
+.mf-colheader {
+    flex-direction: row;
+    padding: 2px 6px;
+    opacity: 0.6;
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(0, 0, 0, 0.2);
+}
+
+.mf-list {
+    flex-grow: 1;
+}
+
+.mf-row {
+    flex-direction: row;
+    align-items: center;
+    padding-left: 4px;
+}
+
+.mf-grow2 {
+    flex-grow: 2;
+    flex-basis: 0;
+    overflow: hidden;
+    -unity-text-align: middle-left;
+}
+
+.mf-grow1 {
+    flex-grow: 1;
+    flex-basis: 0;
+    overflow: hidden;
+    -unity-text-align: middle-left;
+}
+
+.mf-meta {
+    opacity: 0.7;
+    -unity-text-align: middle-right;
+    padding-right: 6px;
+}
+
+.mf-duplicate {
+    color: rgb(224, 96, 88);
+}
+
+.mf-empty {
+    padding: 8px;
+    opacity: 0.7;
+    white-space: normal;
+}

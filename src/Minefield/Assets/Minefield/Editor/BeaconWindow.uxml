@@ -1,0 +1,29 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="root" style="flex-grow: 1;">
+        <ui:VisualElement name="toolbar" class="mf-toolbar">
+            <ui:Button name="refresh" text="Refresh" />
+            <ui:Toggle name="buildOnly" label="Build scenes only" />
+            <ui:Label name="status" class="mf-status" />
+        </ui:VisualElement>
+        <ui:TwoPaneSplitView name="split" orientation="Vertical" fixed-pane-index="0" fixed-pane-initial-dimension="170" style="flex-grow: 1;">
+            <ui:VisualElement name="scenesPane" class="mf-pane">
+                <ui:Label text="Scenes with beacons" class="mf-title" />
+                <ui:ListView name="scenesList" class="mf-list" />
+            </ui:VisualElement>
+            <ui:VisualElement name="beaconsPane" class="mf-pane">
+                <ui:VisualElement class="mf-header-row">
+                    <ui:Label name="beaconsHeader" text="Beacons" class="mf-title" />
+                    <ui:Button name="openScene" text="Open Scene" class="mf-open" />
+                </ui:VisualElement>
+                <ui:Label name="dupWarning" class="mf-warning" />
+                <ui:VisualElement class="mf-colheader">
+                    <ui:Label text="GameObject" class="mf-grow2" />
+                    <ui:Label text="Type" class="mf-grow1" />
+                    <ui:Label text="Label" class="mf-grow1" />
+                </ui:VisualElement>
+                <ui:ListView name="beaconsList" class="mf-list" />
+                <ui:Label name="beaconsEmpty" text="Select a scene above." class="mf-empty" />
+            </ui:VisualElement>
+        </ui:TwoPaneSplitView>
+    </ui:VisualElement>
+</ui:UXML>
