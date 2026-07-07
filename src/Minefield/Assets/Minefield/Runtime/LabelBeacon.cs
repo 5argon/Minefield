@@ -36,7 +36,7 @@ namespace E7.Minefield
         public GameObject GameObject => gameObject;
 
         /// <summary>
-        /// Shortcut to write more concise code in combination with <see cref="Beacon.Get">
+        /// Shortcut to write more concise code in combination with <see cref="Beacon.Get" />
         /// </summary>
         public T Component<T>() => GameObject.GetComponent<T>();
 

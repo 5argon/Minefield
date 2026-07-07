@@ -3,7 +3,7 @@ using System;
 namespace E7.Minefield
 {
     /// <summary>
-    /// A special kind of <see cref="HandlerBeacon{T}"> for navigating the scene. (not for gameplay actions)
+    /// A special kind of <see cref="HandlerBeacon{T}" /> for navigating the scene. (not for gameplay actions)
     /// Functionally it is the same, but it may provide some extra functions in the future so it is better
     /// to categorize you gameplay related handler beacons and UI-related navigation beacon correctly.
     /// </summary>
@@ -14,7 +14,7 @@ namespace E7.Minefield
     }
 
     /// <summary>
-    /// A special kind of <see cref="HandlerBeacon{T}"> for navigating the scene. (not for gameplay actions)
+    /// A special kind of <see cref="HandlerBeacon{T}" /> for navigating the scene. (not for gameplay actions)
     /// Functionally it is the same, but it may provide some extra functions in the future so it is better
     /// to categorize you gameplay related handler beacons and UI-related navigation beacon correctly.
     /// 
