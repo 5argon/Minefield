@@ -1,0 +1,22 @@
+{
+    "name": "com.e7.minefield",
+    "author": "Sirawat Pitaksarit (5argon) - Exceed7 Experiments",
+    "displayName": "Minefield Test Tools",
+    "version": "1.0.0",
+    "unity": "2022.3",
+    "description": "Concise play mode navigation testing for uGUI. Attach enum 'beacons' to scene objects and drive them by identity (find, wait-until-clickable, click) without baking in coordinates or object names.",
+    "keywords": [
+        "Testing",
+        "Play mode tests",
+        "Edit mode tests",
+        "Unit tests",
+        "Integration tests",
+        "uGUI",
+        "Navigation"
+    ],
+    "category": "Testing",
+    "dependencies": {
+        "com.unity.test-framework": "1.4.5",
+        "com.unity.ugui": "1.0.0"
+    }
+}
