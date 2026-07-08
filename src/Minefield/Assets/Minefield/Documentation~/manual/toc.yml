@@ -1,0 +1,16 @@
+- name: Overview
+  href: index.md
+- name: Why Beacons
+  href: why-beacons.md
+- name: Testable Project Guideline
+  href: guideline.md
+- name: Installation
+  href: installation.md
+- name: Walkthrough — Beacons
+  href: beacons.md
+- name: Walkthrough — Navigation & Assertion
+  href: navigation.md
+- name: Reporters
+  href: reporters.md
+- name: Play Button Replacement
+  href: play-button.md

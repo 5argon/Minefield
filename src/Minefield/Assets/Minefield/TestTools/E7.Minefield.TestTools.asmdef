@@ -1,26 +1,29 @@
 {
     "name": "E7.Minefield.TestTools",
+    "rootNamespace": "",
     "references": [
-        "Unity.Addressables",
-        "Unity.ResourceManager",
-        "Unity.TextMeshPro",
-        "E7.Minefield"
-    ],
-    "optionalUnityReferences": [
-        "TestAssemblies"
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:97e2b995b27584068ab0582667167f9e",
+        "GUID:27619889b8ba8c24980f49ee34dbb44a",
+        "GUID:0acc523941302664db1f4e527237feb3"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
     "versionDefines": [
         {
             "name": "com.unity.addressables",
             "expression": "",
             "define": "HAS_AAS"
         }
-    ]
+    ],
+    "noEngineReferences": false
 }

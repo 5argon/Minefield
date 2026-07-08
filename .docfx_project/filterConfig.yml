@@ -1,0 +1,11 @@
+apiRules:
+- include:
+    uidRegex: ^E7\.Minefield
+- exclude:
+    uidRegex: ^UnityEngine
+- exclude:
+    uidRegex: ^UnityEditor
+- exclude:
+    uidRegex: ^NUnit
+- exclude:
+    uidRegex: ^System

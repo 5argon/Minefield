@@ -1,0 +1,172 @@
+### YamlMime:ManagedReference
+items:
+- uid: E7.Minefield.BeaconWindow
+  commentId: T:E7.Minefield.BeaconWindow
+  id: BeaconWindow
+  parent: E7.Minefield
+  children:
+  - E7.Minefield.BeaconWindow.CreateGUI
+  - E7.Minefield.BeaconWindow.Open
+  langs:
+  - csharp
+  - vb
+  name: BeaconWindow
+  nameWithType: BeaconWindow
+  fullName: E7.Minefield.BeaconWindow
+  type: Class
+  assemblies:
+  - E7.Minefield.Editor
+  namespace: E7.Minefield
+  summary: >-
+    Edit-time overview of Minefield beacons. Lists every scene that contains beacons, and for an
+
+    open scene shows each beacon's GameObject, type, and enum label. Selecting a beacon row pings
+
+    (and selects) the object, and duplicate labels — which would throw a <code>BeaconException</code> at
+
+    test time — are flagged here, where they were authored, instead of at runtime.
+
+
+    Open via <b>Window ▸ Analysis ▸ Minefield ▸ Beacons</b>.
+  example: []
+  syntax:
+    content: 'public class BeaconWindow : EditorWindow'
+    content.vb: Public Class BeaconWindow Inherits EditorWindow
+  inheritance:
+  - System.Object
+  - UnityEngine.Object
+  - UnityEngine.ScriptableObject
+  - UnityEditor.EditorWindow
+- uid: E7.Minefield.BeaconWindow.Open
+  commentId: M:E7.Minefield.BeaconWindow.Open
+  id: Open
+  parent: E7.Minefield.BeaconWindow
+  langs:
+  - csharp
+  - vb
+  name: Open()
+  nameWithType: BeaconWindow.Open()
+  fullName: E7.Minefield.BeaconWindow.Open()
+  type: Method
+  assemblies:
+  - E7.Minefield.Editor
+  namespace: E7.Minefield
+  syntax:
+    content: >-
+      [MenuItem("Window/Analysis/Minefield/Beacons")]
+
+      public static void Open()
+    content.vb: >-
+      <MenuItem("Window/Analysis/Minefield/Beacons")>
+
+      Public Shared Sub Open()
+  overload: E7.Minefield.BeaconWindow.Open*
+  attributes:
+  - type: UnityEditor.MenuItem
+    ctor: UnityEditor.MenuItem.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Window/Analysis/Minefield/Beacons
+- uid: E7.Minefield.BeaconWindow.CreateGUI
+  commentId: M:E7.Minefield.BeaconWindow.CreateGUI
+  id: CreateGUI
+  parent: E7.Minefield.BeaconWindow
+  langs:
+  - csharp
+  - vb
+  name: CreateGUI()
+  nameWithType: BeaconWindow.CreateGUI()
+  fullName: E7.Minefield.BeaconWindow.CreateGUI()
+  type: Method
+  assemblies:
+  - E7.Minefield.Editor
+  namespace: E7.Minefield
+  syntax:
+    content: public void CreateGUI()
+    content.vb: Public Sub CreateGUI()
+  overload: E7.Minefield.BeaconWindow.CreateGUI*
+references:
+- uid: E7.Minefield
+  commentId: N:E7.Minefield
+  href: E7.html
+  name: E7.Minefield
+  nameWithType: E7.Minefield
+  fullName: E7.Minefield
+  spec.csharp:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+  spec.vb:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: UnityEngine.Object
+  commentId: T:UnityEngine.Object
+  parent: UnityEngine
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: UnityEngine.Object
+- uid: UnityEngine.ScriptableObject
+  commentId: T:UnityEngine.ScriptableObject
+  parent: UnityEngine
+  isExternal: true
+  name: ScriptableObject
+  nameWithType: ScriptableObject
+  fullName: UnityEngine.ScriptableObject
+- uid: UnityEditor.EditorWindow
+  commentId: T:UnityEditor.EditorWindow
+  parent: UnityEditor
+  isExternal: true
+  name: EditorWindow
+  nameWithType: EditorWindow
+  fullName: UnityEditor.EditorWindow
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: UnityEngine
+  commentId: N:UnityEngine
+  isExternal: true
+  name: UnityEngine
+  nameWithType: UnityEngine
+  fullName: UnityEngine
+- uid: UnityEditor
+  commentId: N:UnityEditor
+  isExternal: true
+  name: UnityEditor
+  nameWithType: UnityEditor
+  fullName: UnityEditor
+- uid: E7.Minefield.BeaconWindow.Open*
+  commentId: Overload:E7.Minefield.BeaconWindow.Open
+  href: E7.Minefield.BeaconWindow.html#E7_Minefield_BeaconWindow_Open
+  name: Open
+  nameWithType: BeaconWindow.Open
+  fullName: E7.Minefield.BeaconWindow.Open
+- uid: E7.Minefield.BeaconWindow.CreateGUI*
+  commentId: Overload:E7.Minefield.BeaconWindow.CreateGUI
+  href: E7.Minefield.BeaconWindow.html#E7_Minefield_BeaconWindow_CreateGUI
+  name: CreateGUI
+  nameWithType: BeaconWindow.CreateGUI
+  fullName: E7.Minefield.BeaconWindow.CreateGUI

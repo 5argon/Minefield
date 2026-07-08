@@ -1,0 +1,93 @@
+### YamlMime:ManagedReference
+items:
+- uid: E7.Minefield.IMinefieldAmountReporter
+  commentId: T:E7.Minefield.IMinefieldAmountReporter
+  id: IMinefieldAmountReporter
+  parent: E7.Minefield
+  children:
+  - E7.Minefield.IMinefieldAmountReporter.Amount
+  langs:
+  - csharp
+  - vb
+  name: IMinefieldAmountReporter
+  nameWithType: IMinefieldAmountReporter
+  fullName: E7.Minefield.IMinefieldAmountReporter
+  type: Interface
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: >-
+    Some object may have its "amount", for example a strike LED in a baseball game where 0, 1, 2, 3 represents how many LEDs are currently lit up.
+
+    With this interface you are able to test that amount with Is.Reporting.Amount
+  example: []
+  syntax:
+    content: 'public interface IMinefieldAmountReporter : IMinefieldReporter'
+    content.vb: Public Interface IMinefieldAmountReporter Inherits IMinefieldReporter
+- uid: E7.Minefield.IMinefieldAmountReporter.Amount
+  commentId: P:E7.Minefield.IMinefieldAmountReporter.Amount
+  id: Amount
+  parent: E7.Minefield.IMinefieldAmountReporter
+  langs:
+  - csharp
+  - vb
+  name: Amount
+  nameWithType: IMinefieldAmountReporter.Amount
+  fullName: E7.Minefield.IMinefieldAmountReporter.Amount
+  type: Property
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  syntax:
+    content: int Amount { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: ReadOnly Property Amount As Integer
+  overload: E7.Minefield.IMinefieldAmountReporter.Amount*
+references:
+- uid: E7.Minefield
+  commentId: N:E7.Minefield
+  href: E7.html
+  name: E7.Minefield
+  nameWithType: E7.Minefield
+  fullName: E7.Minefield
+  spec.csharp:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+  spec.vb:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+- uid: E7.Minefield.IMinefieldAmountReporter.Amount*
+  commentId: Overload:E7.Minefield.IMinefieldAmountReporter.Amount
+  href: E7.Minefield.IMinefieldAmountReporter.html#E7_Minefield_IMinefieldAmountReporter_Amount
+  name: Amount
+  nameWithType: IMinefieldAmountReporter.Amount
+  fullName: E7.Minefield.IMinefieldAmountReporter.Amount
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System

@@ -1,0 +1,99 @@
+### YamlMime:ManagedReference
+items:
+- uid: E7.Minefield.AssignIconTool
+  commentId: T:E7.Minefield.AssignIconTool
+  id: AssignIconTool
+  parent: E7.Minefield
+  children:
+  - E7.Minefield.AssignIconTool.AssignIcons
+  langs:
+  - csharp
+  - vb
+  name: AssignIconTool
+  nameWithType: AssignIconTool
+  fullName: E7.Minefield.AssignIconTool
+  type: Class
+  assemblies:
+  - E7.Minefield.Editor
+  namespace: E7.Minefield
+  syntax:
+    content: public static class AssignIconTool
+    content.vb: Public Module AssignIconTool
+  inheritance:
+  - System.Object
+- uid: E7.Minefield.AssignIconTool.AssignIcons
+  commentId: M:E7.Minefield.AssignIconTool.AssignIcons
+  id: AssignIcons
+  parent: E7.Minefield.AssignIconTool
+  langs:
+  - csharp
+  - vb
+  name: AssignIcons()
+  nameWithType: AssignIconTool.AssignIcons()
+  fullName: E7.Minefield.AssignIconTool.AssignIcons()
+  type: Method
+  assemblies:
+  - E7.Minefield.Editor
+  namespace: E7.Minefield
+  syntax:
+    content: >-
+      [MenuItem("Assets/Minefield/Auto-assign all script icons")]
+
+      public static void AssignIcons()
+    content.vb: >-
+      <MenuItem("Assets/Minefield/Auto-assign all script icons")>
+
+      Public Shared Sub AssignIcons()
+  overload: E7.Minefield.AssignIconTool.AssignIcons*
+  attributes:
+  - type: UnityEditor.MenuItem
+    ctor: UnityEditor.MenuItem.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Assets/Minefield/Auto-assign all script icons
+references:
+- uid: E7.Minefield
+  commentId: N:E7.Minefield
+  href: E7.html
+  name: E7.Minefield
+  nameWithType: E7.Minefield
+  fullName: E7.Minefield
+  spec.csharp:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+  spec.vb:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: E7.Minefield.AssignIconTool.AssignIcons*
+  commentId: Overload:E7.Minefield.AssignIconTool.AssignIcons
+  href: E7.Minefield.AssignIconTool.html#E7_Minefield_AssignIconTool_AssignIcons
+  name: AssignIcons
+  nameWithType: AssignIconTool.AssignIcons
+  fullName: E7.Minefield.AssignIconTool.AssignIcons

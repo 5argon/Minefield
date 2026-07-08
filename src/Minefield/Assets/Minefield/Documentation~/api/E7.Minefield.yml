@@ -1,0 +1,534 @@
+### YamlMime:ManagedReference
+items:
+- uid: E7.Minefield
+  commentId: N:E7.Minefield
+  id: E7.Minefield
+  children:
+  - E7.Minefield.ActiveConstraint
+  - E7.Minefield.AmountConstraint
+  - E7.Minefield.AssignIconTool
+  - E7.Minefield.Beacon
+  - E7.Minefield.BeaconConstraint
+  - E7.Minefield.BeaconException
+  - E7.Minefield.BeaconWindow
+  - E7.Minefield.ClickableConstraint
+  - E7.Minefield.DoubleTimeoutAttribute
+  - E7.Minefield.GameObjectNotFoundException
+  - E7.Minefield.HandlerBeacon
+  - E7.Minefield.HandlerBeacon`1
+  - E7.Minefield.IHandlerBeacon
+  - E7.Minefield.ILabelBeacon
+  - E7.Minefield.IMinefieldAmountReporter
+  - E7.Minefield.IMinefieldObjectReporter`1
+  - E7.Minefield.IMinefieldOnOffReporter
+  - E7.Minefield.IMinefieldReporter
+  - E7.Minefield.IMinefieldStatusReporter`1
+  - E7.Minefield.IMinefieldStringReporter
+  - E7.Minefield.InactiveConstraint
+  - E7.Minefield.LabelBeacon
+  - E7.Minefield.LabelBeacon`1
+  - E7.Minefield.MinefieldTest
+  - E7.Minefield.NavigationBeacon
+  - E7.Minefield.NavigationBeacon`1
+  - E7.Minefield.NoTimeoutAttribute
+  - E7.Minefield.NotConstraint
+  - E7.Minefield.ObjectConstraint`1
+  - E7.Minefield.OnOffConstraint
+  - E7.Minefield.PlatformSpecificTestAttributes
+  - E7.Minefield.PlatformSpecificTestAttributes.UnityEditorPlatformAttribute
+  - E7.Minefield.PlatformSpecificTestAttributes.UnityMobilePlatformAttribute
+  - E7.Minefield.ReporterBasedConstraint`1
+  - E7.Minefield.SceneTest
+  - E7.Minefield.StatusConstraint`1
+  - E7.Minefield.StringContainsConstraint
+  - E7.Minefield.TaskExtensionTest
+  - E7.Minefield.UGUITestExtension
+  - E7.Minefield.Utility
+  - E7.Minefield.Utility.TimeOutWaitUntil
+  langs:
+  - csharp
+  - vb
+  name: E7.Minefield
+  nameWithType: E7.Minefield
+  fullName: E7.Minefield
+  type: Namespace
+  assemblies:
+  - E7.Minefield.TestTools
+references:
+- uid: E7.Minefield.BeaconConstraint
+  commentId: T:E7.Minefield.BeaconConstraint
+  parent: E7.Minefield
+  href: E7.Minefield.BeaconConstraint.html
+  name: BeaconConstraint
+  nameWithType: BeaconConstraint
+  fullName: E7.Minefield.BeaconConstraint
+- uid: E7.Minefield.ObjectConstraint`1
+  commentId: T:E7.Minefield.ObjectConstraint`1
+  href: E7.Minefield.ObjectConstraint-1.html
+  name: ObjectConstraint<T>
+  nameWithType: ObjectConstraint<T>
+  fullName: E7.Minefield.ObjectConstraint<T>
+  nameWithType.vb: ObjectConstraint(Of T)
+  fullName.vb: E7.Minefield.ObjectConstraint(Of T)
+  name.vb: ObjectConstraint(Of T)
+  spec.csharp:
+  - uid: E7.Minefield.ObjectConstraint`1
+    name: ObjectConstraint
+    href: E7.Minefield.ObjectConstraint-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: E7.Minefield.ObjectConstraint`1
+    name: ObjectConstraint
+    href: E7.Minefield.ObjectConstraint-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: E7.Minefield.PlatformSpecificTestAttributes
+  commentId: T:E7.Minefield.PlatformSpecificTestAttributes
+  href: E7.Minefield.PlatformSpecificTestAttributes.html
+  name: PlatformSpecificTestAttributes
+  nameWithType: PlatformSpecificTestAttributes
+  fullName: E7.Minefield.PlatformSpecificTestAttributes
+- uid: E7.Minefield.PlatformSpecificTestAttributes.UnityEditorPlatformAttribute
+  commentId: T:E7.Minefield.PlatformSpecificTestAttributes.UnityEditorPlatformAttribute
+  href: E7.Minefield.PlatformSpecificTestAttributes.html
+  name: PlatformSpecificTestAttributes.UnityEditorPlatformAttribute
+  nameWithType: PlatformSpecificTestAttributes.UnityEditorPlatformAttribute
+  fullName: E7.Minefield.PlatformSpecificTestAttributes.UnityEditorPlatformAttribute
+  spec.csharp:
+  - uid: E7.Minefield.PlatformSpecificTestAttributes
+    name: PlatformSpecificTestAttributes
+    href: E7.Minefield.PlatformSpecificTestAttributes.html
+  - name: .
+  - uid: E7.Minefield.PlatformSpecificTestAttributes.UnityEditorPlatformAttribute
+    name: UnityEditorPlatformAttribute
+    href: E7.Minefield.PlatformSpecificTestAttributes.UnityEditorPlatformAttribute.html
+  spec.vb:
+  - uid: E7.Minefield.PlatformSpecificTestAttributes
+    name: PlatformSpecificTestAttributes
+    href: E7.Minefield.PlatformSpecificTestAttributes.html
+  - name: .
+  - uid: E7.Minefield.PlatformSpecificTestAttributes.UnityEditorPlatformAttribute
+    name: UnityEditorPlatformAttribute
+    href: E7.Minefield.PlatformSpecificTestAttributes.UnityEditorPlatformAttribute.html
+- uid: E7.Minefield.PlatformSpecificTestAttributes.UnityMobilePlatformAttribute
+  commentId: T:E7.Minefield.PlatformSpecificTestAttributes.UnityMobilePlatformAttribute
+  href: E7.Minefield.PlatformSpecificTestAttributes.html
+  name: PlatformSpecificTestAttributes.UnityMobilePlatformAttribute
+  nameWithType: PlatformSpecificTestAttributes.UnityMobilePlatformAttribute
+  fullName: E7.Minefield.PlatformSpecificTestAttributes.UnityMobilePlatformAttribute
+  spec.csharp:
+  - uid: E7.Minefield.PlatformSpecificTestAttributes
+    name: PlatformSpecificTestAttributes
+    href: E7.Minefield.PlatformSpecificTestAttributes.html
+  - name: .
+  - uid: E7.Minefield.PlatformSpecificTestAttributes.UnityMobilePlatformAttribute
+    name: UnityMobilePlatformAttribute
+    href: E7.Minefield.PlatformSpecificTestAttributes.UnityMobilePlatformAttribute.html
+  spec.vb:
+  - uid: E7.Minefield.PlatformSpecificTestAttributes
+    name: PlatformSpecificTestAttributes
+    href: E7.Minefield.PlatformSpecificTestAttributes.html
+  - name: .
+  - uid: E7.Minefield.PlatformSpecificTestAttributes.UnityMobilePlatformAttribute
+    name: UnityMobilePlatformAttribute
+    href: E7.Minefield.PlatformSpecificTestAttributes.UnityMobilePlatformAttribute.html
+- uid: E7.Minefield.AmountConstraint
+  commentId: T:E7.Minefield.AmountConstraint
+  href: E7.Minefield.AmountConstraint.html
+  name: AmountConstraint
+  nameWithType: AmountConstraint
+  fullName: E7.Minefield.AmountConstraint
+- uid: E7.Minefield.UGUITestExtension
+  commentId: T:E7.Minefield.UGUITestExtension
+  parent: E7.Minefield
+  href: E7.Minefield.UGUITestExtension.html
+  name: UGUITestExtension
+  nameWithType: UGUITestExtension
+  fullName: E7.Minefield.UGUITestExtension
+- uid: E7.Minefield.StringContainsConstraint
+  commentId: T:E7.Minefield.StringContainsConstraint
+  href: E7.Minefield.StringContainsConstraint.html
+  name: StringContainsConstraint
+  nameWithType: StringContainsConstraint
+  fullName: E7.Minefield.StringContainsConstraint
+- uid: E7.Minefield.ActiveConstraint
+  commentId: T:E7.Minefield.ActiveConstraint
+  href: E7.Minefield.ActiveConstraint.html
+  name: ActiveConstraint
+  nameWithType: ActiveConstraint
+  fullName: E7.Minefield.ActiveConstraint
+- uid: E7.Minefield.OnOffConstraint
+  commentId: T:E7.Minefield.OnOffConstraint
+  href: E7.Minefield.OnOffConstraint.html
+  name: OnOffConstraint
+  nameWithType: OnOffConstraint
+  fullName: E7.Minefield.OnOffConstraint
+- uid: E7.Minefield.DoubleTimeoutAttribute
+  commentId: T:E7.Minefield.DoubleTimeoutAttribute
+  href: E7.Minefield.DoubleTimeoutAttribute.html
+  name: DoubleTimeoutAttribute
+  nameWithType: DoubleTimeoutAttribute
+  fullName: E7.Minefield.DoubleTimeoutAttribute
+- uid: E7.Minefield.StatusConstraint`1
+  commentId: T:E7.Minefield.StatusConstraint`1
+  href: E7.Minefield.StatusConstraint-1.html
+  name: StatusConstraint<T>
+  nameWithType: StatusConstraint<T>
+  fullName: E7.Minefield.StatusConstraint<T>
+  nameWithType.vb: StatusConstraint(Of T)
+  fullName.vb: E7.Minefield.StatusConstraint(Of T)
+  name.vb: StatusConstraint(Of T)
+  spec.csharp:
+  - uid: E7.Minefield.StatusConstraint`1
+    name: StatusConstraint
+    href: E7.Minefield.StatusConstraint-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: E7.Minefield.StatusConstraint`1
+    name: StatusConstraint
+    href: E7.Minefield.StatusConstraint-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: E7.Minefield.ClickableConstraint
+  commentId: T:E7.Minefield.ClickableConstraint
+  href: E7.Minefield.ClickableConstraint.html
+  name: ClickableConstraint
+  nameWithType: ClickableConstraint
+  fullName: E7.Minefield.ClickableConstraint
+- uid: E7.Minefield.BeaconException
+  commentId: T:E7.Minefield.BeaconException
+  href: E7.Minefield.BeaconException.html
+  name: BeaconException
+  nameWithType: BeaconException
+  fullName: E7.Minefield.BeaconException
+- uid: E7.Minefield.MinefieldTest
+  commentId: T:E7.Minefield.MinefieldTest
+  parent: E7.Minefield
+  href: E7.Minefield.MinefieldTest.html
+  name: MinefieldTest
+  nameWithType: MinefieldTest
+  fullName: E7.Minefield.MinefieldTest
+- uid: E7.Minefield.InactiveConstraint
+  commentId: T:E7.Minefield.InactiveConstraint
+  href: E7.Minefield.InactiveConstraint.html
+  name: InactiveConstraint
+  nameWithType: InactiveConstraint
+  fullName: E7.Minefield.InactiveConstraint
+- uid: E7.Minefield.TaskExtensionTest
+  commentId: T:E7.Minefield.TaskExtensionTest
+  href: E7.Minefield.TaskExtensionTest.html
+  name: TaskExtensionTest
+  nameWithType: TaskExtensionTest
+  fullName: E7.Minefield.TaskExtensionTest
+- uid: E7.Minefield.ReporterBasedConstraint`1
+  commentId: T:E7.Minefield.ReporterBasedConstraint`1
+  href: E7.Minefield.ReporterBasedConstraint-1.html
+  name: ReporterBasedConstraint<T>
+  nameWithType: ReporterBasedConstraint<T>
+  fullName: E7.Minefield.ReporterBasedConstraint<T>
+  nameWithType.vb: ReporterBasedConstraint(Of T)
+  fullName.vb: E7.Minefield.ReporterBasedConstraint(Of T)
+  name.vb: ReporterBasedConstraint(Of T)
+  spec.csharp:
+  - uid: E7.Minefield.ReporterBasedConstraint`1
+    name: ReporterBasedConstraint
+    href: E7.Minefield.ReporterBasedConstraint-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: E7.Minefield.ReporterBasedConstraint`1
+    name: ReporterBasedConstraint
+    href: E7.Minefield.ReporterBasedConstraint-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: E7.Minefield.NoTimeoutAttribute
+  commentId: T:E7.Minefield.NoTimeoutAttribute
+  href: E7.Minefield.NoTimeoutAttribute.html
+  name: NoTimeoutAttribute
+  nameWithType: NoTimeoutAttribute
+  fullName: E7.Minefield.NoTimeoutAttribute
+- uid: E7.Minefield.SceneTest
+  commentId: T:E7.Minefield.SceneTest
+  href: E7.Minefield.SceneTest.html
+  name: SceneTest
+  nameWithType: SceneTest
+  fullName: E7.Minefield.SceneTest
+- uid: E7.Minefield.Beacon
+  commentId: T:E7.Minefield.Beacon
+  href: E7.Minefield.Beacon.html
+  name: Beacon
+  nameWithType: Beacon
+  fullName: E7.Minefield.Beacon
+- uid: E7.Minefield.NotConstraint
+  commentId: T:E7.Minefield.NotConstraint
+  parent: E7.Minefield
+  href: E7.Minefield.NotConstraint.html
+  name: NotConstraint
+  nameWithType: NotConstraint
+  fullName: E7.Minefield.NotConstraint
+- uid: E7.Minefield.AssignIconTool
+  commentId: T:E7.Minefield.AssignIconTool
+  href: E7.Minefield.AssignIconTool.html
+  name: AssignIconTool
+  nameWithType: AssignIconTool
+  fullName: E7.Minefield.AssignIconTool
+- uid: E7.Minefield.BeaconWindow
+  commentId: T:E7.Minefield.BeaconWindow
+  href: E7.Minefield.BeaconWindow.html
+  name: BeaconWindow
+  nameWithType: BeaconWindow
+  fullName: E7.Minefield.BeaconWindow
+- uid: E7.Minefield.IMinefieldStatusReporter`1
+  commentId: T:E7.Minefield.IMinefieldStatusReporter`1
+  href: E7.Minefield.IMinefieldStatusReporter-1.html
+  name: IMinefieldStatusReporter<T>
+  nameWithType: IMinefieldStatusReporter<T>
+  fullName: E7.Minefield.IMinefieldStatusReporter<T>
+  nameWithType.vb: IMinefieldStatusReporter(Of T)
+  fullName.vb: E7.Minefield.IMinefieldStatusReporter(Of T)
+  name.vb: IMinefieldStatusReporter(Of T)
+  spec.csharp:
+  - uid: E7.Minefield.IMinefieldStatusReporter`1
+    name: IMinefieldStatusReporter
+    href: E7.Minefield.IMinefieldStatusReporter-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: E7.Minefield.IMinefieldStatusReporter`1
+    name: IMinefieldStatusReporter
+    href: E7.Minefield.IMinefieldStatusReporter-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: E7.Minefield.IMinefieldReporter
+  commentId: T:E7.Minefield.IMinefieldReporter
+  href: E7.Minefield.IMinefieldReporter.html
+  name: IMinefieldReporter
+  nameWithType: IMinefieldReporter
+  fullName: E7.Minefield.IMinefieldReporter
+- uid: E7.Minefield.Utility
+  commentId: T:E7.Minefield.Utility
+  href: E7.Minefield.Utility.html
+  name: Utility
+  nameWithType: Utility
+  fullName: E7.Minefield.Utility
+- uid: E7.Minefield.Utility.TimeOutWaitUntil
+  commentId: T:E7.Minefield.Utility.TimeOutWaitUntil
+  href: E7.Minefield.Utility.html
+  name: Utility.TimeOutWaitUntil
+  nameWithType: Utility.TimeOutWaitUntil
+  fullName: E7.Minefield.Utility.TimeOutWaitUntil
+  spec.csharp:
+  - uid: E7.Minefield.Utility
+    name: Utility
+    href: E7.Minefield.Utility.html
+  - name: .
+  - uid: E7.Minefield.Utility.TimeOutWaitUntil
+    name: TimeOutWaitUntil
+    href: E7.Minefield.Utility.TimeOutWaitUntil.html
+  spec.vb:
+  - uid: E7.Minefield.Utility
+    name: Utility
+    href: E7.Minefield.Utility.html
+  - name: .
+  - uid: E7.Minefield.Utility.TimeOutWaitUntil
+    name: TimeOutWaitUntil
+    href: E7.Minefield.Utility.TimeOutWaitUntil.html
+- uid: E7.Minefield.GameObjectNotFoundException
+  commentId: T:E7.Minefield.GameObjectNotFoundException
+  href: E7.Minefield.GameObjectNotFoundException.html
+  name: GameObjectNotFoundException
+  nameWithType: GameObjectNotFoundException
+  fullName: E7.Minefield.GameObjectNotFoundException
+- uid: E7.Minefield.IMinefieldStringReporter
+  commentId: T:E7.Minefield.IMinefieldStringReporter
+  href: E7.Minefield.IMinefieldStringReporter.html
+  name: IMinefieldStringReporter
+  nameWithType: IMinefieldStringReporter
+  fullName: E7.Minefield.IMinefieldStringReporter
+- uid: E7.Minefield.IHandlerBeacon
+  commentId: T:E7.Minefield.IHandlerBeacon
+  parent: E7.Minefield
+  href: E7.Minefield.IHandlerBeacon.html
+  name: IHandlerBeacon
+  nameWithType: IHandlerBeacon
+  fullName: E7.Minefield.IHandlerBeacon
+- uid: E7.Minefield.HandlerBeacon`1
+  commentId: T:E7.Minefield.HandlerBeacon`1
+  href: E7.Minefield.HandlerBeacon-1.html
+  name: HandlerBeacon<T>
+  nameWithType: HandlerBeacon<T>
+  fullName: E7.Minefield.HandlerBeacon<T>
+  nameWithType.vb: HandlerBeacon(Of T)
+  fullName.vb: E7.Minefield.HandlerBeacon(Of T)
+  name.vb: HandlerBeacon(Of T)
+  spec.csharp:
+  - uid: E7.Minefield.HandlerBeacon`1
+    name: HandlerBeacon
+    href: E7.Minefield.HandlerBeacon-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: E7.Minefield.HandlerBeacon`1
+    name: HandlerBeacon
+    href: E7.Minefield.HandlerBeacon-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: E7.Minefield.HandlerBeacon
+  commentId: T:E7.Minefield.HandlerBeacon
+  parent: E7.Minefield
+  href: E7.Minefield.HandlerBeacon.html
+  name: HandlerBeacon
+  nameWithType: HandlerBeacon
+  fullName: E7.Minefield.HandlerBeacon
+- uid: E7.Minefield.IMinefieldAmountReporter
+  commentId: T:E7.Minefield.IMinefieldAmountReporter
+  href: E7.Minefield.IMinefieldAmountReporter.html
+  name: IMinefieldAmountReporter
+  nameWithType: IMinefieldAmountReporter
+  fullName: E7.Minefield.IMinefieldAmountReporter
+- uid: E7.Minefield.IMinefieldObjectReporter`1
+  commentId: T:E7.Minefield.IMinefieldObjectReporter`1
+  href: E7.Minefield.IMinefieldObjectReporter-1.html
+  name: IMinefieldObjectReporter<T>
+  nameWithType: IMinefieldObjectReporter<T>
+  fullName: E7.Minefield.IMinefieldObjectReporter<T>
+  nameWithType.vb: IMinefieldObjectReporter(Of T)
+  fullName.vb: E7.Minefield.IMinefieldObjectReporter(Of T)
+  name.vb: IMinefieldObjectReporter(Of T)
+  spec.csharp:
+  - uid: E7.Minefield.IMinefieldObjectReporter`1
+    name: IMinefieldObjectReporter
+    href: E7.Minefield.IMinefieldObjectReporter-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: E7.Minefield.IMinefieldObjectReporter`1
+    name: IMinefieldObjectReporter
+    href: E7.Minefield.IMinefieldObjectReporter-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: E7.Minefield.IMinefieldOnOffReporter
+  commentId: T:E7.Minefield.IMinefieldOnOffReporter
+  href: E7.Minefield.IMinefieldOnOffReporter.html
+  name: IMinefieldOnOffReporter
+  nameWithType: IMinefieldOnOffReporter
+  fullName: E7.Minefield.IMinefieldOnOffReporter
+- uid: E7.Minefield.ILabelBeacon
+  commentId: T:E7.Minefield.ILabelBeacon
+  parent: E7.Minefield
+  href: E7.Minefield.ILabelBeacon.html
+  name: ILabelBeacon
+  nameWithType: ILabelBeacon
+  fullName: E7.Minefield.ILabelBeacon
+- uid: E7.Minefield.LabelBeacon`1
+  commentId: T:E7.Minefield.LabelBeacon`1
+  href: E7.Minefield.LabelBeacon-1.html
+  name: LabelBeacon<T>
+  nameWithType: LabelBeacon<T>
+  fullName: E7.Minefield.LabelBeacon<T>
+  nameWithType.vb: LabelBeacon(Of T)
+  fullName.vb: E7.Minefield.LabelBeacon(Of T)
+  name.vb: LabelBeacon(Of T)
+  spec.csharp:
+  - uid: E7.Minefield.LabelBeacon`1
+    name: LabelBeacon
+    href: E7.Minefield.LabelBeacon-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: E7.Minefield.LabelBeacon`1
+    name: LabelBeacon
+    href: E7.Minefield.LabelBeacon-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: E7.Minefield.LabelBeacon
+  commentId: T:E7.Minefield.LabelBeacon
+  parent: E7.Minefield
+  href: E7.Minefield.LabelBeacon.html
+  name: LabelBeacon
+  nameWithType: LabelBeacon
+  fullName: E7.Minefield.LabelBeacon
+- uid: E7.Minefield.NavigationBeacon`1
+  commentId: T:E7.Minefield.NavigationBeacon`1
+  href: E7.Minefield.NavigationBeacon-1.html
+  name: NavigationBeacon<T>
+  nameWithType: NavigationBeacon<T>
+  fullName: E7.Minefield.NavigationBeacon<T>
+  nameWithType.vb: NavigationBeacon(Of T)
+  fullName.vb: E7.Minefield.NavigationBeacon(Of T)
+  name.vb: NavigationBeacon(Of T)
+  spec.csharp:
+  - uid: E7.Minefield.NavigationBeacon`1
+    name: NavigationBeacon
+    href: E7.Minefield.NavigationBeacon-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: E7.Minefield.NavigationBeacon`1
+    name: NavigationBeacon
+    href: E7.Minefield.NavigationBeacon-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: E7.Minefield.NavigationBeacon
+  commentId: T:E7.Minefield.NavigationBeacon
+  parent: E7.Minefield
+  href: E7.Minefield.NavigationBeacon.html
+  name: NavigationBeacon
+  nameWithType: NavigationBeacon
+  fullName: E7.Minefield.NavigationBeacon
+- uid: E7.Minefield
+  commentId: N:E7.Minefield
+  href: E7.html
+  name: E7.Minefield
+  nameWithType: E7.Minefield
+  fullName: E7.Minefield
+  spec.csharp:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+  spec.vb:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html

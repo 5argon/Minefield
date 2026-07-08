@@ -1,0 +1,1034 @@
+### YamlMime:ManagedReference
+items:
+- uid: E7.Minefield.Beacon
+  commentId: T:E7.Minefield.Beacon
+  id: Beacon
+  parent: E7.Minefield
+  children:
+  - E7.Minefield.Beacon.Check``1(``0,E7.Minefield.BeaconConstraint)
+  - E7.Minefield.Beacon.ClickWhen``1(``0,E7.Minefield.BeaconConstraint,System.Single)
+  - E7.Minefield.Beacon.Click``1(``0,System.Boolean)
+  - E7.Minefield.Beacon.DefaultTimeout
+  - E7.Minefield.Beacon.FindActiveEnum(System.Enum,E7.Minefield.ILabelBeacon@)
+  - E7.Minefield.Beacon.FindActive``1(``0,E7.Minefield.ILabelBeacon@)
+  - E7.Minefield.Beacon.GetComponent``1(System.Enum)
+  - E7.Minefield.Beacon.Get``1(``0)
+  - E7.Minefield.Beacon.SpamUntil``1(``0,E7.Minefield.BeaconConstraint,System.Func{System.Collections.IEnumerator})
+  - E7.Minefield.Beacon.SpamWhile``1(``0,E7.Minefield.BeaconConstraint,System.Func{System.Collections.IEnumerator})
+  - E7.Minefield.Beacon.WaitUntil``1(``0,E7.Minefield.BeaconConstraint,System.Single)
+  langs:
+  - csharp
+  - vb
+  name: Beacon
+  nameWithType: Beacon
+  fullName: E7.Minefield.Beacon
+  type: Class
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  syntax:
+    content: public static class Beacon
+    content.vb: Public Module Beacon
+  inheritance:
+  - System.Object
+- uid: E7.Minefield.Beacon.DefaultTimeout
+  commentId: F:E7.Minefield.Beacon.DefaultTimeout
+  id: DefaultTimeout
+  parent: E7.Minefield.Beacon
+  langs:
+  - csharp
+  - vb
+  name: DefaultTimeout
+  nameWithType: Beacon.DefaultTimeout
+  fullName: E7.Minefield.Beacon.DefaultTimeout
+  type: Field
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  summary: >-
+    Default timeout (seconds, unscaled) applied to <xref href="E7.Minefield.Beacon.WaitUntil%60%601(%60%600%2cE7.Minefield.BeaconConstraint%2cSystem.Single)" data-throw-if-not-resolved="false"></xref>
+
+    and <xref href="E7.Minefield.Beacon.ClickWhen%60%601(%60%600%2cE7.Minefield.BeaconConstraint%2cSystem.Single)" data-throw-if-not-resolved="false"></xref> when no per-call timeout is given.
+
+
+    This stops a mistyped or never-satisfiable wait from hanging silently until the test runner's
+
+    global timeout and then failing with an unhelpful message. Instead you get a diagnostic that
+
+    explains *why* the constraint never passed. 30s is generous for UI navigation; raise it, lower
+
+    it, or set it to <xref href="System.Single.PositiveInfinity" data-throw-if-not-resolved="false"></xref> to restore the old wait-forever behaviour.
+
+    A per-call value always wins over this. The "play button" pattern uses <xref href="E7.Minefield.Utility.WaitForever" data-throw-if-not-resolved="false"></xref>,
+
+    which is unaffected.
+  example: []
+  syntax:
+    content: public static float DefaultTimeout
+    return:
+      type: System.Single
+    content.vb: Public Shared DefaultTimeout As Single
+- uid: E7.Minefield.Beacon.WaitUntil``1(``0,E7.Minefield.BeaconConstraint,System.Single)
+  commentId: M:E7.Minefield.Beacon.WaitUntil``1(``0,E7.Minefield.BeaconConstraint,System.Single)
+  id: WaitUntil``1(``0,E7.Minefield.BeaconConstraint,System.Single)
+  parent: E7.Minefield.Beacon
+  langs:
+  - csharp
+  - vb
+  name: WaitUntil<T>(T, BeaconConstraint, float)
+  nameWithType: Beacon.WaitUntil<T>(T, BeaconConstraint, float)
+  fullName: E7.Minefield.Beacon.WaitUntil<T>(T, E7.Minefield.BeaconConstraint, float)
+  type: Method
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  summary: >-
+    Remember that base condition for all constraints is that the beacon must be found,
+
+    and to be found the game object must be active.
+
+
+    It will not fail the test if the constraint doesn't happen yet,
+
+    please check manually if you really have that type of
+
+    beacon in the scene or it would wait forever when you actually forgot to add the beacon.
+
+    (Unlike assertion where you immediately get
+
+    an error message telling you about missing beacon.)
+  example: []
+  syntax:
+    content: 'public static IEnumerator WaitUntil<T>(T beacon, BeaconConstraint bc, float timeout = -1) where T : Enum'
+    parameters:
+    - id: beacon
+      type: '{T}'
+    - id: bc
+      type: E7.Minefield.BeaconConstraint
+    - id: timeout
+      type: System.Single
+      description: >-
+        Seconds (unscaled) to wait before failing with a diagnostic. Negative uses
+
+        <xref href="E7.Minefield.Beacon.DefaultTimeout" data-throw-if-not-resolved="false"></xref>; pass <xref href="System.Single.PositiveInfinity" data-throw-if-not-resolved="false"></xref> to wait forever.
+    typeParameters:
+    - id: T
+    return:
+      type: System.Collections.IEnumerator
+    content.vb: Public Shared Function WaitUntil(Of T As [Enum])(beacon As T, bc As BeaconConstraint, timeout As Single = -1) As IEnumerator
+  overload: E7.Minefield.Beacon.WaitUntil*
+  nameWithType.vb: Beacon.WaitUntil(Of T)(T, BeaconConstraint, Single)
+  fullName.vb: E7.Minefield.Beacon.WaitUntil(Of T)(T, E7.Minefield.BeaconConstraint, Single)
+  name.vb: WaitUntil(Of T)(T, BeaconConstraint, Single)
+- uid: E7.Minefield.Beacon.SpamUntil``1(``0,E7.Minefield.BeaconConstraint,System.Func{System.Collections.IEnumerator})
+  commentId: M:E7.Minefield.Beacon.SpamUntil``1(``0,E7.Minefield.BeaconConstraint,System.Func{System.Collections.IEnumerator})
+  id: SpamUntil``1(``0,E7.Minefield.BeaconConstraint,System.Func{System.Collections.IEnumerator})
+  parent: E7.Minefield.Beacon
+  langs:
+  - csharp
+  - vb
+  name: SpamUntil<T>(T, BeaconConstraint, Func<IEnumerator>)
+  nameWithType: Beacon.SpamUntil<T>(T, BeaconConstraint, Func<IEnumerator>)
+  fullName: E7.Minefield.Beacon.SpamUntil<T>(T, E7.Minefield.BeaconConstraint, System.Func<System.Collections.IEnumerator>)
+  type: Method
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  summary: >-
+    Until the constraint returns `true`, repeat the action.
+
+
+    The action could spans multiple frames because it works like a coroutine function.
+
+    The constraint check occur again when the <code class="paramref">spamAction</code> has completed all of its frames.
+
+
+    This is useful to create a "dumb AI" where normally complex actions are required to get through the scene, 
+
+    but a simple spam without considering any timing could also do so in a less ideal way.
+
+
+    For example, testing a Mario stage with an objective if you could respawn after death or not, 
+
+    could be simplified to holding right and jump repeatedly.
+
+    You are bound to die sooner or later that way. Then you could use this test regardless of stages.
+  example: []
+  syntax:
+    content: 'public static IEnumerator SpamUntil<T>(T beacon, BeaconConstraint bc, Func<IEnumerator> spamAction) where T : Enum'
+    parameters:
+    - id: beacon
+      type: '{T}'
+    - id: bc
+      type: E7.Minefield.BeaconConstraint
+    - id: spamAction
+      type: System.Func{System.Collections.IEnumerator}
+    typeParameters:
+    - id: T
+    return:
+      type: System.Collections.IEnumerator
+    content.vb: Public Shared Function SpamUntil(Of T As [Enum])(beacon As T, bc As BeaconConstraint, spamAction As Func(Of IEnumerator)) As IEnumerator
+  overload: E7.Minefield.Beacon.SpamUntil*
+  nameWithType.vb: Beacon.SpamUntil(Of T)(T, BeaconConstraint, Func(Of IEnumerator))
+  fullName.vb: E7.Minefield.Beacon.SpamUntil(Of T)(T, E7.Minefield.BeaconConstraint, System.Func(Of System.Collections.IEnumerator))
+  name.vb: SpamUntil(Of T)(T, BeaconConstraint, Func(Of IEnumerator))
+- uid: E7.Minefield.Beacon.SpamWhile``1(``0,E7.Minefield.BeaconConstraint,System.Func{System.Collections.IEnumerator})
+  commentId: M:E7.Minefield.Beacon.SpamWhile``1(``0,E7.Minefield.BeaconConstraint,System.Func{System.Collections.IEnumerator})
+  id: SpamWhile``1(``0,E7.Minefield.BeaconConstraint,System.Func{System.Collections.IEnumerator})
+  parent: E7.Minefield.Beacon
+  langs:
+  - csharp
+  - vb
+  name: SpamWhile<T>(T, BeaconConstraint, Func<IEnumerator>)
+  nameWithType: Beacon.SpamWhile<T>(T, BeaconConstraint, Func<IEnumerator>)
+  fullName: E7.Minefield.Beacon.SpamWhile<T>(T, E7.Minefield.BeaconConstraint, System.Func<System.Collections.IEnumerator>)
+  type: Method
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  summary: >-
+    Until the constraint returns `false`, repeat the action.
+
+
+    The action could spans multiple frames because it works like a coroutine function.
+
+    The constraint check occur again when the <code class="paramref">spamAction</code> has completed all of its frames.
+
+
+    This is useful to create a "dumb AI" where normally complex actions are required to get through the scene, 
+
+    but a simple spam without considering any timing could also do so in a less ideal way.
+
+
+    For example, testing a Mario stage with an objective if you could respawn after death or not, 
+
+    could be simplified to holding right and jump repeatedly.
+
+    You are bound to die sooner or later that way. Then you could use this test regardless of stages.
+  example: []
+  syntax:
+    content: 'public static IEnumerator SpamWhile<T>(T beacon, BeaconConstraint bc, Func<IEnumerator> spamAction) where T : Enum'
+    parameters:
+    - id: beacon
+      type: '{T}'
+    - id: bc
+      type: E7.Minefield.BeaconConstraint
+    - id: spamAction
+      type: System.Func{System.Collections.IEnumerator}
+    typeParameters:
+    - id: T
+    return:
+      type: System.Collections.IEnumerator
+    content.vb: Public Shared Function SpamWhile(Of T As [Enum])(beacon As T, bc As BeaconConstraint, spamAction As Func(Of IEnumerator)) As IEnumerator
+  overload: E7.Minefield.Beacon.SpamWhile*
+  nameWithType.vb: Beacon.SpamWhile(Of T)(T, BeaconConstraint, Func(Of IEnumerator))
+  fullName.vb: E7.Minefield.Beacon.SpamWhile(Of T)(T, E7.Minefield.BeaconConstraint, System.Func(Of System.Collections.IEnumerator))
+  name.vb: SpamWhile(Of T)(T, BeaconConstraint, Func(Of IEnumerator))
+- uid: E7.Minefield.Beacon.Check``1(``0,E7.Minefield.BeaconConstraint)
+  commentId: M:E7.Minefield.Beacon.Check``1(``0,E7.Minefield.BeaconConstraint)
+  id: Check``1(``0,E7.Minefield.BeaconConstraint)
+  parent: E7.Minefield.Beacon
+  langs:
+  - csharp
+  - vb
+  name: Check<T>(T, BeaconConstraint)
+  nameWithType: Beacon.Check<T>(T, BeaconConstraint)
+  fullName: E7.Minefield.Beacon.Check<T>(T, E7.Minefield.BeaconConstraint)
+  type: Method
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  summary: Just check if the constraint passed or not, without affecting failing/passing of the test.
+  example: []
+  syntax:
+    content: 'public static bool Check<T>(T beacon, BeaconConstraint bc) where T : Enum'
+    parameters:
+    - id: beacon
+      type: '{T}'
+    - id: bc
+      type: E7.Minefield.BeaconConstraint
+    typeParameters:
+    - id: T
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function Check(Of T As [Enum])(beacon As T, bc As BeaconConstraint) As Boolean
+  overload: E7.Minefield.Beacon.Check*
+  nameWithType.vb: Beacon.Check(Of T)(T, BeaconConstraint)
+  fullName.vb: E7.Minefield.Beacon.Check(Of T)(T, E7.Minefield.BeaconConstraint)
+  name.vb: Check(Of T)(T, BeaconConstraint)
+- uid: E7.Minefield.Beacon.ClickWhen``1(``0,E7.Minefield.BeaconConstraint,System.Single)
+  commentId: M:E7.Minefield.Beacon.ClickWhen``1(``0,E7.Minefield.BeaconConstraint,System.Single)
+  id: ClickWhen``1(``0,E7.Minefield.BeaconConstraint,System.Single)
+  parent: E7.Minefield.Beacon
+  langs:
+  - csharp
+  - vb
+  name: ClickWhen<T>(T, BeaconConstraint, float)
+  nameWithType: Beacon.ClickWhen<T>(T, BeaconConstraint, float)
+  fullName: E7.Minefield.Beacon.ClickWhen<T>(T, E7.Minefield.BeaconConstraint, float)
+  type: Method
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  summary: >-
+    Like WaitUntil&lt;T&gt;(T, BeaconConstraint)
+
+    but additionally include <xref href="E7.Minefield.Beacon.Click%60%601(%60%600%2cSystem.Boolean)" data-throw-if-not-resolved="false"></xref> in one yield.
+  example: []
+  syntax:
+    content: 'public static IEnumerator ClickWhen<T>(T beacon, BeaconConstraint bc, float timeout = -1) where T : Enum'
+    parameters:
+    - id: beacon
+      type: '{T}'
+    - id: bc
+      type: E7.Minefield.BeaconConstraint
+    - id: timeout
+      type: System.Single
+    typeParameters:
+    - id: T
+    return:
+      type: System.Collections.IEnumerator
+    content.vb: Public Shared Function ClickWhen(Of T As [Enum])(beacon As T, bc As BeaconConstraint, timeout As Single = -1) As IEnumerator
+  overload: E7.Minefield.Beacon.ClickWhen*
+  nameWithType.vb: Beacon.ClickWhen(Of T)(T, BeaconConstraint, Single)
+  fullName.vb: E7.Minefield.Beacon.ClickWhen(Of T)(T, E7.Minefield.BeaconConstraint, Single)
+  name.vb: ClickWhen(Of T)(T, BeaconConstraint, Single)
+- uid: E7.Minefield.Beacon.Get``1(``0)
+  commentId: M:E7.Minefield.Beacon.Get``1(``0)
+  id: Get``1(``0)
+  parent: E7.Minefield.Beacon
+  langs:
+  - csharp
+  - vb
+  name: Get<BEACONTYPE>(BEACONTYPE)
+  nameWithType: Beacon.Get<BEACONTYPE>(BEACONTYPE)
+  fullName: E7.Minefield.Beacon.Get<BEACONTYPE>(BEACONTYPE)
+  type: Method
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  summary: >-
+    Same as <xref href="E7.Minefield.Beacon.FindActive%60%601(%60%600%2cE7.Minefield.ILabelBeacon%40)" data-throw-if-not-resolved="false"></xref>
+
+    but use return value instead of `out`, and throw immediately when no active beacon found.
+
+
+    Also the returned class is not the interface <xref href="E7.Minefield.ILabelBeacon" data-throw-if-not-resolved="false"></xref> but <xref href="E7.Minefield.LabelBeacon" data-throw-if-not-resolved="false"></xref>,
+
+    which provides some generic methods benefit unavailable on interfaces.
+  example: []
+  syntax:
+    content: 'public static LabelBeacon Get<BEACONTYPE>(BEACONTYPE label) where BEACONTYPE : Enum'
+    parameters:
+    - id: label
+      type: '{BEACONTYPE}'
+    typeParameters:
+    - id: BEACONTYPE
+    return:
+      type: E7.Minefield.LabelBeacon
+    content.vb: Public Shared Function [Get](Of BEACONTYPE As [Enum])(label As BEACONTYPE) As LabelBeacon
+  overload: E7.Minefield.Beacon.Get*
+  nameWithType.vb: Beacon.Get(Of BEACONTYPE)(BEACONTYPE)
+  fullName.vb: E7.Minefield.Beacon.Get(Of BEACONTYPE)(BEACONTYPE)
+  name.vb: Get(Of BEACONTYPE)(BEACONTYPE)
+- uid: E7.Minefield.Beacon.GetComponent``1(System.Enum)
+  commentId: M:E7.Minefield.Beacon.GetComponent``1(System.Enum)
+  id: GetComponent``1(System.Enum)
+  parent: E7.Minefield.Beacon
+  langs:
+  - csharp
+  - vb
+  name: GetComponent<COMPONENTTYPE>(Enum)
+  nameWithType: Beacon.GetComponent<COMPONENTTYPE>(Enum)
+  fullName: E7.Minefield.Beacon.GetComponent<COMPONENTTYPE>(System.Enum)
+  type: Method
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  summary: >-
+    Same as <xref href="E7.Minefield.Beacon.FindActive%60%601(%60%600%2cE7.Minefield.ILabelBeacon%40)" data-throw-if-not-resolved="false"></xref> but use return value
+
+    instead of `out` and error when no active beacon found, 
+
+    then immediately get component of the game object with that beacon in one command.
+  remarks: >-
+    Useful for asserting any component,
+
+    for example : `Assert.That(Beacon.GetComponent<TMP_Text>(beacon).text, Does.Contain("Hello"))`
+
+
+    Also the returned class is not the interface <xref href="E7.Minefield.ILabelBeacon" data-throw-if-not-resolved="false"></xref> but <xref href="E7.Minefield.LabelBeacon" data-throw-if-not-resolved="false"></xref>,
+
+    which provides some generic methods benefit unavailable on interfaces.
+  example: []
+  syntax:
+    content: 'public static COMPONENTTYPE GetComponent<COMPONENTTYPE>(Enum label) where COMPONENTTYPE : Component'
+    parameters:
+    - id: label
+      type: System.Enum
+    typeParameters:
+    - id: COMPONENTTYPE
+    return:
+      type: '{COMPONENTTYPE}'
+    content.vb: Public Shared Function GetComponent(Of COMPONENTTYPE As Component)(label As [Enum]) As COMPONENTTYPE
+  overload: E7.Minefield.Beacon.GetComponent*
+  nameWithType.vb: Beacon.GetComponent(Of COMPONENTTYPE)(Enum)
+  fullName.vb: E7.Minefield.Beacon.GetComponent(Of COMPONENTTYPE)(System.Enum)
+  name.vb: GetComponent(Of COMPONENTTYPE)(Enum)
+- uid: E7.Minefield.Beacon.FindActive``1(``0,E7.Minefield.ILabelBeacon@)
+  commentId: M:E7.Minefield.Beacon.FindActive``1(``0,E7.Minefield.ILabelBeacon@)
+  id: FindActive``1(``0,E7.Minefield.ILabelBeacon@)
+  parent: E7.Minefield.Beacon
+  langs:
+  - csharp
+  - vb
+  name: FindActive<BEACONTYPE>(BEACONTYPE, out ILabelBeacon)
+  nameWithType: Beacon.FindActive<BEACONTYPE>(BEACONTYPE, out ILabelBeacon)
+  fullName: E7.Minefield.Beacon.FindActive<BEACONTYPE>(BEACONTYPE, out E7.Minefield.ILabelBeacon)
+  type: Method
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  summary: Find an **active** beacon in the scene.
+  example: []
+  syntax:
+    content: 'public static bool FindActive<BEACONTYPE>(BEACONTYPE label, out ILabelBeacon foundBeacon) where BEACONTYPE : Enum'
+    parameters:
+    - id: label
+      type: '{BEACONTYPE}'
+    - id: foundBeacon
+      type: E7.Minefield.ILabelBeacon
+    typeParameters:
+    - id: BEACONTYPE
+    return:
+      type: System.Boolean
+      description: '`false` when not found.'
+    content.vb: Public Shared Function FindActive(Of BEACONTYPE As [Enum])(label As BEACONTYPE, foundBeacon As ILabelBeacon) As Boolean
+  overload: E7.Minefield.Beacon.FindActive*
+  exceptions:
+  - type: System.Exception
+    commentId: T:System.Exception
+    description: Thrown when found multiple beacons with the same <code class="paramref">label</code>.
+  nameWithType.vb: Beacon.FindActive(Of BEACONTYPE)(BEACONTYPE, ILabelBeacon)
+  fullName.vb: E7.Minefield.Beacon.FindActive(Of BEACONTYPE)(BEACONTYPE, E7.Minefield.ILabelBeacon)
+  name.vb: FindActive(Of BEACONTYPE)(BEACONTYPE, ILabelBeacon)
+- uid: E7.Minefield.Beacon.FindActiveEnum(System.Enum,E7.Minefield.ILabelBeacon@)
+  commentId: M:E7.Minefield.Beacon.FindActiveEnum(System.Enum,E7.Minefield.ILabelBeacon@)
+  id: FindActiveEnum(System.Enum,E7.Minefield.ILabelBeacon@)
+  parent: E7.Minefield.Beacon
+  langs:
+  - csharp
+  - vb
+  name: FindActiveEnum(Enum, out ILabelBeacon)
+  nameWithType: Beacon.FindActiveEnum(Enum, out ILabelBeacon)
+  fullName: E7.Minefield.Beacon.FindActiveEnum(System.Enum, out E7.Minefield.ILabelBeacon)
+  type: Method
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  summary: >-
+    Non-generic <xref href="E7.Minefield.Beacon.FindActive%60%601(%60%600%2cE7.Minefield.ILabelBeacon%40)" data-throw-if-not-resolved="false"></xref> for callers that
+
+    already hold a boxed <xref href="System.Enum" data-throw-if-not-resolved="false"></xref> (avoids passing <code>Enum</code> to an <code>Enum</code>-constrained
+
+    generic).
+  example: []
+  syntax:
+    content: public static bool FindActiveEnum(Enum label, out ILabelBeacon foundBeacon)
+    parameters:
+    - id: label
+      type: System.Enum
+    - id: foundBeacon
+      type: E7.Minefield.ILabelBeacon
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function FindActiveEnum(label As [Enum], foundBeacon As ILabelBeacon) As Boolean
+  overload: E7.Minefield.Beacon.FindActiveEnum*
+  nameWithType.vb: Beacon.FindActiveEnum(Enum, ILabelBeacon)
+  fullName.vb: E7.Minefield.Beacon.FindActiveEnum(System.Enum, E7.Minefield.ILabelBeacon)
+  name.vb: FindActiveEnum(Enum, ILabelBeacon)
+- uid: E7.Minefield.Beacon.Click``1(``0,System.Boolean)
+  commentId: M:E7.Minefield.Beacon.Click``1(``0,System.Boolean)
+  id: Click``1(``0,System.Boolean)
+  parent: E7.Minefield.Beacon
+  langs:
+  - csharp
+  - vb
+  name: Click<T>(T, bool)
+  nameWithType: Beacon.Click<T>(T, bool)
+  fullName: E7.Minefield.Beacon.Click<T>(T, bool)
+  type: Method
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  summary: >-
+    Simulate a click on a beacon.
+
+    The beacon label must be on <xref href="E7.Minefield.HandlerBeacon%601" data-throw-if-not-resolved="false"></xref> in the scene.
+  remarks: >-
+    Definition of a click is pointer down this frame then up at the same coordinate the next frame.
+
+    So you need a coroutine on this.
+
+
+    The gotcha of this "up" is that if you have an another click following, the next "down"
+
+    will occur on the same frame as previous up. In some situation like you do clicking on the same button
+
+    but expect the first click to disable the button and wait for the later one,
+
+    you may ended up double clicking the button in the same frame if that disable didn't occur immediately.
+
+
+    (For example the disable is planned to be an effect from `TimelineAsset`
+
+    that plays as a result of a button press, which need one more frame to take effect.)
+
+
+    This is **your bug** however, as it is possible in real play by having a player use the 2nd finger to touch
+
+    on the same frame that the first finger lifted off, and that means Minefield is
+
+    doing a good job catching this bug. You better ensure the disable
+
+    comes immediately so ClickWhen&lt;T&gt;(T, BeaconConstraint) is usable consecutively
+
+    without `yield return null` in between to "cheat" it.
+
+
+    (For example on `TimelineAsset` case, instead of just `Play()` it as a result of button press,
+
+    also `Evaluate()` it so the disable take effect without waiting one more frame.)
+  example: []
+  syntax:
+    content: 'public static IEnumerator Click<T>(T label, bool ignoreError = false) where T : Enum'
+    parameters:
+    - id: label
+      type: '{T}'
+    - id: ignoreError
+      type: System.Boolean
+    typeParameters:
+    - id: T
+    return:
+      type: System.Collections.IEnumerator
+    content.vb: Public Shared Function Click(Of T As [Enum])(label As T, ignoreError As Boolean = False) As IEnumerator
+  overload: E7.Minefield.Beacon.Click*
+  nameWithType.vb: Beacon.Click(Of T)(T, Boolean)
+  fullName.vb: E7.Minefield.Beacon.Click(Of T)(T, Boolean)
+  name.vb: Click(Of T)(T, Boolean)
+references:
+- uid: E7.Minefield
+  commentId: N:E7.Minefield
+  href: E7.html
+  name: E7.Minefield
+  nameWithType: E7.Minefield
+  fullName: E7.Minefield
+  spec.csharp:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+  spec.vb:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: E7.Minefield.Beacon.WaitUntil``1(``0,E7.Minefield.BeaconConstraint,System.Single)
+  commentId: M:E7.Minefield.Beacon.WaitUntil``1(``0,E7.Minefield.BeaconConstraint,System.Single)
+  isExternal: true
+  href: E7.Minefield.Beacon.html#E7_Minefield_Beacon_WaitUntil__1___0_E7_Minefield_BeaconConstraint_System_Single_
+  name: WaitUntil<T>(T, BeaconConstraint, float)
+  nameWithType: Beacon.WaitUntil<T>(T, BeaconConstraint, float)
+  fullName: E7.Minefield.Beacon.WaitUntil<T>(T, E7.Minefield.BeaconConstraint, float)
+  nameWithType.vb: Beacon.WaitUntil(Of T)(T, BeaconConstraint, Single)
+  fullName.vb: E7.Minefield.Beacon.WaitUntil(Of T)(T, E7.Minefield.BeaconConstraint, Single)
+  name.vb: WaitUntil(Of T)(T, BeaconConstraint, Single)
+  spec.csharp:
+  - uid: E7.Minefield.Beacon.WaitUntil``1(``0,E7.Minefield.BeaconConstraint,System.Single)
+    name: WaitUntil
+    href: E7.Minefield.Beacon.html#E7_Minefield_Beacon_WaitUntil__1___0_E7_Minefield_BeaconConstraint_System_Single_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: E7.Minefield.BeaconConstraint
+    name: BeaconConstraint
+    href: E7.Minefield.BeaconConstraint.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: E7.Minefield.Beacon.WaitUntil``1(``0,E7.Minefield.BeaconConstraint,System.Single)
+    name: WaitUntil
+    href: E7.Minefield.Beacon.html#E7_Minefield_Beacon_WaitUntil__1___0_E7_Minefield_BeaconConstraint_System_Single_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: E7.Minefield.BeaconConstraint
+    name: BeaconConstraint
+    href: E7.Minefield.BeaconConstraint.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+  - name: )
+- uid: E7.Minefield.Beacon.ClickWhen``1(``0,E7.Minefield.BeaconConstraint,System.Single)
+  commentId: M:E7.Minefield.Beacon.ClickWhen``1(``0,E7.Minefield.BeaconConstraint,System.Single)
+  isExternal: true
+  href: E7.Minefield.Beacon.html#E7_Minefield_Beacon_ClickWhen__1___0_E7_Minefield_BeaconConstraint_System_Single_
+  name: ClickWhen<T>(T, BeaconConstraint, float)
+  nameWithType: Beacon.ClickWhen<T>(T, BeaconConstraint, float)
+  fullName: E7.Minefield.Beacon.ClickWhen<T>(T, E7.Minefield.BeaconConstraint, float)
+  nameWithType.vb: Beacon.ClickWhen(Of T)(T, BeaconConstraint, Single)
+  fullName.vb: E7.Minefield.Beacon.ClickWhen(Of T)(T, E7.Minefield.BeaconConstraint, Single)
+  name.vb: ClickWhen(Of T)(T, BeaconConstraint, Single)
+  spec.csharp:
+  - uid: E7.Minefield.Beacon.ClickWhen``1(``0,E7.Minefield.BeaconConstraint,System.Single)
+    name: ClickWhen
+    href: E7.Minefield.Beacon.html#E7_Minefield_Beacon_ClickWhen__1___0_E7_Minefield_BeaconConstraint_System_Single_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: E7.Minefield.BeaconConstraint
+    name: BeaconConstraint
+    href: E7.Minefield.BeaconConstraint.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: E7.Minefield.Beacon.ClickWhen``1(``0,E7.Minefield.BeaconConstraint,System.Single)
+    name: ClickWhen
+    href: E7.Minefield.Beacon.html#E7_Minefield_Beacon_ClickWhen__1___0_E7_Minefield_BeaconConstraint_System_Single_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: E7.Minefield.BeaconConstraint
+    name: BeaconConstraint
+    href: E7.Minefield.BeaconConstraint.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+  - name: )
+- uid: System.Single.PositiveInfinity
+  commentId: F:System.Single.PositiveInfinity
+  isExternal: true
+  name: PositiveInfinity
+  nameWithType: float.PositiveInfinity
+  fullName: float.PositiveInfinity
+  nameWithType.vb: Single.PositiveInfinity
+  fullName.vb: Single.PositiveInfinity
+- uid: E7.Minefield.Utility.WaitForever
+  commentId: M:E7.Minefield.Utility.WaitForever
+  name: WaitForever()
+  nameWithType: Utility.WaitForever()
+  fullName: E7.Minefield.Utility.WaitForever()
+  spec.csharp:
+  - uid: E7.Minefield.Utility.WaitForever
+    name: WaitForever
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: E7.Minefield.Utility.WaitForever
+    name: WaitForever
+  - name: (
+  - name: )
+- uid: System.Single
+  commentId: T:System.Single
+  parent: System
+  isExternal: true
+  name: float
+  nameWithType: float
+  fullName: float
+  nameWithType.vb: Single
+  fullName.vb: Single
+  name.vb: Single
+- uid: E7.Minefield.Beacon.DefaultTimeout
+  commentId: F:E7.Minefield.Beacon.DefaultTimeout
+  href: E7.Minefield.Beacon.html#E7_Minefield_Beacon_DefaultTimeout
+  name: DefaultTimeout
+  nameWithType: Beacon.DefaultTimeout
+  fullName: E7.Minefield.Beacon.DefaultTimeout
+- uid: E7.Minefield.Beacon.WaitUntil*
+  commentId: Overload:E7.Minefield.Beacon.WaitUntil
+  href: E7.Minefield.Beacon.html#E7_Minefield_Beacon_WaitUntil__1___0_E7_Minefield_BeaconConstraint_System_Single_
+  name: WaitUntil
+  nameWithType: Beacon.WaitUntil
+  fullName: E7.Minefield.Beacon.WaitUntil
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: E7.Minefield.BeaconConstraint
+  commentId: T:E7.Minefield.BeaconConstraint
+  parent: E7.Minefield
+  href: E7.Minefield.BeaconConstraint.html
+  name: BeaconConstraint
+  nameWithType: BeaconConstraint
+  fullName: E7.Minefield.BeaconConstraint
+- uid: System.Collections.IEnumerator
+  commentId: T:System.Collections.IEnumerator
+  parent: System.Collections
+  isExternal: true
+  name: IEnumerator
+  nameWithType: IEnumerator
+  fullName: System.Collections.IEnumerator
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: System.Collections
+  commentId: N:System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections
+  nameWithType: System.Collections
+  fullName: System.Collections
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+- uid: E7.Minefield.Beacon.SpamUntil*
+  commentId: Overload:E7.Minefield.Beacon.SpamUntil
+  href: E7.Minefield.Beacon.html#E7_Minefield_Beacon_SpamUntil__1___0_E7_Minefield_BeaconConstraint_System_Func_System_Collections_IEnumerator__
+  name: SpamUntil
+  nameWithType: Beacon.SpamUntil
+  fullName: E7.Minefield.Beacon.SpamUntil
+- uid: System.Func{System.Collections.IEnumerator}
+  commentId: T:System.Func{System.Collections.IEnumerator}
+  parent: System
+  definition: System.Func`1
+  name: Func<IEnumerator>
+  nameWithType: Func<IEnumerator>
+  fullName: System.Func<System.Collections.IEnumerator>
+  nameWithType.vb: Func(Of IEnumerator)
+  fullName.vb: System.Func(Of System.Collections.IEnumerator)
+  name.vb: Func(Of IEnumerator)
+  spec.csharp:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+  - name: <
+  - uid: System.Collections.IEnumerator
+    name: IEnumerator
+    isExternal: true
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Collections.IEnumerator
+    name: IEnumerator
+    isExternal: true
+  - name: )
+- uid: System.Func`1
+  commentId: T:System.Func`1
+  isExternal: true
+  name: Func<TResult>
+  nameWithType: Func<TResult>
+  fullName: System.Func<TResult>
+  nameWithType.vb: Func(Of TResult)
+  fullName.vb: System.Func(Of TResult)
+  name.vb: Func(Of TResult)
+  spec.csharp:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: E7.Minefield.Beacon.SpamWhile*
+  commentId: Overload:E7.Minefield.Beacon.SpamWhile
+  href: E7.Minefield.Beacon.html#E7_Minefield_Beacon_SpamWhile__1___0_E7_Minefield_BeaconConstraint_System_Func_System_Collections_IEnumerator__
+  name: SpamWhile
+  nameWithType: Beacon.SpamWhile
+  fullName: E7.Minefield.Beacon.SpamWhile
+- uid: E7.Minefield.Beacon.Check*
+  commentId: Overload:E7.Minefield.Beacon.Check
+  href: E7.Minefield.Beacon.html#E7_Minefield_Beacon_Check__1___0_E7_Minefield_BeaconConstraint_
+  name: Check
+  nameWithType: Beacon.Check
+  fullName: E7.Minefield.Beacon.Check
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: E7.Minefield.Beacon.Click``1(``0,System.Boolean)
+  commentId: M:E7.Minefield.Beacon.Click``1(``0,System.Boolean)
+  isExternal: true
+  href: E7.Minefield.Beacon.html#E7_Minefield_Beacon_Click__1___0_System_Boolean_
+  name: Click<T>(T, bool)
+  nameWithType: Beacon.Click<T>(T, bool)
+  fullName: E7.Minefield.Beacon.Click<T>(T, bool)
+  nameWithType.vb: Beacon.Click(Of T)(T, Boolean)
+  fullName.vb: E7.Minefield.Beacon.Click(Of T)(T, Boolean)
+  name.vb: Click(Of T)(T, Boolean)
+  spec.csharp:
+  - uid: E7.Minefield.Beacon.Click``1(``0,System.Boolean)
+    name: Click
+    href: E7.Minefield.Beacon.html#E7_Minefield_Beacon_Click__1___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: E7.Minefield.Beacon.Click``1(``0,System.Boolean)
+    name: Click
+    href: E7.Minefield.Beacon.html#E7_Minefield_Beacon_Click__1___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+  - name: )
+- uid: E7.Minefield.Beacon.ClickWhen*
+  commentId: Overload:E7.Minefield.Beacon.ClickWhen
+  href: E7.Minefield.Beacon.html#E7_Minefield_Beacon_ClickWhen__1___0_E7_Minefield_BeaconConstraint_System_Single_
+  name: ClickWhen
+  nameWithType: Beacon.ClickWhen
+  fullName: E7.Minefield.Beacon.ClickWhen
+- uid: E7.Minefield.Beacon.FindActive``1(``0,E7.Minefield.ILabelBeacon@)
+  commentId: M:E7.Minefield.Beacon.FindActive``1(``0,E7.Minefield.ILabelBeacon@)
+  href: E7.Minefield.Beacon.html#E7_Minefield_Beacon_FindActive__1___0_E7_Minefield_ILabelBeacon__
+  name: FindActive<BEACONTYPE>(BEACONTYPE, out ILabelBeacon)
+  nameWithType: Beacon.FindActive<BEACONTYPE>(BEACONTYPE, out ILabelBeacon)
+  fullName: E7.Minefield.Beacon.FindActive<BEACONTYPE>(BEACONTYPE, out E7.Minefield.ILabelBeacon)
+  nameWithType.vb: Beacon.FindActive(Of BEACONTYPE)(BEACONTYPE, ILabelBeacon)
+  fullName.vb: E7.Minefield.Beacon.FindActive(Of BEACONTYPE)(BEACONTYPE, E7.Minefield.ILabelBeacon)
+  name.vb: FindActive(Of BEACONTYPE)(BEACONTYPE, ILabelBeacon)
+  spec.csharp:
+  - uid: E7.Minefield.Beacon.FindActive``1(``0,E7.Minefield.ILabelBeacon@)
+    name: FindActive
+    href: E7.Minefield.Beacon.html#E7_Minefield_Beacon_FindActive__1___0_E7_Minefield_ILabelBeacon__
+  - name: <
+  - name: BEACONTYPE
+  - name: '>'
+  - name: (
+  - name: BEACONTYPE
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: E7.Minefield.ILabelBeacon
+    name: ILabelBeacon
+  - name: )
+  spec.vb:
+  - uid: E7.Minefield.Beacon.FindActive``1(``0,E7.Minefield.ILabelBeacon@)
+    name: FindActive
+    href: E7.Minefield.Beacon.html#E7_Minefield_Beacon_FindActive__1___0_E7_Minefield_ILabelBeacon__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: BEACONTYPE
+  - name: )
+  - name: (
+  - name: BEACONTYPE
+  - name: ','
+  - name: " "
+  - uid: E7.Minefield.ILabelBeacon
+    name: ILabelBeacon
+  - name: )
+- uid: E7.Minefield.ILabelBeacon
+  commentId: T:E7.Minefield.ILabelBeacon
+  parent: E7.Minefield
+  href: E7.Minefield.ILabelBeacon.html
+  name: ILabelBeacon
+  nameWithType: ILabelBeacon
+  fullName: E7.Minefield.ILabelBeacon
+- uid: E7.Minefield.LabelBeacon
+  commentId: T:E7.Minefield.LabelBeacon
+  parent: E7.Minefield
+  href: E7.Minefield.LabelBeacon.html
+  name: LabelBeacon
+  nameWithType: LabelBeacon
+  fullName: E7.Minefield.LabelBeacon
+- uid: E7.Minefield.Beacon.Get*
+  commentId: Overload:E7.Minefield.Beacon.Get
+  href: E7.Minefield.Beacon.html#E7_Minefield_Beacon_Get__1___0_
+  name: Get
+  nameWithType: Beacon.Get
+  fullName: E7.Minefield.Beacon.Get
+- uid: '{BEACONTYPE}'
+  commentId: '!:BEACONTYPE'
+  definition: BEACONTYPE
+  name: BEACONTYPE
+  nameWithType: BEACONTYPE
+  fullName: BEACONTYPE
+- uid: BEACONTYPE
+  name: BEACONTYPE
+  nameWithType: BEACONTYPE
+  fullName: BEACONTYPE
+- uid: E7.Minefield.Beacon.GetComponent*
+  commentId: Overload:E7.Minefield.Beacon.GetComponent
+  href: E7.Minefield.Beacon.html#E7_Minefield_Beacon_GetComponent__1_System_Enum_
+  name: GetComponent
+  nameWithType: Beacon.GetComponent
+  fullName: E7.Minefield.Beacon.GetComponent
+- uid: System.Enum
+  commentId: T:System.Enum
+  parent: System
+  isExternal: true
+  name: Enum
+  nameWithType: Enum
+  fullName: System.Enum
+- uid: '{COMPONENTTYPE}'
+  commentId: '!:COMPONENTTYPE'
+  definition: COMPONENTTYPE
+  name: COMPONENTTYPE
+  nameWithType: COMPONENTTYPE
+  fullName: COMPONENTTYPE
+- uid: COMPONENTTYPE
+  commentId: '!:COMPONENTTYPE'
+  name: COMPONENTTYPE
+  nameWithType: COMPONENTTYPE
+  fullName: COMPONENTTYPE
+- uid: System.Exception
+  commentId: T:System.Exception
+  parent: System
+  isExternal: true
+  name: Exception
+  nameWithType: Exception
+  fullName: System.Exception
+- uid: E7.Minefield.Beacon.FindActive*
+  commentId: Overload:E7.Minefield.Beacon.FindActive
+  href: E7.Minefield.Beacon.html#E7_Minefield_Beacon_FindActive__1___0_E7_Minefield_ILabelBeacon__
+  name: FindActive
+  nameWithType: Beacon.FindActive
+  fullName: E7.Minefield.Beacon.FindActive
+- uid: E7.Minefield.Beacon.FindActiveEnum*
+  commentId: Overload:E7.Minefield.Beacon.FindActiveEnum
+  href: E7.Minefield.Beacon.html#E7_Minefield_Beacon_FindActiveEnum_System_Enum_E7_Minefield_ILabelBeacon__
+  name: FindActiveEnum
+  nameWithType: Beacon.FindActiveEnum
+  fullName: E7.Minefield.Beacon.FindActiveEnum
+- uid: E7.Minefield.HandlerBeacon`1
+  commentId: T:E7.Minefield.HandlerBeacon`1
+  href: E7.Minefield.HandlerBeacon-1.html
+  name: HandlerBeacon<T>
+  nameWithType: HandlerBeacon<T>
+  fullName: E7.Minefield.HandlerBeacon<T>
+  nameWithType.vb: HandlerBeacon(Of T)
+  fullName.vb: E7.Minefield.HandlerBeacon(Of T)
+  name.vb: HandlerBeacon(Of T)
+  spec.csharp:
+  - uid: E7.Minefield.HandlerBeacon`1
+    name: HandlerBeacon
+    href: E7.Minefield.HandlerBeacon-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: E7.Minefield.HandlerBeacon`1
+    name: HandlerBeacon
+    href: E7.Minefield.HandlerBeacon-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: E7.Minefield.Beacon.Click*
+  commentId: Overload:E7.Minefield.Beacon.Click
+  href: E7.Minefield.Beacon.html#E7_Minefield_Beacon_Click__1___0_System_Boolean_
+  name: Click
+  nameWithType: Beacon.Click
+  fullName: E7.Minefield.Beacon.Click

@@ -1,0 +1,90 @@
+### YamlMime:ManagedReference
+items:
+- uid: E7.Minefield.IMinefieldStatusReporter`1
+  commentId: T:E7.Minefield.IMinefieldStatusReporter`1
+  id: IMinefieldStatusReporter`1
+  parent: E7.Minefield
+  children:
+  - E7.Minefield.IMinefieldStatusReporter`1.Status
+  langs:
+  - csharp
+  - vb
+  name: IMinefieldStatusReporter<T>
+  nameWithType: IMinefieldStatusReporter<T>
+  fullName: E7.Minefield.IMinefieldStatusReporter<T>
+  type: Interface
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  syntax:
+    content: 'public interface IMinefieldStatusReporter<T> : IMinefieldReporter where T : Enum'
+    typeParameters:
+    - id: T
+    content.vb: Public Interface IMinefieldStatusReporter(Of T As [Enum]) Inherits IMinefieldReporter
+  nameWithType.vb: IMinefieldStatusReporter(Of T)
+  fullName.vb: E7.Minefield.IMinefieldStatusReporter(Of T)
+  name.vb: IMinefieldStatusReporter(Of T)
+- uid: E7.Minefield.IMinefieldStatusReporter`1.Status
+  commentId: P:E7.Minefield.IMinefieldStatusReporter`1.Status
+  id: Status
+  parent: E7.Minefield.IMinefieldStatusReporter`1
+  langs:
+  - csharp
+  - vb
+  name: Status
+  nameWithType: IMinefieldStatusReporter<T>.Status
+  fullName: E7.Minefield.IMinefieldStatusReporter<T>.Status
+  type: Property
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  syntax:
+    content: T Status { get; }
+    parameters: []
+    return:
+      type: '{T}'
+    content.vb: ReadOnly Property Status As T
+  overload: E7.Minefield.IMinefieldStatusReporter`1.Status*
+  nameWithType.vb: IMinefieldStatusReporter(Of T).Status
+  fullName.vb: E7.Minefield.IMinefieldStatusReporter(Of T).Status
+references:
+- uid: E7.Minefield
+  commentId: N:E7.Minefield
+  href: E7.html
+  name: E7.Minefield
+  nameWithType: E7.Minefield
+  fullName: E7.Minefield
+  spec.csharp:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+  spec.vb:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+- uid: E7.Minefield.IMinefieldStatusReporter`1.Status*
+  commentId: Overload:E7.Minefield.IMinefieldStatusReporter`1.Status
+  href: E7.Minefield.IMinefieldStatusReporter-1.html#E7_Minefield_IMinefieldStatusReporter_1_Status
+  name: Status
+  nameWithType: IMinefieldStatusReporter<T>.Status
+  fullName: E7.Minefield.IMinefieldStatusReporter<T>.Status
+  nameWithType.vb: IMinefieldStatusReporter(Of T).Status
+  fullName.vb: E7.Minefield.IMinefieldStatusReporter(Of T).Status
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T

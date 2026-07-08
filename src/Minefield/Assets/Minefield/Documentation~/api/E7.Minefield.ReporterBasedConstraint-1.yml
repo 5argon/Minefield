@@ -1,0 +1,394 @@
+### YamlMime:ManagedReference
+items:
+- uid: E7.Minefield.ReporterBasedConstraint`1
+  commentId: T:E7.Minefield.ReporterBasedConstraint`1
+  id: ReporterBasedConstraint`1
+  parent: E7.Minefield
+  children:
+  - E7.Minefield.ReporterBasedConstraint`1.GetAllReporters
+  - E7.Minefield.ReporterBasedConstraint`1.GetFirstReporter
+  langs:
+  - csharp
+  - vb
+  name: ReporterBasedConstraint<T>
+  nameWithType: ReporterBasedConstraint<T>
+  fullName: E7.Minefield.ReporterBasedConstraint<T>
+  type: Class
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  syntax:
+    content: 'public abstract class ReporterBasedConstraint<T> : BeaconConstraint where T : IMinefieldReporter'
+    typeParameters:
+    - id: T
+    content.vb: Public MustInherit Class ReporterBasedConstraint(Of T As IMinefieldReporter) Inherits BeaconConstraint
+  inheritance:
+  - System.Object
+  - NUnit.Framework.Constraints.Constraint
+  - E7.Minefield.BeaconConstraint
+  derivedClasses:
+  - E7.Minefield.AmountConstraint
+  - E7.Minefield.ObjectConstraint`1
+  - E7.Minefield.OnOffConstraint
+  - E7.Minefield.StatusConstraint`1
+  - E7.Minefield.StringContainsConstraint
+  inheritedMembers:
+  - E7.Minefield.BeaconConstraint.beaconRequested
+  - E7.Minefield.BeaconConstraint.FoundBeacon
+  - E7.Minefield.BeaconConstraint.FindResult
+  - E7.Minefield.BeaconConstraint.ApplyToBeacon``1({BEACONTYPE})
+  - E7.Minefield.BeaconConstraint.ApplyToBeacon(System.Enum)
+  - E7.Minefield.BeaconConstraint.Assert
+  - E7.Minefield.BeaconConstraint.ApplyTo(System.Object)
+  - E7.Minefield.BeaconConstraint.Diagnostic
+  nameWithType.vb: ReporterBasedConstraint(Of T)
+  fullName.vb: E7.Minefield.ReporterBasedConstraint(Of T)
+  name.vb: ReporterBasedConstraint(Of T)
+- uid: E7.Minefield.ReporterBasedConstraint`1.GetFirstReporter
+  commentId: M:E7.Minefield.ReporterBasedConstraint`1.GetFirstReporter
+  id: GetFirstReporter
+  parent: E7.Minefield.ReporterBasedConstraint`1
+  langs:
+  - csharp
+  - vb
+  name: GetFirstReporter()
+  nameWithType: ReporterBasedConstraint<T>.GetFirstReporter()
+  fullName: E7.Minefield.ReporterBasedConstraint<T>.GetFirstReporter()
+  type: Method
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  syntax:
+    content: protected T GetFirstReporter()
+    return:
+      type: '{T}'
+    content.vb: Protected Function GetFirstReporter() As T
+  overload: E7.Minefield.ReporterBasedConstraint`1.GetFirstReporter*
+  nameWithType.vb: ReporterBasedConstraint(Of T).GetFirstReporter()
+  fullName.vb: E7.Minefield.ReporterBasedConstraint(Of T).GetFirstReporter()
+- uid: E7.Minefield.ReporterBasedConstraint`1.GetAllReporters
+  commentId: M:E7.Minefield.ReporterBasedConstraint`1.GetAllReporters
+  id: GetAllReporters
+  parent: E7.Minefield.ReporterBasedConstraint`1
+  langs:
+  - csharp
+  - vb
+  name: GetAllReporters()
+  nameWithType: ReporterBasedConstraint<T>.GetAllReporters()
+  fullName: E7.Minefield.ReporterBasedConstraint<T>.GetAllReporters()
+  type: Method
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  syntax:
+    content: protected T[] GetAllReporters()
+    return:
+      type: '{T}[]'
+    content.vb: Protected Function GetAllReporters() As T()
+  overload: E7.Minefield.ReporterBasedConstraint`1.GetAllReporters*
+  nameWithType.vb: ReporterBasedConstraint(Of T).GetAllReporters()
+  fullName.vb: E7.Minefield.ReporterBasedConstraint(Of T).GetAllReporters()
+references:
+- uid: E7.Minefield
+  commentId: N:E7.Minefield
+  href: E7.html
+  name: E7.Minefield
+  nameWithType: E7.Minefield
+  fullName: E7.Minefield
+  spec.csharp:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+  spec.vb:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: NUnit.Framework.Constraints.Constraint
+  commentId: T:NUnit.Framework.Constraints.Constraint
+  parent: NUnit.Framework.Constraints
+  isExternal: true
+  name: Constraint
+  nameWithType: Constraint
+  fullName: NUnit.Framework.Constraints.Constraint
+- uid: E7.Minefield.BeaconConstraint
+  commentId: T:E7.Minefield.BeaconConstraint
+  parent: E7.Minefield
+  href: E7.Minefield.BeaconConstraint.html
+  name: BeaconConstraint
+  nameWithType: BeaconConstraint
+  fullName: E7.Minefield.BeaconConstraint
+- uid: E7.Minefield.BeaconConstraint.beaconRequested
+  commentId: F:E7.Minefield.BeaconConstraint.beaconRequested
+  parent: E7.Minefield.BeaconConstraint
+  href: E7.Minefield.BeaconConstraint.html#E7_Minefield_BeaconConstraint_beaconRequested
+  name: beaconRequested
+  nameWithType: BeaconConstraint.beaconRequested
+  fullName: E7.Minefield.BeaconConstraint.beaconRequested
+- uid: E7.Minefield.BeaconConstraint.FoundBeacon
+  commentId: P:E7.Minefield.BeaconConstraint.FoundBeacon
+  parent: E7.Minefield.BeaconConstraint
+  href: E7.Minefield.BeaconConstraint.html#E7_Minefield_BeaconConstraint_FoundBeacon
+  name: FoundBeacon
+  nameWithType: BeaconConstraint.FoundBeacon
+  fullName: E7.Minefield.BeaconConstraint.FoundBeacon
+- uid: E7.Minefield.BeaconConstraint.FindResult
+  commentId: P:E7.Minefield.BeaconConstraint.FindResult
+  parent: E7.Minefield.BeaconConstraint
+  href: E7.Minefield.BeaconConstraint.html#E7_Minefield_BeaconConstraint_FindResult
+  name: FindResult
+  nameWithType: BeaconConstraint.FindResult
+  fullName: E7.Minefield.BeaconConstraint.FindResult
+- uid: E7.Minefield.BeaconConstraint.ApplyToBeacon``1({BEACONTYPE})
+  commentId: M:E7.Minefield.BeaconConstraint.ApplyToBeacon``1(``0)
+  parent: E7.Minefield.BeaconConstraint
+  definition: E7.Minefield.BeaconConstraint.ApplyToBeacon``1(``0)
+  href: E7.Minefield.BeaconConstraint.html#E7_Minefield_BeaconConstraint_ApplyToBeacon__1___0_
+  name: ApplyToBeacon<BEACONTYPE>(BEACONTYPE)
+  nameWithType: BeaconConstraint.ApplyToBeacon<BEACONTYPE>(BEACONTYPE)
+  fullName: E7.Minefield.BeaconConstraint.ApplyToBeacon<BEACONTYPE>(BEACONTYPE)
+  nameWithType.vb: BeaconConstraint.ApplyToBeacon(Of BEACONTYPE)(BEACONTYPE)
+  fullName.vb: E7.Minefield.BeaconConstraint.ApplyToBeacon(Of BEACONTYPE)(BEACONTYPE)
+  name.vb: ApplyToBeacon(Of BEACONTYPE)(BEACONTYPE)
+  spec.csharp:
+  - uid: E7.Minefield.BeaconConstraint.ApplyToBeacon``1(``0)
+    name: ApplyToBeacon
+    href: E7.Minefield.BeaconConstraint.html#E7_Minefield_BeaconConstraint_ApplyToBeacon__1___0_
+  - name: <
+  - name: BEACONTYPE
+  - name: '>'
+  - name: (
+  - name: BEACONTYPE
+  - name: )
+  spec.vb:
+  - uid: E7.Minefield.BeaconConstraint.ApplyToBeacon``1(``0)
+    name: ApplyToBeacon
+    href: E7.Minefield.BeaconConstraint.html#E7_Minefield_BeaconConstraint_ApplyToBeacon__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: BEACONTYPE
+  - name: )
+  - name: (
+  - name: BEACONTYPE
+  - name: )
+- uid: E7.Minefield.BeaconConstraint.ApplyToBeacon(System.Enum)
+  commentId: M:E7.Minefield.BeaconConstraint.ApplyToBeacon(System.Enum)
+  parent: E7.Minefield.BeaconConstraint
+  isExternal: true
+  href: E7.Minefield.BeaconConstraint.html#E7_Minefield_BeaconConstraint_ApplyToBeacon_System_Enum_
+  name: ApplyToBeacon(Enum)
+  nameWithType: BeaconConstraint.ApplyToBeacon(Enum)
+  fullName: E7.Minefield.BeaconConstraint.ApplyToBeacon(System.Enum)
+  spec.csharp:
+  - uid: E7.Minefield.BeaconConstraint.ApplyToBeacon(System.Enum)
+    name: ApplyToBeacon
+    href: E7.Minefield.BeaconConstraint.html#E7_Minefield_BeaconConstraint_ApplyToBeacon_System_Enum_
+  - name: (
+  - uid: System.Enum
+    name: Enum
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: E7.Minefield.BeaconConstraint.ApplyToBeacon(System.Enum)
+    name: ApplyToBeacon
+    href: E7.Minefield.BeaconConstraint.html#E7_Minefield_BeaconConstraint_ApplyToBeacon_System_Enum_
+  - name: (
+  - uid: System.Enum
+    name: Enum
+    isExternal: true
+  - name: )
+- uid: E7.Minefield.BeaconConstraint.Assert
+  commentId: M:E7.Minefield.BeaconConstraint.Assert
+  parent: E7.Minefield.BeaconConstraint
+  href: E7.Minefield.BeaconConstraint.html#E7_Minefield_BeaconConstraint_Assert
+  name: Assert()
+  nameWithType: BeaconConstraint.Assert()
+  fullName: E7.Minefield.BeaconConstraint.Assert()
+  spec.csharp:
+  - uid: E7.Minefield.BeaconConstraint.Assert
+    name: Assert
+    href: E7.Minefield.BeaconConstraint.html#E7_Minefield_BeaconConstraint_Assert
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: E7.Minefield.BeaconConstraint.Assert
+    name: Assert
+    href: E7.Minefield.BeaconConstraint.html#E7_Minefield_BeaconConstraint_Assert
+  - name: (
+  - name: )
+- uid: E7.Minefield.BeaconConstraint.ApplyTo(System.Object)
+  commentId: M:E7.Minefield.BeaconConstraint.ApplyTo(System.Object)
+  parent: E7.Minefield.BeaconConstraint
+  isExternal: true
+  href: E7.Minefield.BeaconConstraint.html#E7_Minefield_BeaconConstraint_ApplyTo_System_Object_
+  name: ApplyTo(object)
+  nameWithType: BeaconConstraint.ApplyTo(object)
+  fullName: E7.Minefield.BeaconConstraint.ApplyTo(object)
+  nameWithType.vb: BeaconConstraint.ApplyTo(Object)
+  fullName.vb: E7.Minefield.BeaconConstraint.ApplyTo(Object)
+  name.vb: ApplyTo(Object)
+  spec.csharp:
+  - uid: E7.Minefield.BeaconConstraint.ApplyTo(System.Object)
+    name: ApplyTo
+    href: E7.Minefield.BeaconConstraint.html#E7_Minefield_BeaconConstraint_ApplyTo_System_Object_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: E7.Minefield.BeaconConstraint.ApplyTo(System.Object)
+    name: ApplyTo
+    href: E7.Minefield.BeaconConstraint.html#E7_Minefield_BeaconConstraint_ApplyTo_System_Object_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+  - name: )
+- uid: E7.Minefield.BeaconConstraint.Diagnostic
+  commentId: M:E7.Minefield.BeaconConstraint.Diagnostic
+  parent: E7.Minefield.BeaconConstraint
+  href: E7.Minefield.BeaconConstraint.html#E7_Minefield_BeaconConstraint_Diagnostic
+  name: Diagnostic()
+  nameWithType: BeaconConstraint.Diagnostic()
+  fullName: E7.Minefield.BeaconConstraint.Diagnostic()
+  spec.csharp:
+  - uid: E7.Minefield.BeaconConstraint.Diagnostic
+    name: Diagnostic
+    href: E7.Minefield.BeaconConstraint.html#E7_Minefield_BeaconConstraint_Diagnostic
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: E7.Minefield.BeaconConstraint.Diagnostic
+    name: Diagnostic
+    href: E7.Minefield.BeaconConstraint.html#E7_Minefield_BeaconConstraint_Diagnostic
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: NUnit.Framework.Constraints
+  commentId: N:NUnit.Framework.Constraints
+  isExternal: true
+  name: NUnit.Framework.Constraints
+  nameWithType: NUnit.Framework.Constraints
+  fullName: NUnit.Framework.Constraints
+  spec.csharp:
+  - uid: NUnit
+    name: NUnit
+    isExternal: true
+  - name: .
+  - uid: NUnit.Framework
+    name: Framework
+    isExternal: true
+  - name: .
+  - uid: NUnit.Framework.Constraints
+    name: Constraints
+    isExternal: true
+  spec.vb:
+  - uid: NUnit
+    name: NUnit
+    isExternal: true
+  - name: .
+  - uid: NUnit.Framework
+    name: Framework
+    isExternal: true
+  - name: .
+  - uid: NUnit.Framework.Constraints
+    name: Constraints
+    isExternal: true
+- uid: E7.Minefield.BeaconConstraint.ApplyToBeacon``1(``0)
+  commentId: M:E7.Minefield.BeaconConstraint.ApplyToBeacon``1(``0)
+  href: E7.Minefield.BeaconConstraint.html#E7_Minefield_BeaconConstraint_ApplyToBeacon__1___0_
+  name: ApplyToBeacon<BEACONTYPE>(BEACONTYPE)
+  nameWithType: BeaconConstraint.ApplyToBeacon<BEACONTYPE>(BEACONTYPE)
+  fullName: E7.Minefield.BeaconConstraint.ApplyToBeacon<BEACONTYPE>(BEACONTYPE)
+  nameWithType.vb: BeaconConstraint.ApplyToBeacon(Of BEACONTYPE)(BEACONTYPE)
+  fullName.vb: E7.Minefield.BeaconConstraint.ApplyToBeacon(Of BEACONTYPE)(BEACONTYPE)
+  name.vb: ApplyToBeacon(Of BEACONTYPE)(BEACONTYPE)
+  spec.csharp:
+  - uid: E7.Minefield.BeaconConstraint.ApplyToBeacon``1(``0)
+    name: ApplyToBeacon
+    href: E7.Minefield.BeaconConstraint.html#E7_Minefield_BeaconConstraint_ApplyToBeacon__1___0_
+  - name: <
+  - name: BEACONTYPE
+  - name: '>'
+  - name: (
+  - name: BEACONTYPE
+  - name: )
+  spec.vb:
+  - uid: E7.Minefield.BeaconConstraint.ApplyToBeacon``1(``0)
+    name: ApplyToBeacon
+    href: E7.Minefield.BeaconConstraint.html#E7_Minefield_BeaconConstraint_ApplyToBeacon__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: BEACONTYPE
+  - name: )
+  - name: (
+  - name: BEACONTYPE
+  - name: )
+- uid: E7.Minefield.ReporterBasedConstraint`1.GetFirstReporter*
+  commentId: Overload:E7.Minefield.ReporterBasedConstraint`1.GetFirstReporter
+  href: E7.Minefield.ReporterBasedConstraint-1.html#E7_Minefield_ReporterBasedConstraint_1_GetFirstReporter
+  name: GetFirstReporter
+  nameWithType: ReporterBasedConstraint<T>.GetFirstReporter
+  fullName: E7.Minefield.ReporterBasedConstraint<T>.GetFirstReporter
+  nameWithType.vb: ReporterBasedConstraint(Of T).GetFirstReporter
+  fullName.vb: E7.Minefield.ReporterBasedConstraint(Of T).GetFirstReporter
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: E7.Minefield.ReporterBasedConstraint`1.GetAllReporters*
+  commentId: Overload:E7.Minefield.ReporterBasedConstraint`1.GetAllReporters
+  href: E7.Minefield.ReporterBasedConstraint-1.html#E7_Minefield_ReporterBasedConstraint_1_GetAllReporters
+  name: GetAllReporters
+  nameWithType: ReporterBasedConstraint<T>.GetAllReporters
+  fullName: E7.Minefield.ReporterBasedConstraint<T>.GetAllReporters
+  nameWithType.vb: ReporterBasedConstraint(Of T).GetAllReporters
+  fullName.vb: E7.Minefield.ReporterBasedConstraint(Of T).GetAllReporters
+- uid: '{T}[]'
+  isExternal: true
+  name: T[]
+  nameWithType: T[]
+  fullName: T[]
+  nameWithType.vb: T()
+  fullName.vb: T()
+  name.vb: T()
+  spec.csharp:
+  - name: T
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - name: T
+  - name: (
+  - name: )

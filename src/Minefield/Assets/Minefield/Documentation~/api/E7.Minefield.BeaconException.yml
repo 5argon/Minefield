@@ -1,0 +1,251 @@
+### YamlMime:ManagedReference
+items:
+- uid: E7.Minefield.BeaconException
+  commentId: T:E7.Minefield.BeaconException
+  id: BeaconException
+  parent: E7.Minefield
+  children:
+  - E7.Minefield.BeaconException.#ctor
+  - E7.Minefield.BeaconException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  - E7.Minefield.BeaconException.#ctor(System.String)
+  - E7.Minefield.BeaconException.#ctor(System.String,System.Exception)
+  langs:
+  - csharp
+  - vb
+  name: BeaconException
+  nameWithType: BeaconException
+  fullName: E7.Minefield.BeaconException
+  type: Class
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  syntax:
+    content: >-
+      [Serializable]
+
+      public class BeaconException : Exception
+    content.vb: >-
+      <Serializable>
+
+      Public Class BeaconException Inherits Exception
+  inheritance:
+  - System.Object
+  - System.Exception
+  attributes:
+  - type: System.SerializableAttribute
+    ctor: System.SerializableAttribute.#ctor
+    arguments: []
+- uid: E7.Minefield.BeaconException.#ctor
+  commentId: M:E7.Minefield.BeaconException.#ctor
+  id: '#ctor'
+  parent: E7.Minefield.BeaconException
+  langs:
+  - csharp
+  - vb
+  name: BeaconException()
+  nameWithType: BeaconException.BeaconException()
+  fullName: E7.Minefield.BeaconException.BeaconException()
+  type: Constructor
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  syntax:
+    content: public BeaconException()
+    content.vb: Public Sub New()
+  overload: E7.Minefield.BeaconException.#ctor*
+  nameWithType.vb: BeaconException.New()
+  fullName.vb: E7.Minefield.BeaconException.New()
+  name.vb: New()
+- uid: E7.Minefield.BeaconException.#ctor(System.String)
+  commentId: M:E7.Minefield.BeaconException.#ctor(System.String)
+  id: '#ctor(System.String)'
+  parent: E7.Minefield.BeaconException
+  langs:
+  - csharp
+  - vb
+  name: BeaconException(string)
+  nameWithType: BeaconException.BeaconException(string)
+  fullName: E7.Minefield.BeaconException.BeaconException(string)
+  type: Constructor
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  syntax:
+    content: public BeaconException(string message)
+    parameters:
+    - id: message
+      type: System.String
+    content.vb: Public Sub New(message As String)
+  overload: E7.Minefield.BeaconException.#ctor*
+  nameWithType.vb: BeaconException.New(String)
+  fullName.vb: E7.Minefield.BeaconException.New(String)
+  name.vb: New(String)
+- uid: E7.Minefield.BeaconException.#ctor(System.String,System.Exception)
+  commentId: M:E7.Minefield.BeaconException.#ctor(System.String,System.Exception)
+  id: '#ctor(System.String,System.Exception)'
+  parent: E7.Minefield.BeaconException
+  langs:
+  - csharp
+  - vb
+  name: BeaconException(string, Exception)
+  nameWithType: BeaconException.BeaconException(string, Exception)
+  fullName: E7.Minefield.BeaconException.BeaconException(string, System.Exception)
+  type: Constructor
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  syntax:
+    content: public BeaconException(string message, Exception inner)
+    parameters:
+    - id: message
+      type: System.String
+    - id: inner
+      type: System.Exception
+    content.vb: Public Sub New(message As String, inner As Exception)
+  overload: E7.Minefield.BeaconException.#ctor*
+  nameWithType.vb: BeaconException.New(String, Exception)
+  fullName.vb: E7.Minefield.BeaconException.New(String, System.Exception)
+  name.vb: New(String, Exception)
+- uid: E7.Minefield.BeaconException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  commentId: M:E7.Minefield.BeaconException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  id: '#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)'
+  parent: E7.Minefield.BeaconException
+  langs:
+  - csharp
+  - vb
+  name: BeaconException(SerializationInfo, StreamingContext)
+  nameWithType: BeaconException.BeaconException(SerializationInfo, StreamingContext)
+  fullName: E7.Minefield.BeaconException.BeaconException(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
+  type: Constructor
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  syntax:
+    content: protected BeaconException(SerializationInfo info, StreamingContext context)
+    parameters:
+    - id: info
+      type: System.Runtime.Serialization.SerializationInfo
+    - id: context
+      type: System.Runtime.Serialization.StreamingContext
+    content.vb: Protected Sub New(info As SerializationInfo, context As StreamingContext)
+  overload: E7.Minefield.BeaconException.#ctor*
+  nameWithType.vb: BeaconException.New(SerializationInfo, StreamingContext)
+  fullName.vb: E7.Minefield.BeaconException.New(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
+  name.vb: New(SerializationInfo, StreamingContext)
+references:
+- uid: E7.Minefield
+  commentId: N:E7.Minefield
+  href: E7.html
+  name: E7.Minefield
+  nameWithType: E7.Minefield
+  fullName: E7.Minefield
+  spec.csharp:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+  spec.vb:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Exception
+  commentId: T:System.Exception
+  parent: System
+  isExternal: true
+  name: Exception
+  nameWithType: Exception
+  fullName: System.Exception
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: E7.Minefield.BeaconException.#ctor*
+  commentId: Overload:E7.Minefield.BeaconException.#ctor
+  href: E7.Minefield.BeaconException.html#E7_Minefield_BeaconException__ctor
+  name: BeaconException
+  nameWithType: BeaconException.BeaconException
+  fullName: E7.Minefield.BeaconException.BeaconException
+  nameWithType.vb: BeaconException.New
+  fullName.vb: E7.Minefield.BeaconException.New
+  name.vb: New
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Runtime.Serialization.SerializationInfo
+  commentId: T:System.Runtime.Serialization.SerializationInfo
+  parent: System.Runtime.Serialization
+  isExternal: true
+  name: SerializationInfo
+  nameWithType: SerializationInfo
+  fullName: System.Runtime.Serialization.SerializationInfo
+- uid: System.Runtime.Serialization.StreamingContext
+  commentId: T:System.Runtime.Serialization.StreamingContext
+  parent: System.Runtime.Serialization
+  isExternal: true
+  name: StreamingContext
+  nameWithType: StreamingContext
+  fullName: System.Runtime.Serialization.StreamingContext
+- uid: System.Runtime.Serialization
+  commentId: N:System.Runtime.Serialization
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Runtime.Serialization
+  nameWithType: System.Runtime.Serialization
+  fullName: System.Runtime.Serialization
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Runtime
+    name: Runtime
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.runtime
+  - name: .
+  - uid: System.Runtime.Serialization
+    name: Serialization
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.runtime.serialization
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Runtime
+    name: Runtime
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.runtime
+  - name: .
+  - uid: System.Runtime.Serialization
+    name: Serialization
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.runtime.serialization

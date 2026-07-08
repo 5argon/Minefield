@@ -1,0 +1,62 @@
+### YamlMime:ManagedReference
+items:
+- uid: E7.Minefield.PlatformSpecificTestAttributes
+  commentId: T:E7.Minefield.PlatformSpecificTestAttributes
+  id: PlatformSpecificTestAttributes
+  parent: E7.Minefield
+  children: []
+  langs:
+  - csharp
+  - vb
+  name: PlatformSpecificTestAttributes
+  nameWithType: PlatformSpecificTestAttributes
+  fullName: E7.Minefield.PlatformSpecificTestAttributes
+  type: Class
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  syntax:
+    content: public static class PlatformSpecificTestAttributes
+    content.vb: Public Module PlatformSpecificTestAttributes
+  inheritance:
+  - System.Object
+references:
+- uid: E7.Minefield
+  commentId: N:E7.Minefield
+  href: E7.html
+  name: E7.Minefield
+  nameWithType: E7.Minefield
+  fullName: E7.Minefield
+  spec.csharp:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+  spec.vb:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System

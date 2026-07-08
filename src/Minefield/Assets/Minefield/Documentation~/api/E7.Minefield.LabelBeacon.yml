@@ -1,0 +1,484 @@
+### YamlMime:ManagedReference
+items:
+- uid: E7.Minefield.LabelBeacon
+  commentId: T:E7.Minefield.LabelBeacon
+  id: LabelBeacon
+  parent: E7.Minefield
+  children:
+  - E7.Minefield.LabelBeacon.Component``1
+  - E7.Minefield.LabelBeacon.CountActive(System.Enum,E7.Minefield.LabelBeacon@)
+  - E7.Minefield.LabelBeacon.GameObject
+  - E7.Minefield.LabelBeacon.Label
+  - E7.Minefield.LabelBeacon.OnDisable
+  - E7.Minefield.LabelBeacon.OnEnable
+  langs:
+  - csharp
+  - vb
+  name: LabelBeacon
+  nameWithType: LabelBeacon
+  fullName: E7.Minefield.LabelBeacon
+  type: Class
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: >-
+    The simplest beacon that you could look up things from the scene by label.
+
+
+    This non-generic version is not meant to be subclassed, it is just to allow compatibility with Unity search box
+
+    which couldn't handle generic class.
+  example: []
+  syntax:
+    content: >-
+      [DisallowMultipleComponent]
+
+      public abstract class LabelBeacon : MonoBehaviour, ILabelBeacon
+    content.vb: >-
+      <DisallowMultipleComponent>
+
+      Public MustInherit Class LabelBeacon Inherits MonoBehaviour Implements ILabelBeacon
+  inheritance:
+  - System.Object
+  - UnityEngine.Object
+  - UnityEngine.Component
+  - UnityEngine.Behaviour
+  - UnityEngine.MonoBehaviour
+  derivedClasses:
+  - E7.Minefield.HandlerBeacon
+  - E7.Minefield.LabelBeacon`1
+  implements:
+  - E7.Minefield.ILabelBeacon
+  extensionMethods:
+  - UnityEngine.Component.E7.Minefield.UGUITestExtension.AnimatorAtState(System.String,System.Int32)
+  attributes:
+  - type: UnityEngine.DisallowMultipleComponent
+    ctor: UnityEngine.DisallowMultipleComponent.#ctor
+    arguments: []
+- uid: E7.Minefield.LabelBeacon.Label
+  commentId: P:E7.Minefield.LabelBeacon.Label
+  id: Label
+  parent: E7.Minefield.LabelBeacon
+  langs:
+  - csharp
+  - vb
+  name: Label
+  nameWithType: LabelBeacon.Label
+  fullName: E7.Minefield.LabelBeacon.Label
+  type: Property
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  example: []
+  syntax:
+    content: public abstract Enum Label { get; }
+    parameters: []
+    return:
+      type: System.Enum
+    content.vb: Public MustOverride ReadOnly Property Label As [Enum]
+  overload: E7.Minefield.LabelBeacon.Label*
+  implements:
+  - E7.Minefield.ILabelBeacon.Label
+- uid: E7.Minefield.LabelBeacon.GameObject
+  commentId: P:E7.Minefield.LabelBeacon.GameObject
+  id: GameObject
+  parent: E7.Minefield.LabelBeacon
+  langs:
+  - csharp
+  - vb
+  name: GameObject
+  nameWithType: LabelBeacon.GameObject
+  fullName: E7.Minefield.LabelBeacon.GameObject
+  type: Property
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  example: []
+  syntax:
+    content: public GameObject GameObject { get; }
+    parameters: []
+    return:
+      type: UnityEngine.GameObject
+    content.vb: Public ReadOnly Property GameObject As GameObject
+  overload: E7.Minefield.LabelBeacon.GameObject*
+  implements:
+  - E7.Minefield.ILabelBeacon.GameObject
+- uid: E7.Minefield.LabelBeacon.Component``1
+  commentId: M:E7.Minefield.LabelBeacon.Component``1
+  id: Component``1
+  parent: E7.Minefield.LabelBeacon
+  langs:
+  - csharp
+  - vb
+  name: Component<T>()
+  nameWithType: LabelBeacon.Component<T>()
+  fullName: E7.Minefield.LabelBeacon.Component<T>()
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: Shortcut to write more concise code in combination with Beacon.Get
+  example: []
+  syntax:
+    content: public T Component<T>()
+    typeParameters:
+    - id: T
+    return:
+      type: '{T}'
+    content.vb: Public Function Component(Of T)() As T
+  overload: E7.Minefield.LabelBeacon.Component*
+  nameWithType.vb: LabelBeacon.Component(Of T)()
+  fullName.vb: E7.Minefield.LabelBeacon.Component(Of T)()
+  name.vb: Component(Of T)()
+- uid: E7.Minefield.LabelBeacon.OnEnable
+  commentId: M:E7.Minefield.LabelBeacon.OnEnable
+  id: OnEnable
+  parent: E7.Minefield.LabelBeacon
+  langs:
+  - csharp
+  - vb
+  name: OnEnable()
+  nameWithType: LabelBeacon.OnEnable()
+  fullName: E7.Minefield.LabelBeacon.OnEnable()
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: >-
+    Override in a subclass ONLY if you also call <code>base.OnEnable()</code>, or the beacon will not
+
+    register and become unfindable in tests.
+  example: []
+  syntax:
+    content: protected virtual void OnEnable()
+    content.vb: Protected Overridable Sub OnEnable()
+  overload: E7.Minefield.LabelBeacon.OnEnable*
+- uid: E7.Minefield.LabelBeacon.OnDisable
+  commentId: M:E7.Minefield.LabelBeacon.OnDisable
+  id: OnDisable
+  parent: E7.Minefield.LabelBeacon
+  langs:
+  - csharp
+  - vb
+  name: OnDisable()
+  nameWithType: LabelBeacon.OnDisable()
+  fullName: E7.Minefield.LabelBeacon.OnDisable()
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: Override in a subclass ONLY if you also call <code>base.OnDisable()</code>.
+  example: []
+  syntax:
+    content: protected virtual void OnDisable()
+    content.vb: Protected Overridable Sub OnDisable()
+  overload: E7.Minefield.LabelBeacon.OnDisable*
+- uid: E7.Minefield.LabelBeacon.CountActive(System.Enum,E7.Minefield.LabelBeacon@)
+  commentId: M:E7.Minefield.LabelBeacon.CountActive(System.Enum,E7.Minefield.LabelBeacon@)
+  id: CountActive(System.Enum,E7.Minefield.LabelBeacon@)
+  parent: E7.Minefield.LabelBeacon
+  langs:
+  - csharp
+  - vb
+  name: CountActive(Enum, out LabelBeacon)
+  nameWithType: LabelBeacon.CountActive(Enum, out LabelBeacon)
+  fullName: E7.Minefield.LabelBeacon.CountActive(System.Enum, out E7.Minefield.LabelBeacon)
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: >-
+    Number of currently-active beacons carrying <code class="paramref">label</code>, and the first one via
+
+    <code class="paramref">first</code>. Destroyed-but-unremoved entries are pruned defensively.
+  example: []
+  syntax:
+    content: public static int CountActive(Enum label, out LabelBeacon first)
+    parameters:
+    - id: label
+      type: System.Enum
+    - id: first
+      type: E7.Minefield.LabelBeacon
+    return:
+      type: System.Int32
+    content.vb: Public Shared Function CountActive(label As [Enum], first As LabelBeacon) As Integer
+  overload: E7.Minefield.LabelBeacon.CountActive*
+  nameWithType.vb: LabelBeacon.CountActive(Enum, LabelBeacon)
+  fullName.vb: E7.Minefield.LabelBeacon.CountActive(System.Enum, E7.Minefield.LabelBeacon)
+  name.vb: CountActive(Enum, LabelBeacon)
+references:
+- uid: E7.Minefield
+  commentId: N:E7.Minefield
+  href: E7.html
+  name: E7.Minefield
+  nameWithType: E7.Minefield
+  fullName: E7.Minefield
+  spec.csharp:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+  spec.vb:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: UnityEngine.Object
+  commentId: T:UnityEngine.Object
+  parent: UnityEngine
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: UnityEngine.Object
+- uid: UnityEngine.Component
+  commentId: T:UnityEngine.Component
+  parent: UnityEngine
+  isExternal: true
+  name: Component
+  nameWithType: Component
+  fullName: UnityEngine.Component
+- uid: UnityEngine.Behaviour
+  commentId: T:UnityEngine.Behaviour
+  parent: UnityEngine
+  isExternal: true
+  name: Behaviour
+  nameWithType: Behaviour
+  fullName: UnityEngine.Behaviour
+- uid: UnityEngine.MonoBehaviour
+  commentId: T:UnityEngine.MonoBehaviour
+  parent: UnityEngine
+  isExternal: true
+  name: MonoBehaviour
+  nameWithType: MonoBehaviour
+  fullName: UnityEngine.MonoBehaviour
+- uid: E7.Minefield.ILabelBeacon
+  commentId: T:E7.Minefield.ILabelBeacon
+  parent: E7.Minefield
+  href: E7.Minefield.ILabelBeacon.html
+  name: ILabelBeacon
+  nameWithType: ILabelBeacon
+  fullName: E7.Minefield.ILabelBeacon
+- uid: UnityEngine.Component.E7.Minefield.UGUITestExtension.AnimatorAtState(System.String,System.Int32)
+  commentId: M:E7.Minefield.UGUITestExtension.AnimatorAtState(UnityEngine.Component,System.String,System.Int32)
+  parent: E7.Minefield.UGUITestExtension
+  definition: E7.Minefield.UGUITestExtension.AnimatorAtState(UnityEngine.Component,System.String,System.Int32)
+  href: E7.Minefield.UGUITestExtension.html#E7_Minefield_UGUITestExtension_AnimatorAtState_UnityEngine_Component_System_String_System_Int32_
+  name: AnimatorAtState(Component, string, int)
+  nameWithType: UGUITestExtension.AnimatorAtState(Component, string, int)
+  fullName: E7.Minefield.UGUITestExtension.AnimatorAtState(UnityEngine.Component, string, int)
+  nameWithType.vb: UGUITestExtension.AnimatorAtState(Component, String, Integer)
+  fullName.vb: E7.Minefield.UGUITestExtension.AnimatorAtState(UnityEngine.Component, String, Integer)
+  name.vb: AnimatorAtState(Component, String, Integer)
+  spec.csharp:
+  - uid: E7.Minefield.UGUITestExtension.AnimatorAtState(UnityEngine.Component,System.String,System.Int32)
+    name: AnimatorAtState
+    href: E7.Minefield.UGUITestExtension.html#E7_Minefield_UGUITestExtension_AnimatorAtState_UnityEngine_Component_System_String_System_Int32_
+  - name: (
+  - uid: UnityEngine.Component
+    name: Component
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: E7.Minefield.UGUITestExtension.AnimatorAtState(UnityEngine.Component,System.String,System.Int32)
+    name: AnimatorAtState
+    href: E7.Minefield.UGUITestExtension.html#E7_Minefield_UGUITestExtension_AnimatorAtState_UnityEngine_Component_System_String_System_Int32_
+  - name: (
+  - uid: UnityEngine.Component
+    name: Component
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: UnityEngine
+  commentId: N:UnityEngine
+  isExternal: true
+  name: UnityEngine
+  nameWithType: UnityEngine
+  fullName: UnityEngine
+- uid: E7.Minefield.UGUITestExtension.AnimatorAtState(UnityEngine.Component,System.String,System.Int32)
+  commentId: M:E7.Minefield.UGUITestExtension.AnimatorAtState(UnityEngine.Component,System.String,System.Int32)
+  isExternal: true
+  href: E7.Minefield.UGUITestExtension.html#E7_Minefield_UGUITestExtension_AnimatorAtState_UnityEngine_Component_System_String_System_Int32_
+  name: AnimatorAtState(Component, string, int)
+  nameWithType: UGUITestExtension.AnimatorAtState(Component, string, int)
+  fullName: E7.Minefield.UGUITestExtension.AnimatorAtState(UnityEngine.Component, string, int)
+  nameWithType.vb: UGUITestExtension.AnimatorAtState(Component, String, Integer)
+  fullName.vb: E7.Minefield.UGUITestExtension.AnimatorAtState(UnityEngine.Component, String, Integer)
+  name.vb: AnimatorAtState(Component, String, Integer)
+  spec.csharp:
+  - uid: E7.Minefield.UGUITestExtension.AnimatorAtState(UnityEngine.Component,System.String,System.Int32)
+    name: AnimatorAtState
+    href: E7.Minefield.UGUITestExtension.html#E7_Minefield_UGUITestExtension_AnimatorAtState_UnityEngine_Component_System_String_System_Int32_
+  - name: (
+  - uid: UnityEngine.Component
+    name: Component
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: E7.Minefield.UGUITestExtension.AnimatorAtState(UnityEngine.Component,System.String,System.Int32)
+    name: AnimatorAtState
+    href: E7.Minefield.UGUITestExtension.html#E7_Minefield_UGUITestExtension_AnimatorAtState_UnityEngine_Component_System_String_System_Int32_
+  - name: (
+  - uid: UnityEngine.Component
+    name: Component
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+  - name: )
+- uid: E7.Minefield.UGUITestExtension
+  commentId: T:E7.Minefield.UGUITestExtension
+  parent: E7.Minefield
+  href: E7.Minefield.UGUITestExtension.html
+  name: UGUITestExtension
+  nameWithType: UGUITestExtension
+  fullName: E7.Minefield.UGUITestExtension
+- uid: E7.Minefield.LabelBeacon.Label*
+  commentId: Overload:E7.Minefield.LabelBeacon.Label
+  href: E7.Minefield.LabelBeacon.html#E7_Minefield_LabelBeacon_Label
+  name: Label
+  nameWithType: LabelBeacon.Label
+  fullName: E7.Minefield.LabelBeacon.Label
+- uid: E7.Minefield.ILabelBeacon.Label
+  commentId: P:E7.Minefield.ILabelBeacon.Label
+  parent: E7.Minefield.ILabelBeacon
+  href: E7.Minefield.ILabelBeacon.html#E7_Minefield_ILabelBeacon_Label
+  name: Label
+  nameWithType: ILabelBeacon.Label
+  fullName: E7.Minefield.ILabelBeacon.Label
+- uid: System.Enum
+  commentId: T:System.Enum
+  parent: System
+  isExternal: true
+  name: Enum
+  nameWithType: Enum
+  fullName: System.Enum
+- uid: E7.Minefield.LabelBeacon.GameObject*
+  commentId: Overload:E7.Minefield.LabelBeacon.GameObject
+  href: E7.Minefield.LabelBeacon.html#E7_Minefield_LabelBeacon_GameObject
+  name: GameObject
+  nameWithType: LabelBeacon.GameObject
+  fullName: E7.Minefield.LabelBeacon.GameObject
+- uid: E7.Minefield.ILabelBeacon.GameObject
+  commentId: P:E7.Minefield.ILabelBeacon.GameObject
+  parent: E7.Minefield.ILabelBeacon
+  href: E7.Minefield.ILabelBeacon.html#E7_Minefield_ILabelBeacon_GameObject
+  name: GameObject
+  nameWithType: ILabelBeacon.GameObject
+  fullName: E7.Minefield.ILabelBeacon.GameObject
+- uid: UnityEngine.GameObject
+  commentId: T:UnityEngine.GameObject
+  parent: UnityEngine
+  isExternal: true
+  name: GameObject
+  nameWithType: GameObject
+  fullName: UnityEngine.GameObject
+- uid: E7.Minefield.LabelBeacon.Component*
+  commentId: Overload:E7.Minefield.LabelBeacon.Component
+  href: E7.Minefield.LabelBeacon.html#E7_Minefield_LabelBeacon_Component__1
+  name: Component
+  nameWithType: LabelBeacon.Component
+  fullName: E7.Minefield.LabelBeacon.Component
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: E7.Minefield.LabelBeacon.OnEnable*
+  commentId: Overload:E7.Minefield.LabelBeacon.OnEnable
+  href: E7.Minefield.LabelBeacon.html#E7_Minefield_LabelBeacon_OnEnable
+  name: OnEnable
+  nameWithType: LabelBeacon.OnEnable
+  fullName: E7.Minefield.LabelBeacon.OnEnable
+- uid: E7.Minefield.LabelBeacon.OnDisable*
+  commentId: Overload:E7.Minefield.LabelBeacon.OnDisable
+  href: E7.Minefield.LabelBeacon.html#E7_Minefield_LabelBeacon_OnDisable
+  name: OnDisable
+  nameWithType: LabelBeacon.OnDisable
+  fullName: E7.Minefield.LabelBeacon.OnDisable
+- uid: E7.Minefield.LabelBeacon.CountActive*
+  commentId: Overload:E7.Minefield.LabelBeacon.CountActive
+  href: E7.Minefield.LabelBeacon.html#E7_Minefield_LabelBeacon_CountActive_System_Enum_E7_Minefield_LabelBeacon__
+  name: CountActive
+  nameWithType: LabelBeacon.CountActive
+  fullName: E7.Minefield.LabelBeacon.CountActive
+- uid: E7.Minefield.LabelBeacon
+  commentId: T:E7.Minefield.LabelBeacon
+  parent: E7.Minefield
+  href: E7.Minefield.LabelBeacon.html
+  name: LabelBeacon
+  nameWithType: LabelBeacon
+  fullName: E7.Minefield.LabelBeacon
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer

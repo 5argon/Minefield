@@ -1,0 +1,98 @@
+### YamlMime:ManagedReference
+items:
+- uid: E7.Minefield.IMinefieldStringReporter
+  commentId: T:E7.Minefield.IMinefieldStringReporter
+  id: IMinefieldStringReporter
+  parent: E7.Minefield
+  children:
+  - E7.Minefield.IMinefieldStringReporter.String
+  langs:
+  - csharp
+  - vb
+  name: IMinefieldStringReporter
+  nameWithType: IMinefieldStringReporter
+  fullName: E7.Minefield.IMinefieldStringReporter
+  type: Interface
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: >-
+    Useful for an object that shows something collectively, but not entirely
+
+    on itself. For example, a scoreboard entry may contains a name and a score.
+
+
+    The entry could be of this interface, and reporting a concatenated string
+
+    of name and score so you could check on it.
+  example: []
+  syntax:
+    content: 'public interface IMinefieldStringReporter : IMinefieldReporter'
+    content.vb: Public Interface IMinefieldStringReporter Inherits IMinefieldReporter
+- uid: E7.Minefield.IMinefieldStringReporter.String
+  commentId: P:E7.Minefield.IMinefieldStringReporter.String
+  id: String
+  parent: E7.Minefield.IMinefieldStringReporter
+  langs:
+  - csharp
+  - vb
+  name: String
+  nameWithType: IMinefieldStringReporter.String
+  fullName: E7.Minefield.IMinefieldStringReporter.String
+  type: Property
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  syntax:
+    content: string String { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: ReadOnly Property [String] As String
+  overload: E7.Minefield.IMinefieldStringReporter.String*
+references:
+- uid: E7.Minefield
+  commentId: N:E7.Minefield
+  href: E7.html
+  name: E7.Minefield
+  nameWithType: E7.Minefield
+  fullName: E7.Minefield
+  spec.csharp:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+  spec.vb:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+- uid: E7.Minefield.IMinefieldStringReporter.String*
+  commentId: Overload:E7.Minefield.IMinefieldStringReporter.String
+  href: E7.Minefield.IMinefieldStringReporter.html#E7_Minefield_IMinefieldStringReporter_String
+  name: String
+  nameWithType: IMinefieldStringReporter.String
+  fullName: E7.Minefield.IMinefieldStringReporter.String
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System

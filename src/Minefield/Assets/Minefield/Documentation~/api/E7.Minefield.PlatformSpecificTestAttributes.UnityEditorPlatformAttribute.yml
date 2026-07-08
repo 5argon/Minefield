@@ -1,0 +1,163 @@
+### YamlMime:ManagedReference
+items:
+- uid: E7.Minefield.PlatformSpecificTestAttributes.UnityEditorPlatformAttribute
+  commentId: T:E7.Minefield.PlatformSpecificTestAttributes.UnityEditorPlatformAttribute
+  id: PlatformSpecificTestAttributes.UnityEditorPlatformAttribute
+  parent: E7.Minefield
+  children:
+  - E7.Minefield.PlatformSpecificTestAttributes.UnityEditorPlatformAttribute.#ctor
+  langs:
+  - csharp
+  - vb
+  name: PlatformSpecificTestAttributes.UnityEditorPlatformAttribute
+  nameWithType: PlatformSpecificTestAttributes.UnityEditorPlatformAttribute
+  fullName: E7.Minefield.PlatformSpecificTestAttributes.UnityEditorPlatformAttribute
+  type: Class
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  summary: Test with this attribute runs only in Unity editor
+  example: []
+  syntax:
+    content: 'public class PlatformSpecificTestAttributes.UnityEditorPlatformAttribute : UnityPlatformAttribute'
+    content.vb: Public Class PlatformSpecificTestAttributes.UnityEditorPlatformAttribute Inherits UnityPlatformAttribute
+  inheritance:
+  - System.Object
+  - System.Attribute
+  - NUnit.Framework.NUnitAttribute
+  - UnityEngine.TestTools.UnityPlatformAttribute
+- uid: E7.Minefield.PlatformSpecificTestAttributes.UnityEditorPlatformAttribute.#ctor
+  commentId: M:E7.Minefield.PlatformSpecificTestAttributes.UnityEditorPlatformAttribute.#ctor
+  id: '#ctor'
+  parent: E7.Minefield.PlatformSpecificTestAttributes.UnityEditorPlatformAttribute
+  langs:
+  - csharp
+  - vb
+  name: UnityEditorPlatformAttribute()
+  nameWithType: PlatformSpecificTestAttributes.UnityEditorPlatformAttribute.UnityEditorPlatformAttribute()
+  fullName: E7.Minefield.PlatformSpecificTestAttributes.UnityEditorPlatformAttribute.UnityEditorPlatformAttribute()
+  type: Constructor
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  syntax:
+    content: public UnityEditorPlatformAttribute()
+    content.vb: Public Sub New()
+  overload: E7.Minefield.PlatformSpecificTestAttributes.UnityEditorPlatformAttribute.#ctor*
+  nameWithType.vb: PlatformSpecificTestAttributes.UnityEditorPlatformAttribute.New()
+  fullName.vb: E7.Minefield.PlatformSpecificTestAttributes.UnityEditorPlatformAttribute.New()
+  name.vb: New()
+references:
+- uid: E7.Minefield
+  commentId: N:E7.Minefield
+  href: E7.html
+  name: E7.Minefield
+  nameWithType: E7.Minefield
+  fullName: E7.Minefield
+  spec.csharp:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+  spec.vb:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Attribute
+  commentId: T:System.Attribute
+  parent: System
+  isExternal: true
+  name: Attribute
+  nameWithType: Attribute
+  fullName: System.Attribute
+- uid: NUnit.Framework.NUnitAttribute
+  commentId: T:NUnit.Framework.NUnitAttribute
+  parent: NUnit.Framework
+  isExternal: true
+  name: NUnitAttribute
+  nameWithType: NUnitAttribute
+  fullName: NUnit.Framework.NUnitAttribute
+- uid: UnityEngine.TestTools.UnityPlatformAttribute
+  commentId: T:UnityEngine.TestTools.UnityPlatformAttribute
+  parent: UnityEngine.TestTools
+  isExternal: true
+  name: UnityPlatformAttribute
+  nameWithType: UnityPlatformAttribute
+  fullName: UnityEngine.TestTools.UnityPlatformAttribute
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: NUnit.Framework
+  commentId: N:NUnit.Framework
+  isExternal: true
+  name: NUnit.Framework
+  nameWithType: NUnit.Framework
+  fullName: NUnit.Framework
+  spec.csharp:
+  - uid: NUnit
+    name: NUnit
+    isExternal: true
+  - name: .
+  - uid: NUnit.Framework
+    name: Framework
+    isExternal: true
+  spec.vb:
+  - uid: NUnit
+    name: NUnit
+    isExternal: true
+  - name: .
+  - uid: NUnit.Framework
+    name: Framework
+    isExternal: true
+- uid: UnityEngine.TestTools
+  commentId: N:UnityEngine.TestTools
+  isExternal: true
+  name: UnityEngine.TestTools
+  nameWithType: UnityEngine.TestTools
+  fullName: UnityEngine.TestTools
+  spec.csharp:
+  - uid: UnityEngine
+    name: UnityEngine
+    isExternal: true
+  - name: .
+  - uid: UnityEngine.TestTools
+    name: TestTools
+    isExternal: true
+  spec.vb:
+  - uid: UnityEngine
+    name: UnityEngine
+    isExternal: true
+  - name: .
+  - uid: UnityEngine.TestTools
+    name: TestTools
+    isExternal: true
+- uid: E7.Minefield.PlatformSpecificTestAttributes.UnityEditorPlatformAttribute.#ctor*
+  commentId: Overload:E7.Minefield.PlatformSpecificTestAttributes.UnityEditorPlatformAttribute.#ctor
+  href: E7.Minefield.PlatformSpecificTestAttributes.UnityEditorPlatformAttribute.html#E7_Minefield_PlatformSpecificTestAttributes_UnityEditorPlatformAttribute__ctor
+  name: UnityEditorPlatformAttribute
+  nameWithType: PlatformSpecificTestAttributes.UnityEditorPlatformAttribute.UnityEditorPlatformAttribute
+  fullName: E7.Minefield.PlatformSpecificTestAttributes.UnityEditorPlatformAttribute.UnityEditorPlatformAttribute
+  nameWithType.vb: PlatformSpecificTestAttributes.UnityEditorPlatformAttribute.New
+  fullName.vb: E7.Minefield.PlatformSpecificTestAttributes.UnityEditorPlatformAttribute.New
+  name.vb: New

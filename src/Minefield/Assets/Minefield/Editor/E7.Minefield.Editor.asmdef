@@ -1,9 +1,9 @@
 {
     "name": "E7.Minefield.Editor",
+    "rootNamespace": "",
     "references": [
-        "E7.Minefield"
+        "GUID:97e2b995b27584068ab0582667167f9e"
     ],
-    "optionalUnityReferences": [],
     "includePlatforms": [
         "Editor"
     ],
@@ -13,5 +13,6 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": []
+    "versionDefines": [],
+    "noEngineReferences": false
 }

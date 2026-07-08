@@ -1,0 +1,135 @@
+### YamlMime:ManagedReference
+items:
+- uid: E7.Minefield.ILabelBeacon
+  commentId: T:E7.Minefield.ILabelBeacon
+  id: ILabelBeacon
+  parent: E7.Minefield
+  children:
+  - E7.Minefield.ILabelBeacon.GameObject
+  - E7.Minefield.ILabelBeacon.Label
+  langs:
+  - csharp
+  - vb
+  name: ILabelBeacon
+  nameWithType: ILabelBeacon
+  fullName: E7.Minefield.ILabelBeacon
+  type: Interface
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: The simplest beacon that you could look up things from the scene by label.
+  example: []
+  syntax:
+    content: public interface ILabelBeacon
+    content.vb: Public Interface ILabelBeacon
+  derivedClasses:
+  - E7.Minefield.HandlerBeacon
+  - E7.Minefield.HandlerBeacon`1
+  - E7.Minefield.LabelBeacon
+  - E7.Minefield.LabelBeacon`1
+  - E7.Minefield.NavigationBeacon
+  - E7.Minefield.NavigationBeacon`1
+- uid: E7.Minefield.ILabelBeacon.Label
+  commentId: P:E7.Minefield.ILabelBeacon.Label
+  id: Label
+  parent: E7.Minefield.ILabelBeacon
+  langs:
+  - csharp
+  - vb
+  name: Label
+  nameWithType: ILabelBeacon.Label
+  fullName: E7.Minefield.ILabelBeacon.Label
+  type: Property
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  syntax:
+    content: Enum Label { get; }
+    parameters: []
+    return:
+      type: System.Enum
+    content.vb: ReadOnly Property Label As [Enum]
+  overload: E7.Minefield.ILabelBeacon.Label*
+- uid: E7.Minefield.ILabelBeacon.GameObject
+  commentId: P:E7.Minefield.ILabelBeacon.GameObject
+  id: GameObject
+  parent: E7.Minefield.ILabelBeacon
+  langs:
+  - csharp
+  - vb
+  name: GameObject
+  nameWithType: ILabelBeacon.GameObject
+  fullName: E7.Minefield.ILabelBeacon.GameObject
+  type: Property
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  syntax:
+    content: GameObject GameObject { get; }
+    parameters: []
+    return:
+      type: UnityEngine.GameObject
+    content.vb: ReadOnly Property GameObject As GameObject
+  overload: E7.Minefield.ILabelBeacon.GameObject*
+references:
+- uid: E7.Minefield
+  commentId: N:E7.Minefield
+  href: E7.html
+  name: E7.Minefield
+  nameWithType: E7.Minefield
+  fullName: E7.Minefield
+  spec.csharp:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+  spec.vb:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+- uid: E7.Minefield.ILabelBeacon.Label*
+  commentId: Overload:E7.Minefield.ILabelBeacon.Label
+  href: E7.Minefield.ILabelBeacon.html#E7_Minefield_ILabelBeacon_Label
+  name: Label
+  nameWithType: ILabelBeacon.Label
+  fullName: E7.Minefield.ILabelBeacon.Label
+- uid: System.Enum
+  commentId: T:System.Enum
+  parent: System
+  isExternal: true
+  name: Enum
+  nameWithType: Enum
+  fullName: System.Enum
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: E7.Minefield.ILabelBeacon.GameObject*
+  commentId: Overload:E7.Minefield.ILabelBeacon.GameObject
+  href: E7.Minefield.ILabelBeacon.html#E7_Minefield_ILabelBeacon_GameObject
+  name: GameObject
+  nameWithType: ILabelBeacon.GameObject
+  fullName: E7.Minefield.ILabelBeacon.GameObject
+- uid: UnityEngine.GameObject
+  commentId: T:UnityEngine.GameObject
+  parent: UnityEngine
+  isExternal: true
+  name: GameObject
+  nameWithType: GameObject
+  fullName: UnityEngine.GameObject
+- uid: UnityEngine
+  commentId: N:UnityEngine
+  isExternal: true
+  name: UnityEngine
+  nameWithType: UnityEngine
+  fullName: UnityEngine

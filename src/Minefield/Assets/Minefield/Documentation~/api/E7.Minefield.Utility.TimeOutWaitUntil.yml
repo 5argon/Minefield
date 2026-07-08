@@ -1,0 +1,281 @@
+### YamlMime:ManagedReference
+items:
+- uid: E7.Minefield.Utility.TimeOutWaitUntil
+  commentId: T:E7.Minefield.Utility.TimeOutWaitUntil
+  id: Utility.TimeOutWaitUntil
+  parent: E7.Minefield
+  children:
+  - E7.Minefield.Utility.TimeOutWaitUntil.#ctor(System.Func{System.Boolean},System.Single)
+  - E7.Minefield.Utility.TimeOutWaitUntil.Pred
+  - E7.Minefield.Utility.TimeOutWaitUntil.TimeOut
+  - E7.Minefield.Utility.TimeOutWaitUntil.keepWaiting
+  langs:
+  - csharp
+  - vb
+  name: Utility.TimeOutWaitUntil
+  nameWithType: Utility.TimeOutWaitUntil
+  fullName: E7.Minefield.Utility.TimeOutWaitUntil
+  type: Class
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  syntax:
+    content: 'public class Utility.TimeOutWaitUntil : CustomYieldInstruction'
+    content.vb: Public Class Utility.TimeOutWaitUntil Inherits CustomYieldInstruction
+  inheritance:
+  - System.Object
+  - UnityEngine.CustomYieldInstruction
+- uid: E7.Minefield.Utility.TimeOutWaitUntil.TimeOut
+  commentId: P:E7.Minefield.Utility.TimeOutWaitUntil.TimeOut
+  id: TimeOut
+  parent: E7.Minefield.Utility.TimeOutWaitUntil
+  langs:
+  - csharp
+  - vb
+  name: TimeOut
+  nameWithType: Utility.TimeOutWaitUntil.TimeOut
+  fullName: E7.Minefield.Utility.TimeOutWaitUntil.TimeOut
+  type: Property
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  syntax:
+    content: public float TimeOut { get; }
+    parameters: []
+    return:
+      type: System.Single
+    content.vb: Public ReadOnly Property TimeOut As Single
+  overload: E7.Minefield.Utility.TimeOutWaitUntil.TimeOut*
+- uid: E7.Minefield.Utility.TimeOutWaitUntil.Pred
+  commentId: P:E7.Minefield.Utility.TimeOutWaitUntil.Pred
+  id: Pred
+  parent: E7.Minefield.Utility.TimeOutWaitUntil
+  langs:
+  - csharp
+  - vb
+  name: Pred
+  nameWithType: Utility.TimeOutWaitUntil.Pred
+  fullName: E7.Minefield.Utility.TimeOutWaitUntil.Pred
+  type: Property
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  syntax:
+    content: public Func<bool> Pred { get; }
+    parameters: []
+    return:
+      type: System.Func{System.Boolean}
+    content.vb: Public ReadOnly Property Pred As Func(Of Boolean)
+  overload: E7.Minefield.Utility.TimeOutWaitUntil.Pred*
+- uid: E7.Minefield.Utility.TimeOutWaitUntil.#ctor(System.Func{System.Boolean},System.Single)
+  commentId: M:E7.Minefield.Utility.TimeOutWaitUntil.#ctor(System.Func{System.Boolean},System.Single)
+  id: '#ctor(System.Func{System.Boolean},System.Single)'
+  parent: E7.Minefield.Utility.TimeOutWaitUntil
+  langs:
+  - csharp
+  - vb
+  name: TimeOutWaitUntil(Func<bool>, float)
+  nameWithType: Utility.TimeOutWaitUntil.TimeOutWaitUntil(Func<bool>, float)
+  fullName: E7.Minefield.Utility.TimeOutWaitUntil.TimeOutWaitUntil(System.Func<bool>, float)
+  type: Constructor
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  syntax:
+    content: public TimeOutWaitUntil(Func<bool> predicate, float timeOut)
+    parameters:
+    - id: predicate
+      type: System.Func{System.Boolean}
+    - id: timeOut
+      type: System.Single
+    content.vb: Public Sub New(predicate As Func(Of Boolean), timeOut As Single)
+  overload: E7.Minefield.Utility.TimeOutWaitUntil.#ctor*
+  nameWithType.vb: Utility.TimeOutWaitUntil.New(Func(Of Boolean), Single)
+  fullName.vb: E7.Minefield.Utility.TimeOutWaitUntil.New(System.Func(Of Boolean), Single)
+  name.vb: New(Func(Of Boolean), Single)
+- uid: E7.Minefield.Utility.TimeOutWaitUntil.keepWaiting
+  commentId: P:E7.Minefield.Utility.TimeOutWaitUntil.keepWaiting
+  id: keepWaiting
+  parent: E7.Minefield.Utility.TimeOutWaitUntil
+  langs:
+  - csharp
+  - vb
+  name: keepWaiting
+  nameWithType: Utility.TimeOutWaitUntil.keepWaiting
+  fullName: E7.Minefield.Utility.TimeOutWaitUntil.keepWaiting
+  type: Property
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: <p>Indicates if coroutine should be kept suspended.</p>
+  example: []
+  syntax:
+    content: public override bool keepWaiting { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Overrides ReadOnly Property keepWaiting As Boolean
+  overridden: UnityEngine.CustomYieldInstruction.keepWaiting
+  overload: E7.Minefield.Utility.TimeOutWaitUntil.keepWaiting*
+references:
+- uid: E7.Minefield
+  commentId: N:E7.Minefield
+  href: E7.html
+  name: E7.Minefield
+  nameWithType: E7.Minefield
+  fullName: E7.Minefield
+  spec.csharp:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+  spec.vb:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: UnityEngine.CustomYieldInstruction
+  commentId: T:UnityEngine.CustomYieldInstruction
+  parent: UnityEngine
+  isExternal: true
+  name: CustomYieldInstruction
+  nameWithType: CustomYieldInstruction
+  fullName: UnityEngine.CustomYieldInstruction
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: UnityEngine
+  commentId: N:UnityEngine
+  isExternal: true
+  name: UnityEngine
+  nameWithType: UnityEngine
+  fullName: UnityEngine
+- uid: E7.Minefield.Utility.TimeOutWaitUntil.TimeOut*
+  commentId: Overload:E7.Minefield.Utility.TimeOutWaitUntil.TimeOut
+  href: E7.Minefield.Utility.TimeOutWaitUntil.html#E7_Minefield_Utility_TimeOutWaitUntil_TimeOut
+  name: TimeOut
+  nameWithType: Utility.TimeOutWaitUntil.TimeOut
+  fullName: E7.Minefield.Utility.TimeOutWaitUntil.TimeOut
+- uid: System.Single
+  commentId: T:System.Single
+  parent: System
+  isExternal: true
+  name: float
+  nameWithType: float
+  fullName: float
+  nameWithType.vb: Single
+  fullName.vb: Single
+  name.vb: Single
+- uid: E7.Minefield.Utility.TimeOutWaitUntil.Pred*
+  commentId: Overload:E7.Minefield.Utility.TimeOutWaitUntil.Pred
+  href: E7.Minefield.Utility.TimeOutWaitUntil.html#E7_Minefield_Utility_TimeOutWaitUntil_Pred
+  name: Pred
+  nameWithType: Utility.TimeOutWaitUntil.Pred
+  fullName: E7.Minefield.Utility.TimeOutWaitUntil.Pred
+- uid: System.Func{System.Boolean}
+  commentId: T:System.Func{System.Boolean}
+  parent: System
+  definition: System.Func`1
+  name: Func<bool>
+  nameWithType: Func<bool>
+  fullName: System.Func<bool>
+  nameWithType.vb: Func(Of Boolean)
+  fullName.vb: System.Func(Of Boolean)
+  name.vb: Func(Of Boolean)
+  spec.csharp:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+  - name: <
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+  - name: )
+- uid: System.Func`1
+  commentId: T:System.Func`1
+  isExternal: true
+  name: Func<TResult>
+  nameWithType: Func<TResult>
+  fullName: System.Func<TResult>
+  nameWithType.vb: Func(Of TResult)
+  fullName.vb: System.Func(Of TResult)
+  name.vb: Func(Of TResult)
+  spec.csharp:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: E7.Minefield.Utility.TimeOutWaitUntil.#ctor*
+  commentId: Overload:E7.Minefield.Utility.TimeOutWaitUntil.#ctor
+  href: E7.Minefield.Utility.TimeOutWaitUntil.html#E7_Minefield_Utility_TimeOutWaitUntil__ctor_System_Func_System_Boolean__System_Single_
+  name: TimeOutWaitUntil
+  nameWithType: Utility.TimeOutWaitUntil.TimeOutWaitUntil
+  fullName: E7.Minefield.Utility.TimeOutWaitUntil.TimeOutWaitUntil
+  nameWithType.vb: Utility.TimeOutWaitUntil.New
+  fullName.vb: E7.Minefield.Utility.TimeOutWaitUntil.New
+  name.vb: New
+- uid: UnityEngine.CustomYieldInstruction.keepWaiting
+  commentId: P:UnityEngine.CustomYieldInstruction.keepWaiting
+  parent: UnityEngine.CustomYieldInstruction
+  isExternal: true
+  name: keepWaiting
+  nameWithType: CustomYieldInstruction.keepWaiting
+  fullName: UnityEngine.CustomYieldInstruction.keepWaiting
+- uid: E7.Minefield.Utility.TimeOutWaitUntil.keepWaiting*
+  commentId: Overload:E7.Minefield.Utility.TimeOutWaitUntil.keepWaiting
+  href: E7.Minefield.Utility.TimeOutWaitUntil.html#E7_Minefield_Utility_TimeOutWaitUntil_keepWaiting
+  name: keepWaiting
+  nameWithType: Utility.TimeOutWaitUntil.keepWaiting
+  fullName: E7.Minefield.Utility.TimeOutWaitUntil.keepWaiting
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean

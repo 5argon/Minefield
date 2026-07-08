@@ -1,0 +1,416 @@
+### YamlMime:ManagedReference
+items:
+- uid: E7.Minefield.NavigationBeacon
+  commentId: T:E7.Minefield.NavigationBeacon
+  id: NavigationBeacon
+  parent: E7.Minefield
+  children: []
+  langs:
+  - csharp
+  - vb
+  name: NavigationBeacon
+  nameWithType: NavigationBeacon
+  fullName: E7.Minefield.NavigationBeacon
+  type: Class
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: >-
+    A special kind of <xref href="E7.Minefield.HandlerBeacon%601" data-throw-if-not-resolved="false"></xref> for navigating the scene. (not for gameplay actions)
+
+    Functionally it is the same, but it may provide some extra functions in the future so it is better
+
+    to categorize you gameplay related handler beacons and UI-related navigation beacon correctly.
+
+
+    This non-generic version is not meant to be subclassed, it is just to allow compatibility with Unity search box
+
+    which couldn't handle generic class.
+  example: []
+  syntax:
+    content: 'public abstract class NavigationBeacon : HandlerBeacon, IHandlerBeacon, ILabelBeacon'
+    content.vb: Public MustInherit Class NavigationBeacon Inherits HandlerBeacon Implements IHandlerBeacon, ILabelBeacon
+  inheritance:
+  - System.Object
+  - UnityEngine.Object
+  - UnityEngine.Component
+  - UnityEngine.Behaviour
+  - UnityEngine.MonoBehaviour
+  - E7.Minefield.LabelBeacon
+  - E7.Minefield.HandlerBeacon
+  derivedClasses:
+  - E7.Minefield.NavigationBeacon`1
+  implements:
+  - E7.Minefield.IHandlerBeacon
+  - E7.Minefield.ILabelBeacon
+  inheritedMembers:
+  - E7.Minefield.HandlerBeacon.ScreenClickPoint
+  - E7.Minefield.LabelBeacon.Label
+  - E7.Minefield.LabelBeacon.GameObject
+  - E7.Minefield.LabelBeacon.Component``1
+  - E7.Minefield.LabelBeacon.OnEnable
+  - E7.Minefield.LabelBeacon.OnDisable
+  - E7.Minefield.LabelBeacon.CountActive(System.Enum,E7.Minefield.LabelBeacon@)
+  extensionMethods:
+  - UnityEngine.Component.E7.Minefield.UGUITestExtension.AnimatorAtState(System.String,System.Int32)
+references:
+- uid: E7.Minefield.HandlerBeacon`1
+  commentId: T:E7.Minefield.HandlerBeacon`1
+  href: E7.Minefield.HandlerBeacon-1.html
+  name: HandlerBeacon<T>
+  nameWithType: HandlerBeacon<T>
+  fullName: E7.Minefield.HandlerBeacon<T>
+  nameWithType.vb: HandlerBeacon(Of T)
+  fullName.vb: E7.Minefield.HandlerBeacon(Of T)
+  name.vb: HandlerBeacon(Of T)
+  spec.csharp:
+  - uid: E7.Minefield.HandlerBeacon`1
+    name: HandlerBeacon
+    href: E7.Minefield.HandlerBeacon-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: E7.Minefield.HandlerBeacon`1
+    name: HandlerBeacon
+    href: E7.Minefield.HandlerBeacon-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: E7.Minefield
+  commentId: N:E7.Minefield
+  href: E7.html
+  name: E7.Minefield
+  nameWithType: E7.Minefield
+  fullName: E7.Minefield
+  spec.csharp:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+  spec.vb:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: UnityEngine.Object
+  commentId: T:UnityEngine.Object
+  parent: UnityEngine
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: UnityEngine.Object
+- uid: UnityEngine.Component
+  commentId: T:UnityEngine.Component
+  parent: UnityEngine
+  isExternal: true
+  name: Component
+  nameWithType: Component
+  fullName: UnityEngine.Component
+- uid: UnityEngine.Behaviour
+  commentId: T:UnityEngine.Behaviour
+  parent: UnityEngine
+  isExternal: true
+  name: Behaviour
+  nameWithType: Behaviour
+  fullName: UnityEngine.Behaviour
+- uid: UnityEngine.MonoBehaviour
+  commentId: T:UnityEngine.MonoBehaviour
+  parent: UnityEngine
+  isExternal: true
+  name: MonoBehaviour
+  nameWithType: MonoBehaviour
+  fullName: UnityEngine.MonoBehaviour
+- uid: E7.Minefield.LabelBeacon
+  commentId: T:E7.Minefield.LabelBeacon
+  parent: E7.Minefield
+  href: E7.Minefield.LabelBeacon.html
+  name: LabelBeacon
+  nameWithType: LabelBeacon
+  fullName: E7.Minefield.LabelBeacon
+- uid: E7.Minefield.HandlerBeacon
+  commentId: T:E7.Minefield.HandlerBeacon
+  parent: E7.Minefield
+  href: E7.Minefield.HandlerBeacon.html
+  name: HandlerBeacon
+  nameWithType: HandlerBeacon
+  fullName: E7.Minefield.HandlerBeacon
+- uid: E7.Minefield.IHandlerBeacon
+  commentId: T:E7.Minefield.IHandlerBeacon
+  parent: E7.Minefield
+  href: E7.Minefield.IHandlerBeacon.html
+  name: IHandlerBeacon
+  nameWithType: IHandlerBeacon
+  fullName: E7.Minefield.IHandlerBeacon
+- uid: E7.Minefield.ILabelBeacon
+  commentId: T:E7.Minefield.ILabelBeacon
+  parent: E7.Minefield
+  href: E7.Minefield.ILabelBeacon.html
+  name: ILabelBeacon
+  nameWithType: ILabelBeacon
+  fullName: E7.Minefield.ILabelBeacon
+- uid: E7.Minefield.HandlerBeacon.ScreenClickPoint
+  commentId: P:E7.Minefield.HandlerBeacon.ScreenClickPoint
+  parent: E7.Minefield.HandlerBeacon
+  href: E7.Minefield.HandlerBeacon.html#E7_Minefield_HandlerBeacon_ScreenClickPoint
+  name: ScreenClickPoint
+  nameWithType: HandlerBeacon.ScreenClickPoint
+  fullName: E7.Minefield.HandlerBeacon.ScreenClickPoint
+- uid: E7.Minefield.LabelBeacon.Label
+  commentId: P:E7.Minefield.LabelBeacon.Label
+  parent: E7.Minefield.LabelBeacon
+  href: E7.Minefield.LabelBeacon.html#E7_Minefield_LabelBeacon_Label
+  name: Label
+  nameWithType: LabelBeacon.Label
+  fullName: E7.Minefield.LabelBeacon.Label
+- uid: E7.Minefield.LabelBeacon.GameObject
+  commentId: P:E7.Minefield.LabelBeacon.GameObject
+  parent: E7.Minefield.LabelBeacon
+  href: E7.Minefield.LabelBeacon.html#E7_Minefield_LabelBeacon_GameObject
+  name: GameObject
+  nameWithType: LabelBeacon.GameObject
+  fullName: E7.Minefield.LabelBeacon.GameObject
+- uid: E7.Minefield.LabelBeacon.Component``1
+  commentId: M:E7.Minefield.LabelBeacon.Component``1
+  parent: E7.Minefield.LabelBeacon
+  href: E7.Minefield.LabelBeacon.html#E7_Minefield_LabelBeacon_Component__1
+  name: Component<T>()
+  nameWithType: LabelBeacon.Component<T>()
+  fullName: E7.Minefield.LabelBeacon.Component<T>()
+  nameWithType.vb: LabelBeacon.Component(Of T)()
+  fullName.vb: E7.Minefield.LabelBeacon.Component(Of T)()
+  name.vb: Component(Of T)()
+  spec.csharp:
+  - uid: E7.Minefield.LabelBeacon.Component``1
+    name: Component
+    href: E7.Minefield.LabelBeacon.html#E7_Minefield_LabelBeacon_Component__1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: E7.Minefield.LabelBeacon.Component``1
+    name: Component
+    href: E7.Minefield.LabelBeacon.html#E7_Minefield_LabelBeacon_Component__1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: )
+- uid: E7.Minefield.LabelBeacon.OnEnable
+  commentId: M:E7.Minefield.LabelBeacon.OnEnable
+  parent: E7.Minefield.LabelBeacon
+  href: E7.Minefield.LabelBeacon.html#E7_Minefield_LabelBeacon_OnEnable
+  name: OnEnable()
+  nameWithType: LabelBeacon.OnEnable()
+  fullName: E7.Minefield.LabelBeacon.OnEnable()
+  spec.csharp:
+  - uid: E7.Minefield.LabelBeacon.OnEnable
+    name: OnEnable
+    href: E7.Minefield.LabelBeacon.html#E7_Minefield_LabelBeacon_OnEnable
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: E7.Minefield.LabelBeacon.OnEnable
+    name: OnEnable
+    href: E7.Minefield.LabelBeacon.html#E7_Minefield_LabelBeacon_OnEnable
+  - name: (
+  - name: )
+- uid: E7.Minefield.LabelBeacon.OnDisable
+  commentId: M:E7.Minefield.LabelBeacon.OnDisable
+  parent: E7.Minefield.LabelBeacon
+  href: E7.Minefield.LabelBeacon.html#E7_Minefield_LabelBeacon_OnDisable
+  name: OnDisable()
+  nameWithType: LabelBeacon.OnDisable()
+  fullName: E7.Minefield.LabelBeacon.OnDisable()
+  spec.csharp:
+  - uid: E7.Minefield.LabelBeacon.OnDisable
+    name: OnDisable
+    href: E7.Minefield.LabelBeacon.html#E7_Minefield_LabelBeacon_OnDisable
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: E7.Minefield.LabelBeacon.OnDisable
+    name: OnDisable
+    href: E7.Minefield.LabelBeacon.html#E7_Minefield_LabelBeacon_OnDisable
+  - name: (
+  - name: )
+- uid: E7.Minefield.LabelBeacon.CountActive(System.Enum,E7.Minefield.LabelBeacon@)
+  commentId: M:E7.Minefield.LabelBeacon.CountActive(System.Enum,E7.Minefield.LabelBeacon@)
+  parent: E7.Minefield.LabelBeacon
+  isExternal: true
+  href: E7.Minefield.LabelBeacon.html#E7_Minefield_LabelBeacon_CountActive_System_Enum_E7_Minefield_LabelBeacon__
+  name: CountActive(Enum, out LabelBeacon)
+  nameWithType: LabelBeacon.CountActive(Enum, out LabelBeacon)
+  fullName: E7.Minefield.LabelBeacon.CountActive(System.Enum, out E7.Minefield.LabelBeacon)
+  nameWithType.vb: LabelBeacon.CountActive(Enum, LabelBeacon)
+  fullName.vb: E7.Minefield.LabelBeacon.CountActive(System.Enum, E7.Minefield.LabelBeacon)
+  name.vb: CountActive(Enum, LabelBeacon)
+  spec.csharp:
+  - uid: E7.Minefield.LabelBeacon.CountActive(System.Enum,E7.Minefield.LabelBeacon@)
+    name: CountActive
+    href: E7.Minefield.LabelBeacon.html#E7_Minefield_LabelBeacon_CountActive_System_Enum_E7_Minefield_LabelBeacon__
+  - name: (
+  - uid: System.Enum
+    name: Enum
+    isExternal: true
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: E7.Minefield.LabelBeacon
+    name: LabelBeacon
+    href: E7.Minefield.LabelBeacon.html
+  - name: )
+  spec.vb:
+  - uid: E7.Minefield.LabelBeacon.CountActive(System.Enum,E7.Minefield.LabelBeacon@)
+    name: CountActive
+    href: E7.Minefield.LabelBeacon.html#E7_Minefield_LabelBeacon_CountActive_System_Enum_E7_Minefield_LabelBeacon__
+  - name: (
+  - uid: System.Enum
+    name: Enum
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: E7.Minefield.LabelBeacon
+    name: LabelBeacon
+    href: E7.Minefield.LabelBeacon.html
+  - name: )
+- uid: UnityEngine.Component.E7.Minefield.UGUITestExtension.AnimatorAtState(System.String,System.Int32)
+  commentId: M:E7.Minefield.UGUITestExtension.AnimatorAtState(UnityEngine.Component,System.String,System.Int32)
+  parent: E7.Minefield.UGUITestExtension
+  definition: E7.Minefield.UGUITestExtension.AnimatorAtState(UnityEngine.Component,System.String,System.Int32)
+  href: E7.Minefield.UGUITestExtension.html#E7_Minefield_UGUITestExtension_AnimatorAtState_UnityEngine_Component_System_String_System_Int32_
+  name: AnimatorAtState(Component, string, int)
+  nameWithType: UGUITestExtension.AnimatorAtState(Component, string, int)
+  fullName: E7.Minefield.UGUITestExtension.AnimatorAtState(UnityEngine.Component, string, int)
+  nameWithType.vb: UGUITestExtension.AnimatorAtState(Component, String, Integer)
+  fullName.vb: E7.Minefield.UGUITestExtension.AnimatorAtState(UnityEngine.Component, String, Integer)
+  name.vb: AnimatorAtState(Component, String, Integer)
+  spec.csharp:
+  - uid: E7.Minefield.UGUITestExtension.AnimatorAtState(UnityEngine.Component,System.String,System.Int32)
+    name: AnimatorAtState
+    href: E7.Minefield.UGUITestExtension.html#E7_Minefield_UGUITestExtension_AnimatorAtState_UnityEngine_Component_System_String_System_Int32_
+  - name: (
+  - uid: UnityEngine.Component
+    name: Component
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: E7.Minefield.UGUITestExtension.AnimatorAtState(UnityEngine.Component,System.String,System.Int32)
+    name: AnimatorAtState
+    href: E7.Minefield.UGUITestExtension.html#E7_Minefield_UGUITestExtension_AnimatorAtState_UnityEngine_Component_System_String_System_Int32_
+  - name: (
+  - uid: UnityEngine.Component
+    name: Component
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: UnityEngine
+  commentId: N:UnityEngine
+  isExternal: true
+  name: UnityEngine
+  nameWithType: UnityEngine
+  fullName: UnityEngine
+- uid: E7.Minefield.UGUITestExtension.AnimatorAtState(UnityEngine.Component,System.String,System.Int32)
+  commentId: M:E7.Minefield.UGUITestExtension.AnimatorAtState(UnityEngine.Component,System.String,System.Int32)
+  isExternal: true
+  href: E7.Minefield.UGUITestExtension.html#E7_Minefield_UGUITestExtension_AnimatorAtState_UnityEngine_Component_System_String_System_Int32_
+  name: AnimatorAtState(Component, string, int)
+  nameWithType: UGUITestExtension.AnimatorAtState(Component, string, int)
+  fullName: E7.Minefield.UGUITestExtension.AnimatorAtState(UnityEngine.Component, string, int)
+  nameWithType.vb: UGUITestExtension.AnimatorAtState(Component, String, Integer)
+  fullName.vb: E7.Minefield.UGUITestExtension.AnimatorAtState(UnityEngine.Component, String, Integer)
+  name.vb: AnimatorAtState(Component, String, Integer)
+  spec.csharp:
+  - uid: E7.Minefield.UGUITestExtension.AnimatorAtState(UnityEngine.Component,System.String,System.Int32)
+    name: AnimatorAtState
+    href: E7.Minefield.UGUITestExtension.html#E7_Minefield_UGUITestExtension_AnimatorAtState_UnityEngine_Component_System_String_System_Int32_
+  - name: (
+  - uid: UnityEngine.Component
+    name: Component
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: E7.Minefield.UGUITestExtension.AnimatorAtState(UnityEngine.Component,System.String,System.Int32)
+    name: AnimatorAtState
+    href: E7.Minefield.UGUITestExtension.html#E7_Minefield_UGUITestExtension_AnimatorAtState_UnityEngine_Component_System_String_System_Int32_
+  - name: (
+  - uid: UnityEngine.Component
+    name: Component
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+  - name: )
+- uid: E7.Minefield.UGUITestExtension
+  commentId: T:E7.Minefield.UGUITestExtension
+  parent: E7.Minefield
+  href: E7.Minefield.UGUITestExtension.html
+  name: UGUITestExtension
+  nameWithType: UGUITestExtension
+  fullName: E7.Minefield.UGUITestExtension

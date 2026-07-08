@@ -1,0 +1,130 @@
+### YamlMime:TableOfContent
+items:
+- uid: E7.Minefield
+  name: E7.Minefield
+  type: Namespace
+  items:
+  - uid: E7.Minefield.ActiveConstraint
+    name: ActiveConstraint
+    type: Class
+  - uid: E7.Minefield.AmountConstraint
+    name: AmountConstraint
+    type: Class
+  - uid: E7.Minefield.AssignIconTool
+    name: AssignIconTool
+    type: Class
+  - uid: E7.Minefield.Beacon
+    name: Beacon
+    type: Class
+  - uid: E7.Minefield.BeaconConstraint
+    name: BeaconConstraint
+    type: Class
+  - uid: E7.Minefield.BeaconException
+    name: BeaconException
+    type: Class
+  - uid: E7.Minefield.BeaconWindow
+    name: BeaconWindow
+    type: Class
+  - uid: E7.Minefield.ClickableConstraint
+    name: ClickableConstraint
+    type: Class
+  - uid: E7.Minefield.DoubleTimeoutAttribute
+    name: DoubleTimeoutAttribute
+    type: Class
+  - uid: E7.Minefield.GameObjectNotFoundException
+    name: GameObjectNotFoundException
+    type: Class
+  - uid: E7.Minefield.HandlerBeacon
+    name: HandlerBeacon
+    type: Class
+  - uid: E7.Minefield.HandlerBeacon`1
+    name: HandlerBeacon<T>
+    type: Class
+  - uid: E7.Minefield.IHandlerBeacon
+    name: IHandlerBeacon
+    type: Interface
+  - uid: E7.Minefield.ILabelBeacon
+    name: ILabelBeacon
+    type: Interface
+  - uid: E7.Minefield.IMinefieldAmountReporter
+    name: IMinefieldAmountReporter
+    type: Interface
+  - uid: E7.Minefield.IMinefieldObjectReporter`1
+    name: IMinefieldObjectReporter<T>
+    type: Interface
+  - uid: E7.Minefield.IMinefieldOnOffReporter
+    name: IMinefieldOnOffReporter
+    type: Interface
+  - uid: E7.Minefield.IMinefieldReporter
+    name: IMinefieldReporter
+    type: Interface
+  - uid: E7.Minefield.IMinefieldStatusReporter`1
+    name: IMinefieldStatusReporter<T>
+    type: Interface
+  - uid: E7.Minefield.IMinefieldStringReporter
+    name: IMinefieldStringReporter
+    type: Interface
+  - uid: E7.Minefield.InactiveConstraint
+    name: InactiveConstraint
+    type: Class
+  - uid: E7.Minefield.LabelBeacon
+    name: LabelBeacon
+    type: Class
+  - uid: E7.Minefield.LabelBeacon`1
+    name: LabelBeacon<T>
+    type: Class
+  - uid: E7.Minefield.MinefieldTest
+    name: MinefieldTest
+    type: Class
+  - uid: E7.Minefield.NavigationBeacon
+    name: NavigationBeacon
+    type: Class
+  - uid: E7.Minefield.NavigationBeacon`1
+    name: NavigationBeacon<T>
+    type: Class
+  - uid: E7.Minefield.NoTimeoutAttribute
+    name: NoTimeoutAttribute
+    type: Class
+  - uid: E7.Minefield.NotConstraint
+    name: NotConstraint
+    type: Class
+  - uid: E7.Minefield.ObjectConstraint`1
+    name: ObjectConstraint<T>
+    type: Class
+  - uid: E7.Minefield.OnOffConstraint
+    name: OnOffConstraint
+    type: Class
+  - uid: E7.Minefield.PlatformSpecificTestAttributes
+    name: PlatformSpecificTestAttributes
+    type: Class
+  - uid: E7.Minefield.PlatformSpecificTestAttributes.UnityEditorPlatformAttribute
+    name: PlatformSpecificTestAttributes.UnityEditorPlatformAttribute
+    type: Class
+  - uid: E7.Minefield.PlatformSpecificTestAttributes.UnityMobilePlatformAttribute
+    name: PlatformSpecificTestAttributes.UnityMobilePlatformAttribute
+    type: Class
+  - uid: E7.Minefield.ReporterBasedConstraint`1
+    name: ReporterBasedConstraint<T>
+    type: Class
+  - uid: E7.Minefield.SceneTest
+    name: SceneTest
+    type: Class
+  - uid: E7.Minefield.StatusConstraint`1
+    name: StatusConstraint<T>
+    type: Class
+  - uid: E7.Minefield.StringContainsConstraint
+    name: StringContainsConstraint
+    type: Class
+  - uid: E7.Minefield.TaskExtensionTest
+    name: TaskExtensionTest
+    type: Class
+  - uid: E7.Minefield.UGUITestExtension
+    name: UGUITestExtension
+    type: Class
+  - uid: E7.Minefield.Utility
+    name: Utility
+    type: Class
+  - uid: E7.Minefield.Utility.TimeOutWaitUntil
+    name: Utility.TimeOutWaitUntil
+    type: Class
+memberLayout: SamePage

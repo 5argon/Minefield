@@ -1,0 +1,1275 @@
+### YamlMime:ManagedReference
+items:
+- uid: E7.Minefield.Utility
+  commentId: T:E7.Minefield.Utility
+  id: Utility
+  parent: E7.Minefield
+  children:
+  - E7.Minefield.Utility.ActionBetweenSceneAwakeAndStart(System.String,System.Action)
+  - E7.Minefield.Utility.ActiveChildCount(UnityEngine.GameObject)
+  - E7.Minefield.Utility.AverageAmplitude(System.Single)
+  - E7.Minefield.Utility.CenterOfSpriteName(System.String)
+  - E7.Minefield.Utility.CheckGameObject(System.String)
+  - E7.Minefield.Utility.CleanTestScene
+  - E7.Minefield.Utility.FindGameObject``1
+  - E7.Minefield.Utility.FindNamed``1(System.String)
+  - E7.Minefield.Utility.FindNamed``1(System.String,System.String)
+  - E7.Minefield.Utility.FindNamed``2(System.String,System.String)
+  - E7.Minefield.Utility.FindOnSceneRoot``1(System.String)
+  - E7.Minefield.Utility.Find``1
+  - E7.Minefield.Utility.Find``1(System.String)
+  - E7.Minefield.Utility.IsSceneLoaded(System.String)
+  - E7.Minefield.Utility.RaycastClick(UnityEngine.Bounds)
+  - E7.Minefield.Utility.RaycastClick(UnityEngine.RectTransform)
+  - E7.Minefield.Utility.RaycastClick(UnityEngine.RectTransform,UnityEngine.Vector2)
+  - E7.Minefield.Utility.RaycastClick(UnityEngine.Vector2)
+  - E7.Minefield.Utility.RaycastFirst(UnityEngine.RectTransform)
+  - E7.Minefield.Utility.RaycastFirst(UnityEngine.Vector2)
+  - E7.Minefield.Utility.ScreenCenterOfRectNamed(System.String)
+  - E7.Minefield.Utility.ScreenCenterOfRectTransform(UnityEngine.RectTransform)
+  - E7.Minefield.Utility.ScreenPosToFakeClick(UnityEngine.Vector2)
+  - E7.Minefield.Utility.ScreenPositionFromRelativeOfRectTransform(UnityEngine.RectTransform,UnityEngine.Vector2)
+  - E7.Minefield.Utility.TouchLowerHalf
+  - E7.Minefield.Utility.TouchUpperHalf
+  - E7.Minefield.Utility.Wait(System.Single)
+  - E7.Minefield.Utility.WaitForever
+  - E7.Minefield.Utility.WaitUntilFound``1
+  - E7.Minefield.Utility.WaitUntilSceneLoaded(System.String)
+  langs:
+  - csharp
+  - vb
+  name: Utility
+  nameWithType: Utility
+  fullName: E7.Minefield.Utility
+  type: Class
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  syntax:
+    content: public static class Utility
+    content.vb: Public Module Utility
+  inheritance:
+  - System.Object
+- uid: E7.Minefield.Utility.Wait(System.Single)
+  commentId: M:E7.Minefield.Utility.Wait(System.Single)
+  id: Wait(System.Single)
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: Wait(float)
+  nameWithType: Utility.Wait(float)
+  fullName: E7.Minefield.Utility.Wait(float)
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: A shorthand for new-ing <xref href="UnityEngine.WaitForSecondsRealtime" data-throw-if-not-resolved="false"></xref> for the lazy.
+  example: []
+  syntax:
+    content: public static WaitForSecondsRealtime Wait(float seconds)
+    parameters:
+    - id: seconds
+      type: System.Single
+    return:
+      type: UnityEngine.WaitForSecondsRealtime
+    content.vb: Public Shared Function Wait(seconds As Single) As WaitForSecondsRealtime
+  overload: E7.Minefield.Utility.Wait*
+  nameWithType.vb: Utility.Wait(Single)
+  fullName.vb: E7.Minefield.Utility.Wait(Single)
+  name.vb: Wait(Single)
+- uid: E7.Minefield.Utility.CleanTestScene
+  commentId: M:E7.Minefield.Utility.CleanTestScene
+  id: CleanTestScene
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: CleanTestScene()
+  nameWithType: Utility.CleanTestScene()
+  fullName: E7.Minefield.Utility.CleanTestScene()
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: >-
+    Clean everything except the test runner object.
+
+
+    This actually demolish only the active scene at the time of test case ending, if you follow
+
+    Minefield's guidelines you will have only 1 active scene at all time, and so it is easy to
+
+    clean up. DontDestroyOnLoad scene will be untouched.
+  example: []
+  syntax:
+    content: public static void CleanTestScene()
+    content.vb: Public Shared Sub CleanTestScene()
+  overload: E7.Minefield.Utility.CleanTestScene*
+- uid: E7.Minefield.Utility.WaitUntilFound``1
+  commentId: M:E7.Minefield.Utility.WaitUntilFound``1
+  id: WaitUntilFound``1
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: WaitUntilFound<T>()
+  nameWithType: Utility.WaitUntilFound<T>()
+  fullName: E7.Minefield.Utility.WaitUntilFound<T>()
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: Unfortunately could not return T upon found, but useful for waiting something to become active
+  example: []
+  syntax:
+    content: 'public static IEnumerator WaitUntilFound<T>() where T : Component'
+    typeParameters:
+    - id: T
+    return:
+      type: System.Collections.IEnumerator
+      description: ''
+    content.vb: Public Shared Function WaitUntilFound(Of T As Component)() As IEnumerator
+  overload: E7.Minefield.Utility.WaitUntilFound*
+  nameWithType.vb: Utility.WaitUntilFound(Of T)()
+  fullName.vb: E7.Minefield.Utility.WaitUntilFound(Of T)()
+  name.vb: WaitUntilFound(Of T)()
+- uid: E7.Minefield.Utility.WaitForever
+  commentId: M:E7.Minefield.Utility.WaitForever
+  id: WaitForever
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: WaitForever()
+  nameWithType: Utility.WaitForever()
+  fullName: E7.Minefield.Utility.WaitForever()
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: >-
+    Used together with `[NoTimeout]` to make a test that works
+
+    like supercharged play mode button with custom setup.
+
+
+    When you just start writing a test to be an alternative to Play Mode button,
+
+    when the condition wasn't fleshed out well yet you may want unlimited time to play around.
+  example: []
+  syntax:
+    content: public static IEnumerator WaitForever()
+    return:
+      type: System.Collections.IEnumerator
+    content.vb: Public Shared Function WaitForever() As IEnumerator
+  overload: E7.Minefield.Utility.WaitForever*
+- uid: E7.Minefield.Utility.WaitUntilSceneLoaded(System.String)
+  commentId: M:E7.Minefield.Utility.WaitUntilSceneLoaded(System.String)
+  id: WaitUntilSceneLoaded(System.String)
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: WaitUntilSceneLoaded(string)
+  nameWithType: Utility.WaitUntilSceneLoaded(string)
+  fullName: E7.Minefield.Utility.WaitUntilSceneLoaded(string)
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  syntax:
+    content: public static IEnumerator WaitUntilSceneLoaded(string sceneName)
+    parameters:
+    - id: sceneName
+      type: System.String
+    return:
+      type: System.Collections.IEnumerator
+    content.vb: Public Shared Function WaitUntilSceneLoaded(sceneName As String) As IEnumerator
+  overload: E7.Minefield.Utility.WaitUntilSceneLoaded*
+  nameWithType.vb: Utility.WaitUntilSceneLoaded(String)
+  fullName.vb: E7.Minefield.Utility.WaitUntilSceneLoaded(String)
+  name.vb: WaitUntilSceneLoaded(String)
+- uid: E7.Minefield.Utility.Find``1
+  commentId: M:E7.Minefield.Utility.Find``1
+  id: Find``1
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: Find<T>()
+  nameWithType: Utility.Find<T>()
+  fullName: E7.Minefield.Utility.Find<T>()
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: Find the first game object of type <code class="typeparamref">T</code> AND IT MUST BE ACTIVE.
+  example: []
+  syntax:
+    content: 'public static T Find<T>() where T : Component'
+    typeParameters:
+    - id: T
+    return:
+      type: '{T}'
+    content.vb: Public Shared Function Find(Of T As Component)() As T
+  overload: E7.Minefield.Utility.Find*
+  nameWithType.vb: Utility.Find(Of T)()
+  fullName.vb: E7.Minefield.Utility.Find(Of T)()
+  name.vb: Find(Of T)()
+- uid: E7.Minefield.Utility.Find``1(System.String)
+  commentId: M:E7.Minefield.Utility.Find``1(System.String)
+  id: Find``1(System.String)
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: Find<T>(string)
+  nameWithType: Utility.Find<T>(string)
+  fullName: E7.Minefield.Utility.Find<T>(string)
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: >-
+    Find the first game object of type <code class="typeparamref">T</code> AND IT MUST BE ACTIVE.
+
+    Narrow the search on only scene named <code class="paramref">sceneName</code>.
+  example: []
+  syntax:
+    content: 'public static T Find<T>(string sceneName) where T : Component'
+    parameters:
+    - id: sceneName
+      type: System.String
+    typeParameters:
+    - id: T
+    return:
+      type: '{T}'
+    content.vb: Public Shared Function Find(Of T As Component)(sceneName As String) As T
+  overload: E7.Minefield.Utility.Find*
+  nameWithType.vb: Utility.Find(Of T)(String)
+  fullName.vb: E7.Minefield.Utility.Find(Of T)(String)
+  name.vb: Find(Of T)(String)
+- uid: E7.Minefield.Utility.FindGameObject``1
+  commentId: M:E7.Minefield.Utility.FindGameObject``1
+  id: FindGameObject``1
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: FindGameObject<T>()
+  nameWithType: Utility.FindGameObject<T>()
+  fullName: E7.Minefield.Utility.FindGameObject<T>()
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: >-
+    Like <xref href="E7.Minefield.Utility.Find%60%601" data-throw-if-not-resolved="false"></xref> but it returns a game object.
+
+    The object must be ACTIVE to be found!
+  example: []
+  syntax:
+    content: 'public static GameObject FindGameObject<T>() where T : Component'
+    typeParameters:
+    - id: T
+    return:
+      type: UnityEngine.GameObject
+    content.vb: Public Shared Function FindGameObject(Of T As Component)() As GameObject
+  overload: E7.Minefield.Utility.FindGameObject*
+  nameWithType.vb: Utility.FindGameObject(Of T)()
+  fullName.vb: E7.Minefield.Utility.FindGameObject(Of T)()
+  name.vb: FindGameObject(Of T)()
+- uid: E7.Minefield.Utility.FindNamed``1(System.String)
+  commentId: M:E7.Minefield.Utility.FindNamed``1(System.String)
+  id: FindNamed``1(System.String)
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: FindNamed<T>(string)
+  nameWithType: Utility.FindNamed<T>(string)
+  fullName: E7.Minefield.Utility.FindNamed<T>(string)
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: >-
+    Get a component of type <code class="typeparamref">T</code> from a game object
+
+    with a specific name <code class="paramref">gameObjectName</code>.
+  example: []
+  syntax:
+    content: 'public static T FindNamed<T>(string gameObjectName) where T : Component'
+    parameters:
+    - id: gameObjectName
+      type: System.String
+    typeParameters:
+    - id: T
+    return:
+      type: '{T}'
+    content.vb: Public Shared Function FindNamed(Of T As Component)(gameObjectName As String) As T
+  overload: E7.Minefield.Utility.FindNamed*
+  nameWithType.vb: Utility.FindNamed(Of T)(String)
+  fullName.vb: E7.Minefield.Utility.FindNamed(Of T)(String)
+  name.vb: FindNamed(Of T)(String)
+- uid: E7.Minefield.Utility.ActiveChildCount(UnityEngine.GameObject)
+  commentId: M:E7.Minefield.Utility.ActiveChildCount(UnityEngine.GameObject)
+  id: ActiveChildCount(UnityEngine.GameObject)
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: ActiveChildCount(GameObject)
+  nameWithType: Utility.ActiveChildCount(GameObject)
+  fullName: E7.Minefield.Utility.ActiveChildCount(UnityEngine.GameObject)
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: Check for amount of childs of a game object <code class="paramref">go</code>.
+  example: []
+  syntax:
+    content: public static int ActiveChildCount(GameObject go)
+    parameters:
+    - id: go
+      type: UnityEngine.GameObject
+    return:
+      type: System.Int32
+    content.vb: Public Shared Function ActiveChildCount(go As GameObject) As Integer
+  overload: E7.Minefield.Utility.ActiveChildCount*
+- uid: E7.Minefield.Utility.FindNamed``1(System.String,System.String)
+  commentId: M:E7.Minefield.Utility.FindNamed``1(System.String,System.String)
+  id: FindNamed``1(System.String,System.String)
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: FindNamed<T>(string, string)
+  nameWithType: Utility.FindNamed<T>(string, string)
+  fullName: E7.Minefield.Utility.FindNamed<T>(string, string)
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: >-
+    Will try to find the parent first regardless of type,
+
+    then a child under that parent regardless of type,
+
+    then get component of type <code class="typeparamref">T</code>.
+  example: []
+  syntax:
+    content: 'public static T FindNamed<T>(string parentName, string childName) where T : Component'
+    parameters:
+    - id: parentName
+      type: System.String
+    - id: childName
+      type: System.String
+    typeParameters:
+    - id: T
+    return:
+      type: '{T}'
+    content.vb: Public Shared Function FindNamed(Of T As Component)(parentName As String, childName As String) As T
+  overload: E7.Minefield.Utility.FindNamed*
+  nameWithType.vb: Utility.FindNamed(Of T)(String, String)
+  fullName.vb: E7.Minefield.Utility.FindNamed(Of T)(String, String)
+  name.vb: FindNamed(Of T)(String, String)
+- uid: E7.Minefield.Utility.FindNamed``2(System.String,System.String)
+  commentId: M:E7.Minefield.Utility.FindNamed``2(System.String,System.String)
+  id: FindNamed``2(System.String,System.String)
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: FindNamed<ParentType, ChildType>(string, string)
+  nameWithType: Utility.FindNamed<ParentType, ChildType>(string, string)
+  fullName: E7.Minefield.Utility.FindNamed<ParentType, ChildType>(string, string)
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: >-
+    This overload allows you to specify 2 types. It will try to find a child under that type with a given name.
+
+    Useful for drilling down a prefab.
+  example: []
+  syntax:
+    content: 'public static ChildType FindNamed<ParentType, ChildType>(string childName, string sceneName = "") where ParentType : Component where ChildType : Component'
+    parameters:
+    - id: childName
+      type: System.String
+    - id: sceneName
+      type: System.String
+    typeParameters:
+    - id: ParentType
+    - id: ChildType
+    return:
+      type: '{ChildType}'
+    content.vb: Public Shared Function FindNamed(Of ParentType As Component, ChildType As Component)(childName As String, sceneName As String = "") As ChildType
+  overload: E7.Minefield.Utility.FindNamed*
+  nameWithType.vb: Utility.FindNamed(Of ParentType, ChildType)(String, String)
+  fullName.vb: E7.Minefield.Utility.FindNamed(Of ParentType, ChildType)(String, String)
+  name.vb: FindNamed(Of ParentType, ChildType)(String, String)
+- uid: E7.Minefield.Utility.FindOnSceneRoot``1(System.String)
+  commentId: M:E7.Minefield.Utility.FindOnSceneRoot``1(System.String)
+  id: FindOnSceneRoot``1(System.String)
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: FindOnSceneRoot<T>(string)
+  nameWithType: Utility.FindOnSceneRoot<T>(string)
+  fullName: E7.Minefield.Utility.FindOnSceneRoot<T>(string)
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: Useful in case there are many T in the scene, usually from a separate sub-scene
+  example: []
+  syntax:
+    content: 'public static T FindOnSceneRoot<T>(string sceneName = "") where T : Component'
+    parameters:
+    - id: sceneName
+      type: System.String
+      description: ''
+    typeParameters:
+    - id: T
+    return:
+      type: '{T}'
+      description: ''
+    content.vb: Public Shared Function FindOnSceneRoot(Of T As Component)(sceneName As String = "") As T
+  overload: E7.Minefield.Utility.FindOnSceneRoot*
+  nameWithType.vb: Utility.FindOnSceneRoot(Of T)(String)
+  fullName.vb: E7.Minefield.Utility.FindOnSceneRoot(Of T)(String)
+  name.vb: FindOnSceneRoot(Of T)(String)
+- uid: E7.Minefield.Utility.CheckGameObject(System.String)
+  commentId: M:E7.Minefield.Utility.CheckGameObject(System.String)
+  id: CheckGameObject(System.String)
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: CheckGameObject(string)
+  nameWithType: Utility.CheckGameObject(string)
+  fullName: E7.Minefield.Utility.CheckGameObject(string)
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  syntax:
+    content: public static bool CheckGameObject(string name)
+    parameters:
+    - id: name
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function CheckGameObject(name As String) As Boolean
+  overload: E7.Minefield.Utility.CheckGameObject*
+  nameWithType.vb: Utility.CheckGameObject(String)
+  fullName.vb: E7.Minefield.Utility.CheckGameObject(String)
+  name.vb: CheckGameObject(String)
+- uid: E7.Minefield.Utility.ScreenCenterOfRectNamed(System.String)
+  commentId: M:E7.Minefield.Utility.ScreenCenterOfRectNamed(System.String)
+  id: ScreenCenterOfRectNamed(System.String)
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: ScreenCenterOfRectNamed(string)
+  nameWithType: Utility.ScreenCenterOfRectNamed(string)
+  fullName: E7.Minefield.Utility.ScreenCenterOfRectNamed(string)
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  syntax:
+    content: public static Vector2 ScreenCenterOfRectNamed(string gameObjectName)
+    parameters:
+    - id: gameObjectName
+      type: System.String
+    return:
+      type: UnityEngine.Vector2
+    content.vb: Public Shared Function ScreenCenterOfRectNamed(gameObjectName As String) As Vector2
+  overload: E7.Minefield.Utility.ScreenCenterOfRectNamed*
+  nameWithType.vb: Utility.ScreenCenterOfRectNamed(String)
+  fullName.vb: E7.Minefield.Utility.ScreenCenterOfRectNamed(String)
+  name.vb: ScreenCenterOfRectNamed(String)
+- uid: E7.Minefield.Utility.ScreenCenterOfRectTransform(UnityEngine.RectTransform)
+  commentId: M:E7.Minefield.Utility.ScreenCenterOfRectTransform(UnityEngine.RectTransform)
+  id: ScreenCenterOfRectTransform(UnityEngine.RectTransform)
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: ScreenCenterOfRectTransform(RectTransform)
+  nameWithType: Utility.ScreenCenterOfRectTransform(RectTransform)
+  fullName: E7.Minefield.Utility.ScreenCenterOfRectTransform(UnityEngine.RectTransform)
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  syntax:
+    content: public static Vector2 ScreenCenterOfRectTransform(RectTransform rect)
+    parameters:
+    - id: rect
+      type: UnityEngine.RectTransform
+    return:
+      type: UnityEngine.Vector2
+    content.vb: Public Shared Function ScreenCenterOfRectTransform(rect As RectTransform) As Vector2
+  overload: E7.Minefield.Utility.ScreenCenterOfRectTransform*
+- uid: E7.Minefield.Utility.ScreenPositionFromRelativeOfRectTransform(UnityEngine.RectTransform,UnityEngine.Vector2)
+  commentId: M:E7.Minefield.Utility.ScreenPositionFromRelativeOfRectTransform(UnityEngine.RectTransform,UnityEngine.Vector2)
+  id: ScreenPositionFromRelativeOfRectTransform(UnityEngine.RectTransform,UnityEngine.Vector2)
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: ScreenPositionFromRelativeOfRectTransform(RectTransform, Vector2)
+  nameWithType: Utility.ScreenPositionFromRelativeOfRectTransform(RectTransform, Vector2)
+  fullName: E7.Minefield.Utility.ScreenPositionFromRelativeOfRectTransform(UnityEngine.RectTransform, UnityEngine.Vector2)
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: Turns relative position inside a rect transform into an absolute screen position.
+  example: []
+  syntax:
+    content: public static Vector2 ScreenPositionFromRelativeOfRectTransform(RectTransform rect, Vector2 relativePosition)
+    parameters:
+    - id: rect
+      type: UnityEngine.RectTransform
+    - id: relativePosition
+      type: UnityEngine.Vector2
+    return:
+      type: UnityEngine.Vector2
+    content.vb: Public Shared Function ScreenPositionFromRelativeOfRectTransform(rect As RectTransform, relativePosition As Vector2) As Vector2
+  overload: E7.Minefield.Utility.ScreenPositionFromRelativeOfRectTransform*
+- uid: E7.Minefield.Utility.CenterOfSpriteName(System.String)
+  commentId: M:E7.Minefield.Utility.CenterOfSpriteName(System.String)
+  id: CenterOfSpriteName(System.String)
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: CenterOfSpriteName(string)
+  nameWithType: Utility.CenterOfSpriteName(string)
+  fullName: E7.Minefield.Utility.CenterOfSpriteName(string)
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  syntax:
+    content: public static Vector2 CenterOfSpriteName(string gameObjectName)
+    parameters:
+    - id: gameObjectName
+      type: System.String
+    return:
+      type: UnityEngine.Vector2
+    content.vb: Public Shared Function CenterOfSpriteName(gameObjectName As String) As Vector2
+  overload: E7.Minefield.Utility.CenterOfSpriteName*
+  nameWithType.vb: Utility.CenterOfSpriteName(String)
+  fullName.vb: E7.Minefield.Utility.CenterOfSpriteName(String)
+  name.vb: CenterOfSpriteName(String)
+- uid: E7.Minefield.Utility.RaycastFirst(UnityEngine.RectTransform)
+  commentId: M:E7.Minefield.Utility.RaycastFirst(UnityEngine.RectTransform)
+  id: RaycastFirst(UnityEngine.RectTransform)
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: RaycastFirst(RectTransform)
+  nameWithType: Utility.RaycastFirst(RectTransform)
+  fullName: E7.Minefield.Utility.RaycastFirst(UnityEngine.RectTransform)
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: Performs a raycast test and returns the first object that receives the ray.
+  example: []
+  syntax:
+    content: public static GameObject RaycastFirst(RectTransform rect)
+    parameters:
+    - id: rect
+      type: UnityEngine.RectTransform
+    return:
+      type: UnityEngine.GameObject
+    content.vb: Public Shared Function RaycastFirst(rect As RectTransform) As GameObject
+  overload: E7.Minefield.Utility.RaycastFirst*
+- uid: E7.Minefield.Utility.RaycastFirst(UnityEngine.Vector2)
+  commentId: M:E7.Minefield.Utility.RaycastFirst(UnityEngine.Vector2)
+  id: RaycastFirst(UnityEngine.Vector2)
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: RaycastFirst(Vector2)
+  nameWithType: Utility.RaycastFirst(Vector2)
+  fullName: E7.Minefield.Utility.RaycastFirst(UnityEngine.Vector2)
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: Performs a raycast test and returns the first object that receives the ray.
+  example: []
+  syntax:
+    content: public static GameObject RaycastFirst(Vector2 screenPosition)
+    parameters:
+    - id: screenPosition
+      type: UnityEngine.Vector2
+    return:
+      type: UnityEngine.GameObject
+    content.vb: Public Shared Function RaycastFirst(screenPosition As Vector2) As GameObject
+  overload: E7.Minefield.Utility.RaycastFirst*
+- uid: E7.Minefield.Utility.ScreenPosToFakeClick(UnityEngine.Vector2)
+  commentId: M:E7.Minefield.Utility.ScreenPosToFakeClick(UnityEngine.Vector2)
+  id: ScreenPosToFakeClick(UnityEngine.Vector2)
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: ScreenPosToFakeClick(Vector2)
+  nameWithType: Utility.ScreenPosToFakeClick(Vector2)
+  fullName: E7.Minefield.Utility.ScreenPosToFakeClick(UnityEngine.Vector2)
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  syntax:
+    content: public static PointerEventData ScreenPosToFakeClick(Vector2 screenPosition)
+    parameters:
+    - id: screenPosition
+      type: UnityEngine.Vector2
+    return:
+      type: UnityEngine.EventSystems.PointerEventData
+    content.vb: Public Shared Function ScreenPosToFakeClick(screenPosition As Vector2) As PointerEventData
+  overload: E7.Minefield.Utility.ScreenPosToFakeClick*
+- uid: E7.Minefield.Utility.RaycastClick(UnityEngine.RectTransform)
+  commentId: M:E7.Minefield.Utility.RaycastClick(UnityEngine.RectTransform)
+  id: RaycastClick(UnityEngine.RectTransform)
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: RaycastClick(RectTransform)
+  nameWithType: Utility.RaycastClick(RectTransform)
+  fullName: E7.Minefield.Utility.RaycastClick(UnityEngine.RectTransform)
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: >-
+    Clicks on the center of provided RectTransform.
+
+    Use coroutine on this because there is a frame in-between pointer down and up.
+  example: []
+  syntax:
+    content: public static IEnumerator RaycastClick(RectTransform rect)
+    parameters:
+    - id: rect
+      type: UnityEngine.RectTransform
+    return:
+      type: System.Collections.IEnumerator
+    content.vb: Public Shared Function RaycastClick(rect As RectTransform) As IEnumerator
+  overload: E7.Minefield.Utility.RaycastClick*
+- uid: E7.Minefield.Utility.RaycastClick(UnityEngine.Bounds)
+  commentId: M:E7.Minefield.Utility.RaycastClick(UnityEngine.Bounds)
+  id: RaycastClick(UnityEngine.Bounds)
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: RaycastClick(Bounds)
+  nameWithType: Utility.RaycastClick(Bounds)
+  fullName: E7.Minefield.Utility.RaycastClick(UnityEngine.Bounds)
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: Clicks on the center of provided bounds, looking from the main camera.
+  example: []
+  syntax:
+    content: public static IEnumerator RaycastClick(Bounds b)
+    parameters:
+    - id: b
+      type: UnityEngine.Bounds
+    return:
+      type: System.Collections.IEnumerator
+    content.vb: Public Shared Function RaycastClick(b As Bounds) As IEnumerator
+  overload: E7.Minefield.Utility.RaycastClick*
+- uid: E7.Minefield.Utility.RaycastClick(UnityEngine.RectTransform,UnityEngine.Vector2)
+  commentId: M:E7.Minefield.Utility.RaycastClick(UnityEngine.RectTransform,UnityEngine.Vector2)
+  id: RaycastClick(UnityEngine.RectTransform,UnityEngine.Vector2)
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: RaycastClick(RectTransform, Vector2)
+  nameWithType: Utility.RaycastClick(RectTransform, Vector2)
+  fullName: E7.Minefield.Utility.RaycastClick(UnityEngine.RectTransform, UnityEngine.Vector2)
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: >-
+    Clicks on a relative position in the rect.
+
+    Use coroutine on this because there is a frame in-between pointer down and up.
+  example: []
+  syntax:
+    content: public static IEnumerator RaycastClick(RectTransform rect, Vector2 relativePositionInRect)
+    parameters:
+    - id: rect
+      type: UnityEngine.RectTransform
+    - id: relativePositionInRect
+      type: UnityEngine.Vector2
+    return:
+      type: System.Collections.IEnumerator
+    content.vb: Public Shared Function RaycastClick(rect As RectTransform, relativePositionInRect As Vector2) As IEnumerator
+  overload: E7.Minefield.Utility.RaycastClick*
+- uid: E7.Minefield.Utility.TouchLowerHalf
+  commentId: M:E7.Minefield.Utility.TouchLowerHalf
+  id: TouchLowerHalf
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: TouchLowerHalf()
+  nameWithType: Utility.TouchLowerHalf()
+  fullName: E7.Minefield.Utility.TouchLowerHalf()
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: Divide the screen into 2 equal rectangle vertically, touch the center of the **lower** ones.
+  example: []
+  syntax:
+    content: public static IEnumerator TouchLowerHalf()
+    return:
+      type: System.Collections.IEnumerator
+    content.vb: Public Shared Function TouchLowerHalf() As IEnumerator
+  overload: E7.Minefield.Utility.TouchLowerHalf*
+- uid: E7.Minefield.Utility.TouchUpperHalf
+  commentId: M:E7.Minefield.Utility.TouchUpperHalf
+  id: TouchUpperHalf
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: TouchUpperHalf()
+  nameWithType: Utility.TouchUpperHalf()
+  fullName: E7.Minefield.Utility.TouchUpperHalf()
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: Divide the screen into 2 equal rectangle vertically, touch the center of the **upper** ones.
+  example: []
+  syntax:
+    content: public static IEnumerator TouchUpperHalf()
+    return:
+      type: System.Collections.IEnumerator
+    content.vb: Public Shared Function TouchUpperHalf() As IEnumerator
+  overload: E7.Minefield.Utility.TouchUpperHalf*
+- uid: E7.Minefield.Utility.RaycastClick(UnityEngine.Vector2)
+  commentId: M:E7.Minefield.Utility.RaycastClick(UnityEngine.Vector2)
+  id: RaycastClick(UnityEngine.Vector2)
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: RaycastClick(Vector2)
+  nameWithType: Utility.RaycastClick(Vector2)
+  fullName: E7.Minefield.Utility.RaycastClick(UnityEngine.Vector2)
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: >-
+    Simulate a click. Definition of a click is pointer down this frame
+
+    then up at the same coordinate the next frame. So you need a coroutine on this.
+
+
+    After finding the first object that blocks the ray, if that object do not have down, up,
+
+    or click event it will be bubble up until finding someone that could handle it.
+
+
+    It is still possible to produce impossible action, such as clicking 2 times on the same button.
+
+    Even with coroutine, the up of the first click will be at
+
+    the same frame as down of the next one. This is not physically possible.
+
+    So if you need to double click, wait a frame manually.
+  example: []
+  syntax:
+    content: public static IEnumerator RaycastClick(Vector2 screenPosition)
+    parameters:
+    - id: screenPosition
+      type: UnityEngine.Vector2
+      description: In pixel.
+    return:
+      type: System.Collections.IEnumerator
+    content.vb: Public Shared Function RaycastClick(screenPosition As Vector2) As IEnumerator
+  overload: E7.Minefield.Utility.RaycastClick*
+- uid: E7.Minefield.Utility.IsSceneLoaded(System.String)
+  commentId: M:E7.Minefield.Utility.IsSceneLoaded(System.String)
+  id: IsSceneLoaded(System.String)
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: IsSceneLoaded(string)
+  nameWithType: Utility.IsSceneLoaded(string)
+  fullName: E7.Minefield.Utility.IsSceneLoaded(string)
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  syntax:
+    content: public static bool IsSceneLoaded(string sceneName)
+    parameters:
+    - id: sceneName
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsSceneLoaded(sceneName As String) As Boolean
+  overload: E7.Minefield.Utility.IsSceneLoaded*
+  nameWithType.vb: Utility.IsSceneLoaded(String)
+  fullName.vb: E7.Minefield.Utility.IsSceneLoaded(String)
+  name.vb: IsSceneLoaded(String)
+- uid: E7.Minefield.Utility.ActionBetweenSceneAwakeAndStart(System.String,System.Action)
+  commentId: M:E7.Minefield.Utility.ActionBetweenSceneAwakeAndStart(System.String,System.Action)
+  id: ActionBetweenSceneAwakeAndStart(System.String,System.Action)
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: ActionBetweenSceneAwakeAndStart(string, Action)
+  nameWithType: Utility.ActionBetweenSceneAwakeAndStart(string, Action)
+  fullName: E7.Minefield.Utility.ActionBetweenSceneAwakeAndStart(string, System.Action)
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  syntax:
+    content: public static void ActionBetweenSceneAwakeAndStart(string sceneName, Action action)
+    parameters:
+    - id: sceneName
+      type: System.String
+    - id: action
+      type: System.Action
+    content.vb: Public Shared Sub ActionBetweenSceneAwakeAndStart(sceneName As String, action As Action)
+  overload: E7.Minefield.Utility.ActionBetweenSceneAwakeAndStart*
+  nameWithType.vb: Utility.ActionBetweenSceneAwakeAndStart(String, Action)
+  fullName.vb: E7.Minefield.Utility.ActionBetweenSceneAwakeAndStart(String, System.Action)
+  name.vb: ActionBetweenSceneAwakeAndStart(String, Action)
+- uid: E7.Minefield.Utility.AverageAmplitude(System.Single)
+  commentId: M:E7.Minefield.Utility.AverageAmplitude(System.Single)
+  id: AverageAmplitude(System.Single)
+  parent: E7.Minefield.Utility
+  langs:
+  - csharp
+  - vb
+  name: AverageAmplitude(float)
+  nameWithType: Utility.AverageAmplitude(float)
+  fullName: E7.Minefield.Utility.AverageAmplitude(float)
+  type: Method
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: WIP! Does not work!
+  example: []
+  syntax:
+    content: public static float AverageAmplitude(float inTheLastSeconds)
+    parameters:
+    - id: inTheLastSeconds
+      type: System.Single
+    return:
+      type: System.Single
+    content.vb: Public Shared Function AverageAmplitude(inTheLastSeconds As Single) As Single
+  overload: E7.Minefield.Utility.AverageAmplitude*
+  nameWithType.vb: Utility.AverageAmplitude(Single)
+  fullName.vb: E7.Minefield.Utility.AverageAmplitude(Single)
+  name.vb: AverageAmplitude(Single)
+references:
+- uid: E7.Minefield
+  commentId: N:E7.Minefield
+  href: E7.html
+  name: E7.Minefield
+  nameWithType: E7.Minefield
+  fullName: E7.Minefield
+  spec.csharp:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+  spec.vb:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: UnityEngine.WaitForSecondsRealtime
+  commentId: T:UnityEngine.WaitForSecondsRealtime
+  parent: UnityEngine
+  isExternal: true
+  name: WaitForSecondsRealtime
+  nameWithType: WaitForSecondsRealtime
+  fullName: UnityEngine.WaitForSecondsRealtime
+- uid: E7.Minefield.Utility.Wait*
+  commentId: Overload:E7.Minefield.Utility.Wait
+  href: E7.Minefield.Utility.html#E7_Minefield_Utility_Wait_System_Single_
+  name: Wait
+  nameWithType: Utility.Wait
+  fullName: E7.Minefield.Utility.Wait
+- uid: System.Single
+  commentId: T:System.Single
+  parent: System
+  isExternal: true
+  name: float
+  nameWithType: float
+  fullName: float
+  nameWithType.vb: Single
+  fullName.vb: Single
+  name.vb: Single
+- uid: UnityEngine
+  commentId: N:UnityEngine
+  isExternal: true
+  name: UnityEngine
+  nameWithType: UnityEngine
+  fullName: UnityEngine
+- uid: E7.Minefield.Utility.CleanTestScene*
+  commentId: Overload:E7.Minefield.Utility.CleanTestScene
+  href: E7.Minefield.Utility.html#E7_Minefield_Utility_CleanTestScene
+  name: CleanTestScene
+  nameWithType: Utility.CleanTestScene
+  fullName: E7.Minefield.Utility.CleanTestScene
+- uid: E7.Minefield.Utility.WaitUntilFound*
+  commentId: Overload:E7.Minefield.Utility.WaitUntilFound
+  href: E7.Minefield.Utility.html#E7_Minefield_Utility_WaitUntilFound__1
+  name: WaitUntilFound
+  nameWithType: Utility.WaitUntilFound
+  fullName: E7.Minefield.Utility.WaitUntilFound
+- uid: System.Collections.IEnumerator
+  commentId: T:System.Collections.IEnumerator
+  parent: System.Collections
+  isExternal: true
+  name: IEnumerator
+  nameWithType: IEnumerator
+  fullName: System.Collections.IEnumerator
+- uid: System.Collections
+  commentId: N:System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections
+  nameWithType: System.Collections
+  fullName: System.Collections
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+- uid: E7.Minefield.Utility.WaitForever*
+  commentId: Overload:E7.Minefield.Utility.WaitForever
+  href: E7.Minefield.Utility.html#E7_Minefield_Utility_WaitForever
+  name: WaitForever
+  nameWithType: Utility.WaitForever
+  fullName: E7.Minefield.Utility.WaitForever
+- uid: E7.Minefield.Utility.WaitUntilSceneLoaded*
+  commentId: Overload:E7.Minefield.Utility.WaitUntilSceneLoaded
+  href: E7.Minefield.Utility.html#E7_Minefield_Utility_WaitUntilSceneLoaded_System_String_
+  name: WaitUntilSceneLoaded
+  nameWithType: Utility.WaitUntilSceneLoaded
+  fullName: E7.Minefield.Utility.WaitUntilSceneLoaded
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: E7.Minefield.Utility.Find*
+  commentId: Overload:E7.Minefield.Utility.Find
+  href: E7.Minefield.Utility.html#E7_Minefield_Utility_Find__1
+  name: Find
+  nameWithType: Utility.Find
+  fullName: E7.Minefield.Utility.Find
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: E7.Minefield.Utility.Find``1
+  commentId: M:E7.Minefield.Utility.Find``1
+  href: E7.Minefield.Utility.html#E7_Minefield_Utility_Find__1
+  name: Find<T>()
+  nameWithType: Utility.Find<T>()
+  fullName: E7.Minefield.Utility.Find<T>()
+  nameWithType.vb: Utility.Find(Of T)()
+  fullName.vb: E7.Minefield.Utility.Find(Of T)()
+  name.vb: Find(Of T)()
+  spec.csharp:
+  - uid: E7.Minefield.Utility.Find``1
+    name: Find
+    href: E7.Minefield.Utility.html#E7_Minefield_Utility_Find__1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: E7.Minefield.Utility.Find``1
+    name: Find
+    href: E7.Minefield.Utility.html#E7_Minefield_Utility_Find__1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: )
+- uid: E7.Minefield.Utility.FindGameObject*
+  commentId: Overload:E7.Minefield.Utility.FindGameObject
+  href: E7.Minefield.Utility.html#E7_Minefield_Utility_FindGameObject__1
+  name: FindGameObject
+  nameWithType: Utility.FindGameObject
+  fullName: E7.Minefield.Utility.FindGameObject
+- uid: UnityEngine.GameObject
+  commentId: T:UnityEngine.GameObject
+  parent: UnityEngine
+  isExternal: true
+  name: GameObject
+  nameWithType: GameObject
+  fullName: UnityEngine.GameObject
+- uid: E7.Minefield.Utility.FindNamed*
+  commentId: Overload:E7.Minefield.Utility.FindNamed
+  href: E7.Minefield.Utility.html#E7_Minefield_Utility_FindNamed__1_System_String_
+  name: FindNamed
+  nameWithType: Utility.FindNamed
+  fullName: E7.Minefield.Utility.FindNamed
+- uid: E7.Minefield.Utility.ActiveChildCount*
+  commentId: Overload:E7.Minefield.Utility.ActiveChildCount
+  href: E7.Minefield.Utility.html#E7_Minefield_Utility_ActiveChildCount_UnityEngine_GameObject_
+  name: ActiveChildCount
+  nameWithType: Utility.ActiveChildCount
+  fullName: E7.Minefield.Utility.ActiveChildCount
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: '{ChildType}'
+  commentId: '!:ChildType'
+  definition: ChildType
+  name: ChildType
+  nameWithType: ChildType
+  fullName: ChildType
+- uid: ChildType
+  commentId: '!:ChildType'
+  name: ChildType
+  nameWithType: ChildType
+  fullName: ChildType
+- uid: E7.Minefield.Utility.FindOnSceneRoot*
+  commentId: Overload:E7.Minefield.Utility.FindOnSceneRoot
+  href: E7.Minefield.Utility.html#E7_Minefield_Utility_FindOnSceneRoot__1_System_String_
+  name: FindOnSceneRoot
+  nameWithType: Utility.FindOnSceneRoot
+  fullName: E7.Minefield.Utility.FindOnSceneRoot
+- uid: E7.Minefield.Utility.CheckGameObject*
+  commentId: Overload:E7.Minefield.Utility.CheckGameObject
+  href: E7.Minefield.Utility.html#E7_Minefield_Utility_CheckGameObject_System_String_
+  name: CheckGameObject
+  nameWithType: Utility.CheckGameObject
+  fullName: E7.Minefield.Utility.CheckGameObject
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: E7.Minefield.Utility.ScreenCenterOfRectNamed*
+  commentId: Overload:E7.Minefield.Utility.ScreenCenterOfRectNamed
+  href: E7.Minefield.Utility.html#E7_Minefield_Utility_ScreenCenterOfRectNamed_System_String_
+  name: ScreenCenterOfRectNamed
+  nameWithType: Utility.ScreenCenterOfRectNamed
+  fullName: E7.Minefield.Utility.ScreenCenterOfRectNamed
+- uid: UnityEngine.Vector2
+  commentId: T:UnityEngine.Vector2
+  parent: UnityEngine
+  isExternal: true
+  name: Vector2
+  nameWithType: Vector2
+  fullName: UnityEngine.Vector2
+- uid: E7.Minefield.Utility.ScreenCenterOfRectTransform*
+  commentId: Overload:E7.Minefield.Utility.ScreenCenterOfRectTransform
+  href: E7.Minefield.Utility.html#E7_Minefield_Utility_ScreenCenterOfRectTransform_UnityEngine_RectTransform_
+  name: ScreenCenterOfRectTransform
+  nameWithType: Utility.ScreenCenterOfRectTransform
+  fullName: E7.Minefield.Utility.ScreenCenterOfRectTransform
+- uid: UnityEngine.RectTransform
+  commentId: T:UnityEngine.RectTransform
+  parent: UnityEngine
+  isExternal: true
+  name: RectTransform
+  nameWithType: RectTransform
+  fullName: UnityEngine.RectTransform
+- uid: E7.Minefield.Utility.ScreenPositionFromRelativeOfRectTransform*
+  commentId: Overload:E7.Minefield.Utility.ScreenPositionFromRelativeOfRectTransform
+  href: E7.Minefield.Utility.html#E7_Minefield_Utility_ScreenPositionFromRelativeOfRectTransform_UnityEngine_RectTransform_UnityEngine_Vector2_
+  name: ScreenPositionFromRelativeOfRectTransform
+  nameWithType: Utility.ScreenPositionFromRelativeOfRectTransform
+  fullName: E7.Minefield.Utility.ScreenPositionFromRelativeOfRectTransform
+- uid: E7.Minefield.Utility.CenterOfSpriteName*
+  commentId: Overload:E7.Minefield.Utility.CenterOfSpriteName
+  href: E7.Minefield.Utility.html#E7_Minefield_Utility_CenterOfSpriteName_System_String_
+  name: CenterOfSpriteName
+  nameWithType: Utility.CenterOfSpriteName
+  fullName: E7.Minefield.Utility.CenterOfSpriteName
+- uid: E7.Minefield.Utility.RaycastFirst*
+  commentId: Overload:E7.Minefield.Utility.RaycastFirst
+  href: E7.Minefield.Utility.html#E7_Minefield_Utility_RaycastFirst_UnityEngine_RectTransform_
+  name: RaycastFirst
+  nameWithType: Utility.RaycastFirst
+  fullName: E7.Minefield.Utility.RaycastFirst
+- uid: E7.Minefield.Utility.ScreenPosToFakeClick*
+  commentId: Overload:E7.Minefield.Utility.ScreenPosToFakeClick
+  href: E7.Minefield.Utility.html#E7_Minefield_Utility_ScreenPosToFakeClick_UnityEngine_Vector2_
+  name: ScreenPosToFakeClick
+  nameWithType: Utility.ScreenPosToFakeClick
+  fullName: E7.Minefield.Utility.ScreenPosToFakeClick
+- uid: UnityEngine.EventSystems.PointerEventData
+  commentId: T:UnityEngine.EventSystems.PointerEventData
+  parent: UnityEngine.EventSystems
+  isExternal: true
+  name: PointerEventData
+  nameWithType: PointerEventData
+  fullName: UnityEngine.EventSystems.PointerEventData
+- uid: UnityEngine.EventSystems
+  commentId: N:UnityEngine.EventSystems
+  isExternal: true
+  name: UnityEngine.EventSystems
+  nameWithType: UnityEngine.EventSystems
+  fullName: UnityEngine.EventSystems
+  spec.csharp:
+  - uid: UnityEngine
+    name: UnityEngine
+    isExternal: true
+  - name: .
+  - uid: UnityEngine.EventSystems
+    name: EventSystems
+    isExternal: true
+  spec.vb:
+  - uid: UnityEngine
+    name: UnityEngine
+    isExternal: true
+  - name: .
+  - uid: UnityEngine.EventSystems
+    name: EventSystems
+    isExternal: true
+- uid: E7.Minefield.Utility.RaycastClick*
+  commentId: Overload:E7.Minefield.Utility.RaycastClick
+  href: E7.Minefield.Utility.html#E7_Minefield_Utility_RaycastClick_UnityEngine_RectTransform_
+  name: RaycastClick
+  nameWithType: Utility.RaycastClick
+  fullName: E7.Minefield.Utility.RaycastClick
+- uid: UnityEngine.Bounds
+  commentId: T:UnityEngine.Bounds
+  parent: UnityEngine
+  isExternal: true
+  name: Bounds
+  nameWithType: Bounds
+  fullName: UnityEngine.Bounds
+- uid: E7.Minefield.Utility.TouchLowerHalf*
+  commentId: Overload:E7.Minefield.Utility.TouchLowerHalf
+  href: E7.Minefield.Utility.html#E7_Minefield_Utility_TouchLowerHalf
+  name: TouchLowerHalf
+  nameWithType: Utility.TouchLowerHalf
+  fullName: E7.Minefield.Utility.TouchLowerHalf
+- uid: E7.Minefield.Utility.TouchUpperHalf*
+  commentId: Overload:E7.Minefield.Utility.TouchUpperHalf
+  href: E7.Minefield.Utility.html#E7_Minefield_Utility_TouchUpperHalf
+  name: TouchUpperHalf
+  nameWithType: Utility.TouchUpperHalf
+  fullName: E7.Minefield.Utility.TouchUpperHalf
+- uid: E7.Minefield.Utility.IsSceneLoaded*
+  commentId: Overload:E7.Minefield.Utility.IsSceneLoaded
+  href: E7.Minefield.Utility.html#E7_Minefield_Utility_IsSceneLoaded_System_String_
+  name: IsSceneLoaded
+  nameWithType: Utility.IsSceneLoaded
+  fullName: E7.Minefield.Utility.IsSceneLoaded
+- uid: E7.Minefield.Utility.ActionBetweenSceneAwakeAndStart*
+  commentId: Overload:E7.Minefield.Utility.ActionBetweenSceneAwakeAndStart
+  href: E7.Minefield.Utility.html#E7_Minefield_Utility_ActionBetweenSceneAwakeAndStart_System_String_System_Action_
+  name: ActionBetweenSceneAwakeAndStart
+  nameWithType: Utility.ActionBetweenSceneAwakeAndStart
+  fullName: E7.Minefield.Utility.ActionBetweenSceneAwakeAndStart
+- uid: System.Action
+  commentId: T:System.Action
+  parent: System
+  isExternal: true
+  name: Action
+  nameWithType: Action
+  fullName: System.Action
+- uid: E7.Minefield.Utility.AverageAmplitude*
+  commentId: Overload:E7.Minefield.Utility.AverageAmplitude
+  href: E7.Minefield.Utility.html#E7_Minefield_Utility_AverageAmplitude_System_Single_
+  name: AverageAmplitude
+  nameWithType: Utility.AverageAmplitude
+  fullName: E7.Minefield.Utility.AverageAmplitude

@@ -1,0 +1,281 @@
+### YamlMime:ManagedReference
+items:
+- uid: E7.Minefield.TaskExtensionTest
+  commentId: T:E7.Minefield.TaskExtensionTest
+  id: TaskExtensionTest
+  parent: E7.Minefield
+  children:
+  - E7.Minefield.TaskExtensionTest.ShouldThrow``1(System.Threading.Tasks.Task)
+  - E7.Minefield.TaskExtensionTest.ShouldThrow``1(System.Threading.Tasks.Task,System.String)
+  - E7.Minefield.TaskExtensionTest.YieldWaitTest(System.Threading.Tasks.Task)
+  - E7.Minefield.TaskExtensionTest.timeOut
+  langs:
+  - csharp
+  - vb
+  name: TaskExtensionTest
+  nameWithType: TaskExtensionTest
+  fullName: E7.Minefield.TaskExtensionTest
+  type: Class
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  syntax:
+    content: public static class TaskExtensionTest
+    content.vb: Public Module TaskExtensionTest
+  inheritance:
+  - System.Object
+- uid: E7.Minefield.TaskExtensionTest.timeOut
+  commentId: F:E7.Minefield.TaskExtensionTest.timeOut
+  id: timeOut
+  parent: E7.Minefield.TaskExtensionTest
+  langs:
+  - csharp
+  - vb
+  name: timeOut
+  nameWithType: TaskExtensionTest.timeOut
+  fullName: E7.Minefield.TaskExtensionTest.timeOut
+  type: Field
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  syntax:
+    content: public const int timeOut = 25
+    return:
+      type: System.Int32
+    content.vb: Public Const timeOut As Integer = 25
+- uid: E7.Minefield.TaskExtensionTest.YieldWaitTest(System.Threading.Tasks.Task)
+  commentId: M:E7.Minefield.TaskExtensionTest.YieldWaitTest(System.Threading.Tasks.Task)
+  id: YieldWaitTest(System.Threading.Tasks.Task)
+  isExtensionMethod: true
+  parent: E7.Minefield.TaskExtensionTest
+  langs:
+  - csharp
+  - vb
+  name: YieldWaitTest(Task)
+  nameWithType: TaskExtensionTest.YieldWaitTest(Task)
+  fullName: E7.Minefield.TaskExtensionTest.YieldWaitTest(System.Threading.Tasks.Task)
+  type: Method
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  summary: Make a Task yieldable, but there is a time out so it is suitable for running tests.
+  example: []
+  syntax:
+    content: public static IEnumerator YieldWaitTest(this Task task)
+    parameters:
+    - id: task
+      type: System.Threading.Tasks.Task
+    return:
+      type: System.Collections.IEnumerator
+    content.vb: Public Shared Function YieldWaitTest(task As Task) As IEnumerator
+  overload: E7.Minefield.TaskExtensionTest.YieldWaitTest*
+- uid: E7.Minefield.TaskExtensionTest.ShouldThrow``1(System.Threading.Tasks.Task)
+  commentId: M:E7.Minefield.TaskExtensionTest.ShouldThrow``1(System.Threading.Tasks.Task)
+  id: ShouldThrow``1(System.Threading.Tasks.Task)
+  isExtensionMethod: true
+  parent: E7.Minefield.TaskExtensionTest
+  langs:
+  - csharp
+  - vb
+  name: ShouldThrow<T>(Task)
+  nameWithType: TaskExtensionTest.ShouldThrow<T>(Task)
+  fullName: E7.Minefield.TaskExtensionTest.ShouldThrow<T>(System.Threading.Tasks.Task)
+  type: Method
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  syntax:
+    content: 'public static Task ShouldThrow<T>(this Task asyncMethod) where T : Exception'
+    parameters:
+    - id: asyncMethod
+      type: System.Threading.Tasks.Task
+    typeParameters:
+    - id: T
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Shared Function ShouldThrow(Of T As Exception)(asyncMethod As Task) As Task
+  overload: E7.Minefield.TaskExtensionTest.ShouldThrow*
+  nameWithType.vb: TaskExtensionTest.ShouldThrow(Of T)(Task)
+  fullName.vb: E7.Minefield.TaskExtensionTest.ShouldThrow(Of T)(System.Threading.Tasks.Task)
+  name.vb: ShouldThrow(Of T)(Task)
+- uid: E7.Minefield.TaskExtensionTest.ShouldThrow``1(System.Threading.Tasks.Task,System.String)
+  commentId: M:E7.Minefield.TaskExtensionTest.ShouldThrow``1(System.Threading.Tasks.Task,System.String)
+  id: ShouldThrow``1(System.Threading.Tasks.Task,System.String)
+  isExtensionMethod: true
+  parent: E7.Minefield.TaskExtensionTest
+  langs:
+  - csharp
+  - vb
+  name: ShouldThrow<T>(Task, string)
+  nameWithType: TaskExtensionTest.ShouldThrow<T>(Task, string)
+  fullName: E7.Minefield.TaskExtensionTest.ShouldThrow<T>(System.Threading.Tasks.Task, string)
+  type: Method
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  syntax:
+    content: 'public static Task ShouldThrow<T>(this Task asyncMethod, string message) where T : Exception'
+    parameters:
+    - id: asyncMethod
+      type: System.Threading.Tasks.Task
+    - id: message
+      type: System.String
+    typeParameters:
+    - id: T
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Shared Function ShouldThrow(Of T As Exception)(asyncMethod As Task, message As String) As Task
+  overload: E7.Minefield.TaskExtensionTest.ShouldThrow*
+  nameWithType.vb: TaskExtensionTest.ShouldThrow(Of T)(Task, String)
+  fullName.vb: E7.Minefield.TaskExtensionTest.ShouldThrow(Of T)(System.Threading.Tasks.Task, String)
+  name.vb: ShouldThrow(Of T)(Task, String)
+references:
+- uid: E7.Minefield
+  commentId: N:E7.Minefield
+  href: E7.html
+  name: E7.Minefield
+  nameWithType: E7.Minefield
+  fullName: E7.Minefield
+  spec.csharp:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+  spec.vb:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: E7.Minefield.TaskExtensionTest.YieldWaitTest*
+  commentId: Overload:E7.Minefield.TaskExtensionTest.YieldWaitTest
+  href: E7.Minefield.TaskExtensionTest.html#E7_Minefield_TaskExtensionTest_YieldWaitTest_System_Threading_Tasks_Task_
+  name: YieldWaitTest
+  nameWithType: TaskExtensionTest.YieldWaitTest
+  fullName: E7.Minefield.TaskExtensionTest.YieldWaitTest
+- uid: System.Threading.Tasks.Task
+  commentId: T:System.Threading.Tasks.Task
+  parent: System.Threading.Tasks
+  isExternal: true
+  name: Task
+  nameWithType: Task
+  fullName: System.Threading.Tasks.Task
+- uid: System.Collections.IEnumerator
+  commentId: T:System.Collections.IEnumerator
+  parent: System.Collections
+  isExternal: true
+  name: IEnumerator
+  nameWithType: IEnumerator
+  fullName: System.Collections.IEnumerator
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: System.Collections
+  commentId: N:System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections
+  nameWithType: System.Collections
+  fullName: System.Collections
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+- uid: E7.Minefield.TaskExtensionTest.ShouldThrow*
+  commentId: Overload:E7.Minefield.TaskExtensionTest.ShouldThrow
+  href: E7.Minefield.TaskExtensionTest.html#E7_Minefield_TaskExtensionTest_ShouldThrow__1_System_Threading_Tasks_Task_
+  name: ShouldThrow
+  nameWithType: TaskExtensionTest.ShouldThrow
+  fullName: E7.Minefield.TaskExtensionTest.ShouldThrow
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String

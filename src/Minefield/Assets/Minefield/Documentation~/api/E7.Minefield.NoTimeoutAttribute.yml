@@ -1,0 +1,172 @@
+### YamlMime:ManagedReference
+items:
+- uid: E7.Minefield.NoTimeoutAttribute
+  commentId: T:E7.Minefield.NoTimeoutAttribute
+  id: NoTimeoutAttribute
+  parent: E7.Minefield
+  children:
+  - E7.Minefield.NoTimeoutAttribute.#ctor
+  langs:
+  - csharp
+  - vb
+  name: NoTimeoutAttribute
+  nameWithType: NoTimeoutAttribute
+  fullName: E7.Minefield.NoTimeoutAttribute
+  type: Class
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  summary: >-
+    Used together with <xref href="E7.Minefield.Utility.WaitForever" data-throw-if-not-resolved="false"></xref> to make a test that works
+
+    like supercharged play mode button with custom setup.
+
+
+    When you just start writing a test to be an alternative to Play Mode button,
+
+    when the condition wasn't fleshed out well yet you may want unlimited time to play around.
+  example: []
+  syntax:
+    content: 'public class NoTimeoutAttribute : TimeoutAttribute'
+    content.vb: Public Class NoTimeoutAttribute Inherits TimeoutAttribute
+  inheritance:
+  - System.Object
+  - System.Attribute
+  - NUnit.Framework.NUnitAttribute
+  - NUnit.Framework.PropertyAttribute
+  - NUnit.Framework.TimeoutAttribute
+- uid: E7.Minefield.NoTimeoutAttribute.#ctor
+  commentId: M:E7.Minefield.NoTimeoutAttribute.#ctor
+  id: '#ctor'
+  parent: E7.Minefield.NoTimeoutAttribute
+  langs:
+  - csharp
+  - vb
+  name: NoTimeoutAttribute()
+  nameWithType: NoTimeoutAttribute.NoTimeoutAttribute()
+  fullName: E7.Minefield.NoTimeoutAttribute.NoTimeoutAttribute()
+  type: Constructor
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  syntax:
+    content: public NoTimeoutAttribute()
+    content.vb: Public Sub New()
+  overload: E7.Minefield.NoTimeoutAttribute.#ctor*
+  nameWithType.vb: NoTimeoutAttribute.New()
+  fullName.vb: E7.Minefield.NoTimeoutAttribute.New()
+  name.vb: New()
+references:
+- uid: E7.Minefield.Utility.WaitForever
+  commentId: M:E7.Minefield.Utility.WaitForever
+  name: WaitForever()
+  nameWithType: Utility.WaitForever()
+  fullName: E7.Minefield.Utility.WaitForever()
+  spec.csharp:
+  - uid: E7.Minefield.Utility.WaitForever
+    name: WaitForever
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: E7.Minefield.Utility.WaitForever
+    name: WaitForever
+  - name: (
+  - name: )
+- uid: E7.Minefield
+  commentId: N:E7.Minefield
+  href: E7.html
+  name: E7.Minefield
+  nameWithType: E7.Minefield
+  fullName: E7.Minefield
+  spec.csharp:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+  spec.vb:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Attribute
+  commentId: T:System.Attribute
+  parent: System
+  isExternal: true
+  name: Attribute
+  nameWithType: Attribute
+  fullName: System.Attribute
+- uid: NUnit.Framework.NUnitAttribute
+  commentId: T:NUnit.Framework.NUnitAttribute
+  parent: NUnit.Framework
+  isExternal: true
+  name: NUnitAttribute
+  nameWithType: NUnitAttribute
+  fullName: NUnit.Framework.NUnitAttribute
+- uid: NUnit.Framework.PropertyAttribute
+  commentId: T:NUnit.Framework.PropertyAttribute
+  parent: NUnit.Framework
+  isExternal: true
+  name: PropertyAttribute
+  nameWithType: PropertyAttribute
+  fullName: NUnit.Framework.PropertyAttribute
+- uid: NUnit.Framework.TimeoutAttribute
+  commentId: T:NUnit.Framework.TimeoutAttribute
+  parent: NUnit.Framework
+  isExternal: true
+  name: TimeoutAttribute
+  nameWithType: TimeoutAttribute
+  fullName: NUnit.Framework.TimeoutAttribute
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: NUnit.Framework
+  commentId: N:NUnit.Framework
+  isExternal: true
+  name: NUnit.Framework
+  nameWithType: NUnit.Framework
+  fullName: NUnit.Framework
+  spec.csharp:
+  - uid: NUnit
+    name: NUnit
+    isExternal: true
+  - name: .
+  - uid: NUnit.Framework
+    name: Framework
+    isExternal: true
+  spec.vb:
+  - uid: NUnit
+    name: NUnit
+    isExternal: true
+  - name: .
+  - uid: NUnit.Framework
+    name: Framework
+    isExternal: true
+- uid: E7.Minefield.NoTimeoutAttribute.#ctor*
+  commentId: Overload:E7.Minefield.NoTimeoutAttribute.#ctor
+  href: E7.Minefield.NoTimeoutAttribute.html#E7_Minefield_NoTimeoutAttribute__ctor
+  name: NoTimeoutAttribute
+  nameWithType: NoTimeoutAttribute.NoTimeoutAttribute
+  fullName: E7.Minefield.NoTimeoutAttribute.NoTimeoutAttribute
+  nameWithType.vb: NoTimeoutAttribute.New
+  fullName.vb: E7.Minefield.NoTimeoutAttribute.New
+  name.vb: New

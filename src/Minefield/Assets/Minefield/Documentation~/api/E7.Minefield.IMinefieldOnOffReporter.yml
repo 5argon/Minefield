@@ -1,0 +1,123 @@
+### YamlMime:ManagedReference
+items:
+- uid: E7.Minefield.IMinefieldOnOffReporter
+  commentId: T:E7.Minefield.IMinefieldOnOffReporter
+  id: IMinefieldOnOffReporter
+  parent: E7.Minefield
+  children:
+  - E7.Minefield.IMinefieldOnOffReporter.IsOn
+  langs:
+  - csharp
+  - vb
+  name: IMinefieldOnOffReporter
+  nameWithType: IMinefieldOnOffReporter
+  fullName: E7.Minefield.IMinefieldOnOffReporter
+  type: Interface
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: >-
+    Use a new wording "on" or "off" to provide your own interpretation of the current status of a game object.
+
+    It could be used with Is.On or Is.Off constraint in the test.
+
+
+    For example an image made invisible by setting <xref href="UnityEngine.Behaviour.enabled" data-throw-if-not-resolved="false"></xref> 
+
+    would not be detected by Is.Active.
+
+
+    A text component may be active and enabled,
+
+    but if they have no text, you may consider it invisible.
+
+
+    The button is active, visible, but greyed out, you may want to consider it inactive.
+
+
+    Lastly, an image that is active, enabled, and its alpha is not even 0, but is invisible due to its <xref href="UnityEngine.CanvasGroup" data-throw-if-not-resolved="false"></xref>'s alpha.
+
+    This case is very hard to detect automatically by testint lib, so it is better to just provide your own logic.
+  example: []
+  syntax:
+    content: 'public interface IMinefieldOnOffReporter : IMinefieldReporter'
+    content.vb: Public Interface IMinefieldOnOffReporter Inherits IMinefieldReporter
+- uid: E7.Minefield.IMinefieldOnOffReporter.IsOn
+  commentId: P:E7.Minefield.IMinefieldOnOffReporter.IsOn
+  id: IsOn
+  parent: E7.Minefield.IMinefieldOnOffReporter
+  langs:
+  - csharp
+  - vb
+  name: IsOn
+  nameWithType: IMinefieldOnOffReporter.IsOn
+  fullName: E7.Minefield.IMinefieldOnOffReporter.IsOn
+  type: Property
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  syntax:
+    content: bool IsOn { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: ReadOnly Property IsOn As Boolean
+  overload: E7.Minefield.IMinefieldOnOffReporter.IsOn*
+references:
+- uid: UnityEngine.Behaviour.enabled
+  commentId: P:UnityEngine.Behaviour.enabled
+  isExternal: true
+  name: enabled
+  nameWithType: Behaviour.enabled
+  fullName: UnityEngine.Behaviour.enabled
+- uid: UnityEngine.CanvasGroup
+  commentId: T:UnityEngine.CanvasGroup
+  isExternal: true
+  name: CanvasGroup
+  nameWithType: CanvasGroup
+  fullName: UnityEngine.CanvasGroup
+- uid: E7.Minefield
+  commentId: N:E7.Minefield
+  href: E7.html
+  name: E7.Minefield
+  nameWithType: E7.Minefield
+  fullName: E7.Minefield
+  spec.csharp:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+  spec.vb:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+- uid: E7.Minefield.IMinefieldOnOffReporter.IsOn*
+  commentId: Overload:E7.Minefield.IMinefieldOnOffReporter.IsOn
+  href: E7.Minefield.IMinefieldOnOffReporter.html#E7_Minefield_IMinefieldOnOffReporter_IsOn
+  name: IsOn
+  nameWithType: IMinefieldOnOffReporter.IsOn
+  fullName: E7.Minefield.IMinefieldOnOffReporter.IsOn
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System

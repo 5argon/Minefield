@@ -1,0 +1,134 @@
+### YamlMime:ManagedReference
+items:
+- uid: E7.Minefield.MinefieldTest
+  commentId: T:E7.Minefield.MinefieldTest
+  id: MinefieldTest
+  parent: E7.Minefield
+  children:
+  - E7.Minefield.MinefieldTest.MinefieldTestSetUp
+  - E7.Minefield.MinefieldTest.MinefieldTestTearDown
+  langs:
+  - csharp
+  - vb
+  name: MinefieldTest
+  nameWithType: MinefieldTest
+  fullName: E7.Minefield.MinefieldTest
+  type: Class
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  syntax:
+    content: public abstract class MinefieldTest
+    content.vb: Public MustInherit Class MinefieldTest
+  inheritance:
+  - System.Object
+  derivedClasses:
+  - E7.Minefield.SceneTest
+- uid: E7.Minefield.MinefieldTest.MinefieldTestSetUp
+  commentId: M:E7.Minefield.MinefieldTest.MinefieldTestSetUp
+  id: MinefieldTestSetUp
+  parent: E7.Minefield.MinefieldTest
+  langs:
+  - csharp
+  - vb
+  name: MinefieldTestSetUp()
+  nameWithType: MinefieldTest.MinefieldTestSetUp()
+  fullName: E7.Minefield.MinefieldTest.MinefieldTestSetUp()
+  type: Method
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  syntax:
+    content: >-
+      [SetUp]
+
+      public void MinefieldTestSetUp()
+    content.vb: >-
+      <SetUp>
+
+      Public Sub MinefieldTestSetUp()
+  overload: E7.Minefield.MinefieldTest.MinefieldTestSetUp*
+  attributes:
+  - type: NUnit.Framework.SetUpAttribute
+    ctor: NUnit.Framework.SetUpAttribute.#ctor
+    arguments: []
+- uid: E7.Minefield.MinefieldTest.MinefieldTestTearDown
+  commentId: M:E7.Minefield.MinefieldTest.MinefieldTestTearDown
+  id: MinefieldTestTearDown
+  parent: E7.Minefield.MinefieldTest
+  langs:
+  - csharp
+  - vb
+  name: MinefieldTestTearDown()
+  nameWithType: MinefieldTest.MinefieldTestTearDown()
+  fullName: E7.Minefield.MinefieldTest.MinefieldTestTearDown()
+  type: Method
+  assemblies:
+  - E7.Minefield.TestTools
+  namespace: E7.Minefield
+  syntax:
+    content: >-
+      [TearDown]
+
+      public void MinefieldTestTearDown()
+    content.vb: >-
+      <TearDown>
+
+      Public Sub MinefieldTestTearDown()
+  overload: E7.Minefield.MinefieldTest.MinefieldTestTearDown*
+  attributes:
+  - type: NUnit.Framework.TearDownAttribute
+    ctor: NUnit.Framework.TearDownAttribute.#ctor
+    arguments: []
+references:
+- uid: E7.Minefield
+  commentId: N:E7.Minefield
+  href: E7.html
+  name: E7.Minefield
+  nameWithType: E7.Minefield
+  fullName: E7.Minefield
+  spec.csharp:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+  spec.vb:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: E7.Minefield.MinefieldTest.MinefieldTestSetUp*
+  commentId: Overload:E7.Minefield.MinefieldTest.MinefieldTestSetUp
+  href: E7.Minefield.MinefieldTest.html#E7_Minefield_MinefieldTest_MinefieldTestSetUp
+  name: MinefieldTestSetUp
+  nameWithType: MinefieldTest.MinefieldTestSetUp
+  fullName: E7.Minefield.MinefieldTest.MinefieldTestSetUp
+- uid: E7.Minefield.MinefieldTest.MinefieldTestTearDown*
+  commentId: Overload:E7.Minefield.MinefieldTest.MinefieldTestTearDown
+  href: E7.Minefield.MinefieldTest.html#E7_Minefield_MinefieldTest_MinefieldTestTearDown
+  name: MinefieldTestTearDown
+  nameWithType: MinefieldTest.MinefieldTestTearDown
+  fullName: E7.Minefield.MinefieldTest.MinefieldTestTearDown

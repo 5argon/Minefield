@@ -1,0 +1,53 @@
+### YamlMime:ManagedReference
+items:
+- uid: E7.Minefield.IMinefieldReporter
+  commentId: T:E7.Minefield.IMinefieldReporter
+  id: IMinefieldReporter
+  parent: E7.Minefield
+  children: []
+  langs:
+  - csharp
+  - vb
+  name: IMinefieldReporter
+  nameWithType: IMinefieldReporter
+  fullName: E7.Minefield.IMinefieldReporter
+  type: Interface
+  assemblies:
+  - E7.Minefield
+  namespace: E7.Minefield
+  summary: >-
+    Base interface for all reporters.
+
+
+    Reporters are test metadata that helps you write less data query in the test, 
+
+    by instead having the objects in the scene show a part of their "main" data you are
+
+    likely interested to check in the test.
+  example: []
+  syntax:
+    content: public interface IMinefieldReporter
+    content.vb: Public Interface IMinefieldReporter
+references:
+- uid: E7.Minefield
+  commentId: N:E7.Minefield
+  href: E7.html
+  name: E7.Minefield
+  nameWithType: E7.Minefield
+  fullName: E7.Minefield
+  spec.csharp:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
+  spec.vb:
+  - uid: E7
+    name: E7
+    href: E7.html
+  - name: .
+  - uid: E7.Minefield
+    name: Minefield
+    href: E7.Minefield.html
