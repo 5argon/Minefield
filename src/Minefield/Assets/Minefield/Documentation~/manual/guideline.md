@@ -35,7 +35,7 @@ Minefield's answer is to **try every frame** until the interaction is allowed â€
 
 ## Ensure Unity's test toolings work
 
-![Run all in player](images/guideline-run-all-in-player.png)
+![Run all in player](images/guideline-run-all-in-player.webp)
 
 The **Run all in player** button lets you connect a device, press it, and walk away. To keep it dependable, avoid designs that break under it:
 
@@ -45,4 +45,4 @@ The **Run all in player** button lets you connect a device, press it, and walk a
 
 If you have [Unity Teams Advanced](https://unity.com/products/unity-teams), you can also use [Unity Cloud Build](https://unity.com/features/cloud-build)'s auto-test-per-build feature.
 
-![Unity Cloud Build test configuration](images/guideline-cloud-build-config.png)
+![Unity Cloud Build test configuration](images/guideline-cloud-build-config.webp)

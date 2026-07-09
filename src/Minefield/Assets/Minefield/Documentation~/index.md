@@ -1,5 +1,5 @@
 <div class="exc7-hero">
-    <img src="images/splash.png" alt="Minefield Test Tools">
+    <img src="images/splash.webp" alt="Minefield Test Tools">
     <h1 class="exc7-hero-title">Minefield Test Tools</h1>
     <p class="exc7-hero-desc">Concise play mode navigation testing for uGUI — drive your scenes by typed <code>enum</code> beacons, not object names or coordinates.</p>
 </div>
