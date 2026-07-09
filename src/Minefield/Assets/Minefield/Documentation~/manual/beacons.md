@@ -57,7 +57,7 @@ Attach it in the scene. For a `NavigationBeacon<>`, attach it on the raycast-rec
 
 ### Script icon tool
 
-![Auto-assign script icons menu](images/ScriptIcon.png)
+![Auto-assign script icons menu](images/beacons-auto-assign-script-icons.png)
 
 Choose **Assets ▸ Minefield ▸ Auto-assign all script icons** and every subclass of `NavigationBeacon<>` or `LabelBeacon<>` gets an icon, making beacons obvious in the Inspector.
 
