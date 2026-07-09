@@ -3,13 +3,13 @@ using NUnit.Framework;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using System.Collections;
-using System;
-using System.Linq;
 
 #if HAS_AAS
-using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceProviders;
+#else
+using System;
 #endif
 
 namespace E7.Minefield
