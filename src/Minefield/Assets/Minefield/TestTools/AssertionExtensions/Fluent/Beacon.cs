@@ -50,7 +50,7 @@ namespace E7.Minefield
         /// Seconds (unscaled) to wait before failing with a diagnostic. Negative uses
         /// <see cref="DefaultTimeout"/>; pass <see cref="float.PositiveInfinity"/> to wait forever.
         /// </param>
-        public static IEnumerator WaitUntil<T>(T beacon, BeaconConstraint bc, float timeout = -1f)
+        public static async Awaitable WaitUntil<T>(T beacon, BeaconConstraint bc, float timeout = -1f)
             where T : Enum
         {
             float limit = timeout < 0f ? DefaultTimeout : timeout;
@@ -62,7 +62,7 @@ namespace E7.Minefield
                     throw new BeaconException(
                         $"[Minefield] Beacon '{beacon}' ({typeof(T).Name}) did not satisfy {bc.GetType().Name} within {limit:0.##}s.\n  {bc.Diagnostic()}");
                 }
-                yield return null;
+                await Awaitable.NextFrameAsync();
                 elapsed += Time.unscaledDeltaTime;
             }
         }
@@ -80,7 +80,7 @@ namespace E7.Minefield
         /// could be simplified to holding right and jump repeatedly.
         /// You are bound to die sooner or later that way. Then you could use this test regardless of stages.
         /// </summary>
-        public static IEnumerator SpamUntil<T>(T beacon, BeaconConstraint bc, Func<IEnumerator> spamAction)
+        public static Awaitable SpamUntil<T>(T beacon, BeaconConstraint bc, Func<Awaitable> spamAction)
             where T : Enum
             => SpamInternal(beacon, bc, spamAction, lookFor: false);
 
@@ -97,21 +97,21 @@ namespace E7.Minefield
         /// could be simplified to holding right and jump repeatedly.
         /// You are bound to die sooner or later that way. Then you could use this test regardless of stages.
         /// </summary>
-        public static IEnumerator SpamWhile<T>(T beacon, BeaconConstraint bc, Func<IEnumerator> spamAction)
+        public static Awaitable SpamWhile<T>(T beacon, BeaconConstraint bc, Func<Awaitable> spamAction)
             where T : Enum
             => SpamInternal(beacon, bc, spamAction, lookFor: true);
 
-        private static IEnumerator SpamInternal<T>(T beacon, BeaconConstraint bc, Func<IEnumerator> spamAction, bool lookFor) where T : Enum
+        private static async Awaitable SpamInternal<T>(T beacon, BeaconConstraint bc, Func<Awaitable> spamAction, bool lookFor) where T : Enum
         {
             while (Beacon.Check(beacon, bc) == lookFor)
             {
                 if (spamAction != null)
                 {
-                    yield return spamAction();
+                    await spamAction();
                 }
                 else
                 {
-                    yield return null;
+                    await Awaitable.NextFrameAsync();
                 }
             }
         }
@@ -128,11 +128,11 @@ namespace E7.Minefield
         /// but additionally include <see cref="Click{T}"/> in one yield.
         /// 
         /// </summary>
-        public static IEnumerator ClickWhen<T>(T beacon, BeaconConstraint bc, float timeout = -1f)
+        public static async Awaitable ClickWhen<T>(T beacon, BeaconConstraint bc, float timeout = -1f)
             where T : Enum
         {
-            yield return WaitUntil(beacon, bc, timeout);
-            yield return Click<T>(beacon);
+            await WaitUntil(beacon, bc, timeout);
+            await Click<T>(beacon);
         }
 
         /// <summary>
@@ -235,12 +235,12 @@ namespace E7.Minefield
         /// (For example on `TimelineAsset` case, instead of just `Play()` it as a result of button press,
         /// also `Evaluate()` it so the disable take effect without waiting one more frame.)
         /// </remarks>
-        public static IEnumerator Click<T>(T label, bool ignoreError = false) where T : Enum
+        public static async Awaitable Click<T>(T label, bool ignoreError = false) where T : Enum
         {
             if (FindActive(label, out ILabelBeacon b) && b is IHandlerBeacon nb)
             {
                 //Debug.Log($"Type matches {nb.Label.GetType()} {label}");
-                yield return Utility.RaycastClick(nb.ScreenClickPoint);
+                await Utility.RaycastClick(nb.ScreenClickPoint);
             }
             else
             {

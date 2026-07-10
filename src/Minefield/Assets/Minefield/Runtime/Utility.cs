@@ -97,16 +97,18 @@ namespace E7.Minefield
 
 
         /// <summary>
-        /// Unfortunately could not return T upon found, but useful for waiting something to become active
+        /// Waits until a component of type <typeparamref name="T"/> becomes active in the scene, then returns it.
         /// </summary>
-        /// <returns></returns>
-        public static IEnumerator WaitUntilFound<T>() where T : Component
+        public static async Awaitable<T> WaitUntilFound<T>() where T : Component
         {
-            T t = null;
-            while (t == null)
+            while (true)
             {
-                t = (T)UnityEngine.Object.FindAnyObjectByType(typeof(T));
-                yield return new WaitForSeconds(0.1f);
+                T t = UnityEngine.Object.FindAnyObjectByType<T>();
+                if (t != null)
+                {
+                    return t;
+                }
+                await Awaitable.WaitForSecondsAsync(0.1f);
             }
         }
 
@@ -117,16 +119,13 @@ namespace E7.Minefield
         /// When you just start writing a test to be an alternative to Play Mode button,
         /// when the condition wasn't fleshed out well yet you may want unlimited time to play around.
         /// </summary>
-        public static IEnumerator WaitForever() 
-        {
-            yield return new WaitForSeconds(float.MaxValue);
-        }
+        public static Awaitable WaitForever() => Awaitable.WaitForSecondsAsync(float.MaxValue);
 
-        public static IEnumerator WaitUntilSceneLoaded(string sceneName)
+        public static async Awaitable WaitUntilSceneLoaded(string sceneName)
         {
             while (IsSceneLoaded(sceneName) == false)
             {
-                yield return new WaitForSeconds(0.1f);
+                await Awaitable.WaitForSecondsAsync(0.1f);
             }
         }
 
@@ -469,34 +468,28 @@ namespace E7.Minefield
         /// Clicks on the center of provided RectTransform.
         /// Use coroutine on this because there is a frame in-between pointer down and up.
         /// </summary>
-        public static IEnumerator RaycastClick(RectTransform rect) => RaycastClick(ScreenCenterOfRectTransform(rect));
+        public static Awaitable RaycastClick(RectTransform rect) => RaycastClick(ScreenCenterOfRectTransform(rect));
 
         /// <summary>
         /// Clicks on the center of provided bounds, looking from the main camera.
         /// </summary>
-        public static IEnumerator RaycastClick(Bounds b) => RaycastClick(Camera.main.WorldToScreenPoint(b.center));
+        public static Awaitable RaycastClick(Bounds b) => RaycastClick(Camera.main.WorldToScreenPoint(b.center));
 
         /// <summary>
         /// Clicks on a relative position in the rect.
         /// Use coroutine on this because there is a frame in-between pointer down and up.
         /// </summary>
-        public static IEnumerator RaycastClick(RectTransform rect, Vector2 relativePositionInRect) => RaycastClick(ScreenPositionFromRelativeOfRectTransform(rect, relativePositionInRect));
+        public static Awaitable RaycastClick(RectTransform rect, Vector2 relativePositionInRect) => RaycastClick(ScreenPositionFromRelativeOfRectTransform(rect, relativePositionInRect));
 
         /// <summary>
         /// Divide the screen into 2 equal rectangle vertically, touch the center of the **lower** ones.
         /// </summary>
-        public static IEnumerator TouchLowerHalf()
-        {
-            yield return Utility.RaycastClick(new Vector2(Screen.width / 2f, Screen.height / 4f));
-        }
+        public static Awaitable TouchLowerHalf() => RaycastClick(new Vector2(Screen.width / 2f, Screen.height / 4f));
 
         /// <summary>
         /// Divide the screen into 2 equal rectangle vertically, touch the center of the **upper** ones.
         /// </summary>
-        public static IEnumerator TouchUpperHalf()
-        {
-            yield return Utility.RaycastClick(new Vector2(Screen.width / 2f, Screen.height * 3f / 4f));
-        }
+        public static Awaitable TouchUpperHalf() => RaycastClick(new Vector2(Screen.width / 2f, Screen.height * 3f / 4f));
 
         /// <summary>
         /// Simulate a click. Definition of a click is pointer down this frame
@@ -511,7 +504,7 @@ namespace E7.Minefield
         /// So if you need to double click, wait a frame manually.
         /// </summary>
         /// <param name="screenPosition">In pixel.</param>
-        public static IEnumerator RaycastClick(Vector2 screenPosition)
+        public static async Awaitable RaycastClick(Vector2 screenPosition)
         {
             //Debug.Log("Clicking " + screenPosition);
             var fakeClick = ScreenPosToFakeClick(screenPosition);
@@ -526,7 +519,7 @@ namespace E7.Minefield
                 ExecuteEvents.ExecuteHierarchy<IPointerDownHandler>(rrgo, fakeClick, ExecuteEvents.pointerDownHandler);
 
                 //This is to wait 1 frame between down and up, the fastest and realistic scenario possible.
-                yield return null;
+                await Awaitable.NextFrameAsync();
 
                 ExecuteEvents.ExecuteHierarchy<IPointerUpHandler>(rrgo, fakeClick, ExecuteEvents.pointerUpHandler);
                 ExecuteEvents.ExecuteHierarchy<IPointerClickHandler>(rrgo, fakeClick, ExecuteEvents.pointerClickHandler);

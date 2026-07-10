@@ -109,6 +109,6 @@ namespace E7.Minefield
         }
 
         private static Vector2 Center(this Graphic graphic) => Utility.ScreenCenterOfRectTransform(graphic.rectTransform);
-        public static void ClickAtCenter(this Graphic graphic) => Utility.RaycastClick(graphic.Center());
+        public static Awaitable ClickAtCenter(this Graphic graphic) => Utility.RaycastClick(graphic.Center());
     }
 }

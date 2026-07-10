@@ -3,6 +3,30 @@
 All notable changes to this package are documented here. This project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- **Async surface migrated from `IEnumerator` coroutines to `UnityEngine.Awaitable`.** The
+  driving API — `Beacon.WaitUntil`, `Beacon.ClickWhen`, `Beacon.Click`, `Beacon.SpamUntil`,
+  `Beacon.SpamWhile`, and the `Utility` click/wait helpers (`RaycastClick`, `WaitUntilFound`,
+  `WaitUntilSceneLoaded`, `WaitForever`, `TouchLowerHalf`/`TouchUpperHalf`) plus
+  `Graphic.ClickAtCenter()` — now returns `Awaitable` instead of `IEnumerator`. This enables
+  `await Beacon.ClickWhen(...)` inside `async Task` play-mode tests, `try`/`catch` around waits,
+  and real return values.
+- `Utility.WaitUntilFound<T>()` now returns `Awaitable<T>` and hands back the component it found,
+  instead of returning nothing.
+- Minimum `com.unity.test-framework` raised to `1.6.0` (adds `MaxTime` on async tests and async
+  `SetUp`/`TearDown`).
+
+### Compatibility
+
+- Existing `[UnityTest] IEnumerator` tests that do `yield return Beacon.ClickWhen(...)` **keep
+  working unchanged**, because `Awaitable` implements `IEnumerator`.
+- Breaking for callers that (a) stored these results in an `IEnumerator` variable, (b) passed a
+  `Func<IEnumerator>` to `SpamUntil`/`SpamWhile` (now `Func<Awaitable>`), or (c) relied on
+  `WaitUntilFound<T>()`/`ClickAtCenter()`'s old return type. Consider a `2.0.0` bump on release.
+
 ## [1.0.0]
 
 ### Changed
