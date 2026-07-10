@@ -539,11 +539,13 @@ namespace E7.Minefield
 
         public static void ActionBetweenSceneAwakeAndStart(string sceneName, System.Action action)
         {
-            UnityEngine.Events.UnityAction<Scene, LoadSceneMode> unityAction = (scene, LoadSceneMode) =>
+            UnityEngine.Events.UnityAction<Scene, LoadSceneMode> unityAction = null;
+            unityAction = (scene, loadSceneMode) =>
             {
                 if (scene.name == sceneName)
                 {
                     action();
+                    SceneManager.sceneLoaded -= unityAction;
                 }
             };
 

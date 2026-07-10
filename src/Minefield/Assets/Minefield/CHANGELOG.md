@@ -5,6 +5,10 @@ All notable changes to this package are documented here. This project adheres to
 
 ## [Unreleased]
 
+### Fixed
+
+- `Utility.ActionBetweenSceneAwakeAndStart` now unsubscribes its `SceneManager.sceneLoaded` handler once the target scene fires, so handlers no longer accumulate across Play sessions under Fast Enter Play Mode / no domain reload (default for new projects in Unity 6.6+, and the only option in 6.8).
+
 ### Changed
 
 - **Async surface migrated from `IEnumerator` coroutines to `UnityEngine.Awaitable`.** The
