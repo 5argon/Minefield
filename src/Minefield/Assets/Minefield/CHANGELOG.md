@@ -31,6 +31,9 @@ All notable changes to this package are documented here. This project adheres to
   between leaving a tag alone, showing only what carries it, and hiding what carries it.
 - `Window ▸ Analysis ▸ Minefield ▸ Screenshots` menu entries to open the report, promote a run's
   captures to baselines, and clear captures.
+- A `minefield-screenshots` agent skill bundled at `.claude/skills/`, covering how to write a
+  screenshot suite and the traps that waste a run — chiefly following observable state instead of
+  counting actions the game is free to swallow.
 
 ### Fixed
 
