@@ -25,6 +25,11 @@
             "name": "com.unity.addressables",
             "expression": "",
             "define": "HAS_AAS"
+        },
+        {
+            "name": "com.unity.modules.screencapture",
+            "expression": "",
+            "define": "HAS_SCREEN_CAPTURE"
         }
     ],
     "noEngineReferences": false
