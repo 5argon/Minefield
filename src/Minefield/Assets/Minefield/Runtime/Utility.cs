@@ -510,20 +510,27 @@ namespace E7.Minefield
             var fakeClick = ScreenPosToFakeClick(screenPosition);
             var rrgo = RaycastFirst(fakeClick);
 
-            if (rrgo != null)
+            if (rrgo == null)
             {
-                //Debug.Log("Hit : " + rrgo.name);
-
-                //No ned to check can handle event, there is a check inside.
-
-                ExecuteEvents.ExecuteHierarchy<IPointerDownHandler>(rrgo, fakeClick, ExecuteEvents.pointerDownHandler);
-
-                //This is to wait 1 frame between down and up, the fastest and realistic scenario possible.
+                //A click that lands on nothing still takes as long as one that lands on something.
+                //Returning without spending the frame lets a caller repeat this forever within a
+                //single frame, which hangs the editor rather than letting the scene move on to
+                //whatever is being waited for.
                 await Awaitable.NextFrameAsync();
-
-                ExecuteEvents.ExecuteHierarchy<IPointerUpHandler>(rrgo, fakeClick, ExecuteEvents.pointerUpHandler);
-                ExecuteEvents.ExecuteHierarchy<IPointerClickHandler>(rrgo, fakeClick, ExecuteEvents.pointerClickHandler);
+                return;
             }
+
+            //Debug.Log("Hit : " + rrgo.name);
+
+            //No ned to check can handle event, there is a check inside.
+
+            ExecuteEvents.ExecuteHierarchy<IPointerDownHandler>(rrgo, fakeClick, ExecuteEvents.pointerDownHandler);
+
+            //This is to wait 1 frame between down and up, the fastest and realistic scenario possible.
+            await Awaitable.NextFrameAsync();
+
+            ExecuteEvents.ExecuteHierarchy<IPointerUpHandler>(rrgo, fakeClick, ExecuteEvents.pointerUpHandler);
+            ExecuteEvents.ExecuteHierarchy<IPointerClickHandler>(rrgo, fakeClick, ExecuteEvents.pointerClickHandler);
         }
 
         private static Vector2 previousClickPosition;

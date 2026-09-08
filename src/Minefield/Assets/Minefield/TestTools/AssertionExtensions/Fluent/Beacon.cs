@@ -105,11 +105,17 @@ namespace E7.Minefield
         {
             while (Beacon.Check(beacon, bc) == lookFor)
             {
+                int frameBefore = Time.frameCount;
                 if (spamAction != null)
                 {
                     await spamAction();
                 }
-                else
+
+                //An action that finishes without spending a frame — one whose every step turned out
+                //to be a no-op, say — would otherwise spin here with the game never running, so the
+                //constraint it is waiting for could never come true. A timeout can report that; a
+                //frozen editor cannot.
+                if (Time.frameCount == frameBefore)
                 {
                     await Awaitable.NextFrameAsync();
                 }
